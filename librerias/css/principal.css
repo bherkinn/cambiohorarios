@@ -1,0 +1,331 @@
+.cabecera{
+	/*background-color: #3763F3;*/
+	padding: 5px;
+	color: #E7E7E9;
+	font-size:25px;
+	width:350px;
+	position: absolute;
+	height: 100%;
+	width: 250px;
+}
+
+.cabezal-menu{
+	/*border: #000 solid 1px;*/
+	border-radius:10px;
+	margin:0px;
+	/*background-color: #fff;*/
+	height: 80px;
+}
+
+.img-logo{
+	width: 50px;
+	height: 70px;
+	padding: 1px;
+	margin-left:10px;
+	margin-top: 5px;
+}
+
+.main-mostrar{
+	transition-property: margin-left,width;
+	transition-duration: 0.4s;
+	margin-left: 250px;
+	width: 100%-250px;
+}
+.main-ocultar{
+	transition-property: margin-left,width;
+	transition-duration: 0.4s;
+	margin-left: 0px;
+	width: 100%+250px;
+}
+
+.nom-titulo{
+	margin-top: -70px;
+	text-align: center;
+	margin-left: 20px;
+	padding:0px;
+	color: #fff;
+	/*font-weight: bold;*/
+}
+
+.border{
+	border: 2px solid #656565;
+}
+
+.menu{
+	
+	float: right;
+	background:none;
+	border: solid #fff 2px;
+	border-radius: 10px;
+	margin-top: 8px;
+	color: #fff;
+	font-size: 25px;
+	margin-right: 8px;
+	width: 40px;
+	height: 40px;
+}
+.menu:focus{
+	outline: none;
+}
+.menu:hover{
+	transition-property: background-color, color;
+  	transition-duration: 0.5s;
+	color:#0768D5;
+	background-color: #fff;
+}
+.div-menu{
+	margin-top: -70px; 
+	margin-left: 241px;
+	background-color:#1278D7; 
+	width: 58px;height: 56px; 
+	border-radius: 0px 20px 20px 0px;
+}
+
+.tabla-base{
+	max-width:950px;
+
+}
+
+header{
+	/*background-image: url("../img/oeraae-fim2.png");
+	background-size: 100% 100%;*/
+	background-color: #1278D7;
+	width: 250px;
+	position: fixed;
+	height: 100%;
+	z-index: 100;
+	left:-250px;
+	border-radius: 0px 20px 20px 0px
+}
+
+body{
+	/*background-attachment: fixed;
+  	overflow: scroll;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-image: url("../img/fondo.jpg");*/
+	min-width: 320px;
+	font-family: 'Roboto', sans-serif;
+	background-color: #FFF;
+
+}
+/******************************************NAV*************************************/
+nav{
+
+}
+.nav{
+	padding-top: 30px;
+	/*margin-right: 20px;*/
+	width: 100px;
+
+
+	/*border: #000 solid 2px;*/
+	/*position: absolute;*/
+	
+}
+/*.nav>li{
+	list-style: none;
+
+}*/
+.icono{
+	font-size: 14px;
+}
+.izquierda{
+	float: left;
+	margin-right: 10px;
+	margin-top: 4px;
+}
+.derecha{
+	float: right;
+	margin-right: 4px;
+	margin-top: 4px;
+
+}
+
+.titulo-lista{
+	margin-left: -10px;
+	padding: 2px;
+	min-width: 250px;
+	font-size: 15px;
+	color:#fff;
+	text-align: center;
+}
+
+.nav>li>a{
+	margin-left: 20px;
+	text-decoration: none;
+	display: block;
+	min-width: 250px;
+	margin-left:-5px;
+	padding: 6px;	
+	background-color: #FFF;
+	color: #494949;
+	font-size: 16px;
+	border-right: 0.5px solid #128AD7;
+
+	
+}
+/*************************************submenu***************************************/
+
+.nav>li>ul>li{
+	list-style: none;
+}
+.nav>li>ul>li>a{
+	display: block;
+	font-size: 16px;
+	margin-left: -45px;
+	padding: 4px;
+	padding-left: 30px;
+	background-color: #646363;
+	color: #FFF;
+	/*border-top: 0.1px solid #494949;*/
+	border-right: 1px solid #128AD7;
+	text-decoration: none;
+}
+.nav>li>ul{
+	margin-left: -5px;
+	display: none;
+}
+.nav>li>ul>li>a:hover{
+	transition-property: background-color, color;
+  	transition-duration: 0.5s;
+  	background-color: #FFF;
+  	color: #494949;
+}
+.nav>li>a:hover{
+	transition-property: background-color, color;
+  	transition-duration: 0.3s;
+	background-color: #D1D0D0;
+}
+
+@media screen and (max-width:700px )
+{
+	/*.nav{
+		display: none;
+	}*/
+}	
+/*****************COMBO CICLOS******************/
+.cbociclos{
+	padding: 5px;
+	font-size: 12px;
+	float: right;
+	margin-top: -28px;
+	border-radius: 4px;
+	margin-right: 20px;
+}
+
+/* ***************COMBO CURSOS**************** */
+
+.form-control{
+	padding: 0px;
+	margin:0px;
+}
+.select2{
+	font-size: 12px;
+}
+.select2-dropdown{
+	font-size: 11px;
+}
+/******************************TABLA*********************************/
+.table-responsive{
+	padding: 0px;
+	font-size: 12px;
+}
+.comun{
+	height: 30px;
+}
+.tr:hover{
+	background-color: #EEEEEE;
+}
+.head-tabla{
+	background-color: #30BE80;
+	color: #F6F5F5;
+}
+.pintado{
+	background-color: #C2C2C2;
+}
+.titulo-dia{
+	height: 35px;
+	text-align: center;
+	width: 32px;
+	min-width: 32px;
+	max-width: 32px;
+}
+.titulo-hora{
+	height: 35px;
+	text-align: center;
+	width: 45px;
+	min-width: 45px;
+	max-width: 45px;
+}
+.titulo-registro{
+	height: 35px;
+	text-align: center;
+	width: 60px;
+	min-width: 60px;
+	max-width: 60px
+}
+.txtform{
+	padding: 3px;
+	font-size: 12px;
+	text-align: center;
+}
+
+.titulo-ciclo{
+	width: 40px;
+	min-width: 40px;
+	max-width: 40px;
+	text-align: center;
+}
+.titulo-docentes{
+	width: 200px;
+	min-width: 200px;
+	max-width: 200px;
+	text-align: center;
+}
+.titulo-aulas{
+	width: 85px;
+	min-width: 85px;
+	max-width: 85px;
+	text-align: center;
+}
+.titulo-tp{
+	width: 35px;
+	min-width: 35px;
+	max-width: 35px;
+	text-align: center;
+}
+
+.i{
+	outline: none;
+	border:none;
+	background-color: transparent;
+	width: 100%;
+}
+/************************************************TABLA DOCENTES********************************************/
+
+.comun-docentes{
+	height: 30px;
+	width: 160px;
+	max-width: 160px;
+	min-width: 160px;
+	text-align: center;
+}
+.txtcomun-docentes{
+	max-width: 234px;
+	width: 234px;
+	min-width: 234px;
+	text-align: center;
+
+
+}
+.cboaulas{
+	
+	width: 85px;
+}
+.cbodocentes{
+	width: 220px;
+}
+
+
+
