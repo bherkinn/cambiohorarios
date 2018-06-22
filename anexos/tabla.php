@@ -2,6 +2,16 @@
  	require_once("../models/conexion.php");
  	$o=new Conexion();
  ?>
+ <script type="text/javascript">
+ 	$(document).ready(function(){
+		$("#select-aulas").select2();
+	});
+
+	$(document).ready(function(){
+		$(".cboaulas").select2();
+	});
+
+ </script>
  <center>
  <div class="container-fluid col-lg-12">
 <!--  <div id="exterior" style="width: 100%; height: 100%;"> -->
@@ -15,6 +25,7 @@
 			<th class="titulo-registro titulo-seccion">SECCION</th>
 			<th class="titulo-registro titulo-tp">T/P</th>
 			<th class="titulo-aulas">AULA</th>
+			<th class="titulo-aulas">AULA-2</th>
 			<th class="titulo-docentes">DOCENTE</th>
 			<th class="titulo-ciclo">C1</th>
 			<th class="titulo-ciclo">C2</th>
@@ -93,6 +104,42 @@
 				</select>
 				
 			</td>
+			<td>
+				<select id="select-aulas2" class="cboaulas">
+					<option selected disabled>
+						--ELEGIR--
+					</option>
+					<?php 
+						$o->Open(2);
+						$tabla=$o->Mostrar("aulas","aula",2);
+						foreach($tabla as $a)							
+						{
+							if($a->taburete==1)
+							{
+								$a->taburete="Si";
+							}
+							else
+							{
+								$a->taburete="No";
+							}
+					?>	
+						<option title="<?php echo 'Capacidad: '.$a->capacidad.'&#10;'.
+													'Pizarra: '.$a->pizarra.'&#10;'.
+													'Entrada: '.$a->tipEntrada.'&#10;'.
+													'Entorno: '.$a->tipSilla.'&#10;'.
+													'Ventilacion: '.$a->equVentilacion.'&#10;'.
+													'Entrada: '.$a->tipEntrada.'&#10;'.
+													'Taburete: '.$a->taburete.'&#10;';?>">
+						<?php echo $a->aula; ?>
+						</option>
+					<?php  
+						}
+						$o->Close(2);	
+					?>
+
+
+				</select>
+			</td>
 			<td class="comun">
 				
 				<select id="select-docentes" class="cbodocentes">
@@ -157,10 +204,7 @@
 
 <script>
 
-	$(document).ready(function(){
-		$("#select-aulas").select2();
-	});
-
+	
 	$(document).ready(function(){
 		$(".select-aulas").select2();
 	});

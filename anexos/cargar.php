@@ -75,6 +75,40 @@
 				</select>
 			
 		</td>
+		<td>
+			<select id="select-aulas2<?php echo $indice;?>" class="select-aulas cboaulas" disabled>
+					<option>
+					<?php 
+						$u->Open(2);
+						$tabla=$u->Mostrar("aulas","aula",2);
+						foreach($tabla as $e)
+						{
+							if($e->taburete==1)
+							{
+								$e->taburete="Si";
+							}
+							else
+							{
+								$e->taburete="No";
+							}
+					?>		
+						<option value="<?php echo $e->aula; ?>" <?php if($e->aula==$a->codAula2):echo "selected"; endif?> 
+								title="<?php echo 'Capacidad: '.$e->capacidad.'&#10;'.
+													'Pizarra: '.$e->pizarra.'&#10;'.
+													'Entrada: '.$e->tipEntrada.'&#10;'.
+													'Entorno: '.$e->tipSilla.'&#10;'.
+													'Ventilacion: '.$e->equVentilacion.'&#10;'.
+													'Entrada: '.$e->tipEntrada.'&#10;'.
+													'Taburete: '.$e->taburete.'&#10;';?>">
+								<?php echo $e->aula; ?>
+						</option>
+					<?php  
+						}
+						$u->Close(2);	
+					?> 
+
+				</select>
+		</td>
 		<td class="comun" id="docentes">
 			
 				<select id="select-docentes<?php echo $indice;?>" class="select-docentes cbodocentes" disabled>

@@ -30,12 +30,14 @@
 	transition-duration: 0.4s;
 	margin-left: 250px;
 	width: 100%-250px;
+	overflow: hidden;
 }
 .main-ocultar{
 	transition-property: margin-left,width;
 	transition-duration: 0.4s;
 	margin-left: 0px;
 	width: 100%+250px;
+	overflow: hidden;
 }
 
 .nom-titulo{
@@ -272,9 +274,9 @@ nav{
 }
 
 .titulo-ciclo{
-	width: 40px;
-	min-width: 40px;
-	max-width: 40px;
+	width: 32px;
+	min-width: 32px;
+	max-width: 32px;
 	text-align: center;
 }
 .titulo-docentes{
@@ -320,7 +322,6 @@ nav{
 
 }
 .cboaulas{
-	
 	width: 85px;
 }
 .cbodocentes{

@@ -152,9 +152,10 @@ function distribuirDatos(datos){
 	{	
 		if(datos[0]["c"+i]!="")
 		{	
-			console.log("-----------------------------------------------------");
-			console.log(datos[0]["c"+i]);
-
+			// console.log("-----------------------------------------------------");
+			// console.log(datos[0]["c"+i]);
+			if(datos[0]["c"+i]!=" ")
+			{	
 			longcadena=datos[0]["c"+i].length;
 
 			for(u=0;u<longcadena;u++)
@@ -178,6 +179,8 @@ function distribuirDatos(datos){
 				}
 				
 				
+			}
+
 			}
 			
 		}
@@ -233,8 +236,8 @@ function fecha()
 
 function llenarTablasModulos(jsondatos,idmodulo,numerociclo,grupo)
 {
-	console.log(jsondatos);
-	console.log(jsondatos[0]['idHorarios']);
+	// console.log(jsondatos);
+	// console.log(jsondatos[0]['idHorarios']);
 
 	var cantidad=Object.keys(jsondatos).length;
 	var dia;
@@ -265,10 +268,10 @@ function llenarTablasModulos(jsondatos,idmodulo,numerociclo,grupo)
 			break;
 		}
 
-		console.log("el dia es "+dia);
+		// console.log("el dia es "+dia);
 		
 
-		console.log(hinicio+""+hfinal);
+		// console.log(hinicio+""+hfinal);
 
 		while(hinicio<hfinal)
 		{	
@@ -321,10 +324,10 @@ function llenarTablaCursos(jsondatos){
 		var taburete="SI";
 	}
 
-	$("#nomcurso").html(jsondatos[0]["codCurso"]+" - "+jsondatos[0]["nomCurso"]);
-	$("#caracteristica").html("Capacidad "+jsondatos[0]['capacidad']+" sillas <br> Con Pizarra "+jsondatos[0]["pizarra"]+" y "+taburete+" tiene taburete");
-	console.log(jsondatos);
-	console.log(jsondatos[0]['idHorarios']);
+	//$("#nomcurso").html(jsondatos[0]["codCurso"]+" - "+jsondatos[0]["nomCurso"]);
+	//$("#caracteristica").html("Capacidad "+jsondatos[0]['capacidad']+" sillas <br> Con Pizarra "+jsondatos[0]["pizarra"]+" y "+taburete+" tiene taburete");
+	// console.log(jsondatos);
+	// console.log(jsondatos[0]['idHorarios']);
 
 	var cantidad=Object.keys(jsondatos).length;
 	var dia;
@@ -351,10 +354,10 @@ function llenarTablaCursos(jsondatos){
 			break;
 		}
 
-		console.log("el dia es "+dia);
+		// console.log("el dia es "+dia);
 		
 
-		console.log(hinicio+""+hfinal);
+		// console.log(hinicio+""+hfinal);
 
 		while(hinicio<hfinal)
 		{	
@@ -402,9 +405,9 @@ function llenarTablaAulas(jsondatos){
 	}
 
 	$("#nomaula").html("AULA: "+jsondatos[0]["codAula"]);
-	$("#caracteristica").html("Capacidad "+jsondatos[0]['capacidad']+" sillas <br> Con Pizarra "+jsondatos[0]["pizarra"]+" y "+taburete+" tiene taburete");
-	console.log(jsondatos);
-	console.log(jsondatos[0]['idHorarios']);
+	$("#caracteristica").html("Capacidad "+jsondatos[0]["capacidad"]+" sillas <br> Con Pizarra "+jsondatos[0]["pizarra"]+" y "+taburete+" tiene taburete");
+	// console.log(jsondatos);
+	// console.log(jsondatos[0]['idHorarios']);
 
 	var cantidad=Object.keys(jsondatos).length;
 	var dia;
@@ -431,10 +434,10 @@ function llenarTablaAulas(jsondatos){
 			break;
 		}
 
-		console.log("el dia es "+dia);
+		// console.log("el dia es "+dia);
 		
 
-		console.log(hinicio+""+hfinal);
+		// console.log(hinicio+""+hfinal);
 
 		while(hinicio<hfinal)
 		{	
@@ -474,8 +477,8 @@ function llenarTablaDocente(jsondatos){
 
 
 	$("#nomdocente").html(jsondatos[0]["apePaterno"]+jsondatos[0]["apeMaterno"]+", "+jsondatos[0]["nombres"]+" / "+jsondatos[0]["codDocente"]);
-	console.log(jsondatos);
-	console.log(jsondatos[0]['idHorarios']);
+	// console.log(jsondatos);
+	// console.log(jsondatos[0]['idHorarios']);
 
 	var cantidad=Object.keys(jsondatos).length;
 	var dia;
@@ -502,10 +505,10 @@ function llenarTablaDocente(jsondatos){
 			break;
 		}
 
-		console.log("el dia es "+dia);
+		// console.log("el dia es "+dia);
 		
 
-		console.log(hinicio+""+hfinal);
+		// console.log(hinicio+""+hfinal);
 
 		while(hinicio<hfinal)
 		{	

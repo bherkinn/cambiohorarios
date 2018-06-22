@@ -7,7 +7,6 @@
 	<title>Principal</title>
 
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
 	<!-- **************************************CSS************************************* -->
 	<link rel="stylesheet" type="text/css" href="librerias/bootstrap4/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="librerias/css/principal.css">
@@ -17,20 +16,13 @@
 	<link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css">
 	<link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
 	<!-- ***************************************JS************************************* -->
-
 	<script type="text/javascript" src="librerias/alertify/lib/alertify.js"></script>
 	<script type="text/javascript" src="librerias/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="librerias/select2/js/select2.min.js"></script>
 	<script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="librerias/js/fancywebsocket.js"></script>
-<!-- 	<script type="text/javascript" src="librerias/jqueryPlugintipsy/js/jquery.tipsy.js"></script> -->
-
-	
-
-	
 
 </head>
 

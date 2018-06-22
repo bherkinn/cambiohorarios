@@ -196,68 +196,7 @@ function editar(indice){
 	 		$("#txtc10"+indice).prop("disabled", false);
 	 		$("#txtc10"+indice).addClass('form-control');
 	 		$("#txtc10"+indice).removeClass('i');
-	 								
-	 		
-	 				// $("#txtdia"+indice).prop("disabled", true);
-	 				// $("#txtdia"+indice).addClass('i');
-	 				// $("#txtdia"+indice).removeClass('form-control');  
-	 				
-	 				// //*******************************
-	 				// $("#txthora"+indice).prop("disabled", true);
-	 				// $("#txthora"+indice).addClass('i');
-	 				// $("#txthora"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtseccion"+indice).prop("disabled", true);
-	 				// $("#txtseccion"+indice).addClass('i');
-	 				// $("#txtseccion"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txttp"+indice).prop("disabled", true);
-	 				// $("#txttp"+indice).addClass('i');
-	 				// $("#txttp"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#select-aulas"+indice).prop("disabled", true);
-	 				// //*******************************
-	 				// $("#select-docentes"+indice).prop("disabled", true);
-	 				// //*******************************
-	 				// $("#txtc1"+indice).prop("disabled", true);
-	 				// $("#txtc1"+indice).addClass('i');
-	 				// $("#txtc1"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc2"+indice).prop("disabled", true);
-	 				// $("#txtc2"+indice).addClass('i');
-	 				// $("#txtc2"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc3"+indice).prop("disabled", true);
-	 				// $("#txtc3"+indice).addClass('i');
-	 				// $("#txtc3"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc4"+indice).prop("disabled", true);
-	 				// $("#txtc4"+indice).addClass('i');
-	 				// $("#txtc4"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc5"+indice).prop("disabled", true);
-	 				// $("#txtc5"+indice).addClass('i');
-	 				// $("#txtc5"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc6"+indice).prop("disabled", true);
-	 				// $("#txtc6"+indice).addClass('i');
-	 				// $("#txtc6"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc7"+indice).prop("disabled", true);
-	 				// $("#txtc7"+indice).addClass('i');
-	 				// $("#txtc7"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc8"+indice).prop("disabled", true);
-	 				// $("#txtc8"+indice).addClass('i');
-	 				// $("#txtc8"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc9"+indice).prop("disabled", true);
-	 				// $("#txtc9"+indice).addClass('i');
-	 				// $("#txtc9"+indice).removeClass('form-control');
-	 				// //*******************************
-	 				// $("#txtc10"+indice).prop("disabled", true);
-	 				// $("#txtc10"+indice).addClass('i');
-	 				// $("#txtc10"+indice).removeClass('form-control'); 		
+	 										
 	}
 
 function salir(indice){
@@ -400,8 +339,7 @@ function actualizar(indice){
 	 			processData: false,
 	 			success:function(resultado)
 	 			{
-	 				console.log($("#select-docentes"+indice).val());
-	 				$("#auxiliar").html(resultado);
+	 				// console.log($("#select-docentes"+indice).val());
 	 			}
 
 	 		});
