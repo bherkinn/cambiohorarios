@@ -224,27 +224,76 @@ nav{
 }
 .select2{
 	font-size: 12px;
+	text-align: center;
 }
 .select2-dropdown{
 	font-size: 11px;
 }
 /******************************TABLA*********************************/
 .table-responsive{
+	margin: auto;
 	padding: 0px;
 	font-size: 12px;
+	max-width: 962px;
+	overflow-y:hidden;
+
 }
+.tabla-principal
+{
+	min-width: 960px;
+	max-width: 960px;
+	width: 960px;
+}
+.head-tabla{
+	background-color: #127DF5;
+	color: #F6F5F5;
+	height: 32px;
+}
+.num{
+	max-width: 35px;
+}
+.th{
+	padding-right: 9px;
+	padding-left: 9px;
+	text-align: center;
+}
+.thdocente{
+	text-align: center;
+	min-width: 160px;
+	padding-right: 9px;
+	padding-left: 9px;
+}
+.thaula{
+	text-align: center;
+	min-width: 80px;
+	padding-right: 9px;
+	padding-left: 9px;
+}
+.thc10{
+	text-align: center;
+	min-width: 33px;
+}
+.txtform{
+	padding: 3px;
+	font-size: 12px;
+	text-align: center;
+}
+.i{
+	outline: none;
+	border:none;
+	background-color: transparent;
+	width: 100%;
+}
+/*******************************************************************/
 .comun{
 	height: 30px;
 }
 .tr:hover{
 	background-color: #EEEEEE;
 }
-.head-tabla{
-	background-color: #30BE80;
-	color: #F6F5F5;
-}
 .pintado{
-	background-color: #C2C2C2;
+	background-color: #A2FAB6;
+	color:#fff;
 }
 .titulo-dia{
 	height: 35px;
@@ -267,12 +316,6 @@ nav{
 	min-width: 60px;
 	max-width: 60px
 }
-.txtform{
-	padding: 3px;
-	font-size: 12px;
-	text-align: center;
-}
-
 .titulo-ciclo{
 	width: 32px;
 	min-width: 32px;
@@ -298,12 +341,7 @@ nav{
 	text-align: center;
 }
 
-.i{
-	outline: none;
-	border:none;
-	background-color: transparent;
-	width: 100%;
-}
+
 /************************************************TABLA DOCENTES********************************************/
 
 .comun-docentes{

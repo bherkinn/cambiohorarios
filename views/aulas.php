@@ -88,7 +88,6 @@
 		</header>
 		<br>
 		<br>
-		<br>
 
           <div id="tabla" class="container">
 

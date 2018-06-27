@@ -51,48 +51,6 @@
 				echo "error";
 			}
 			
-	
-		}
-
-		public function MostrarCiclos(){
-			$sql="select distinct perAcademico from basehorarios";
-			$this->Conectar(1);
-			$this->memoria=$this->con1->query($sql);
-			if(!empty($this->memoria))
-			{	
-				$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
-				$this->Close(1);
-
-				return $datos;
-			}
-			else{
-
-				return "vacio";
-
-			}
-		}
-
-		public function Mostrar($tabla,$orden,$num){
-
-				if($num==1)
-				{
-					$this->memoria=$this->con1->query("SELECT * FROM $tabla ORDER BY $orden");
-					$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
-
-					return $datos;
-				}
-					else if($num==2)
-					{
-						$this->memoria=$this->con2->query("SELECT * FROM $tabla ORDER BY $orden");
-						$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
-
-						return $datos;
-					}
-					else
-					{
-						echo"Error";
-					}
-				
 		}
 
 		public function Close($num){
@@ -113,35 +71,6 @@
 				
 				}
 
-		}
-
-		public function Cargas($curso,$ciclo){
-
-			$this->conectar(1);
-			if($ciclo=="todos")
-			{
-				$sql="SELECT * FROM basehorarios WHERE codCurso='$curso';";
-			}
-			else
-			{
-				$sql="SELECT * FROM basehorarios WHERE codCurso='$curso' and perAcademico='$ciclo';";
-			}
-			$this->memoria=$this->con1->query($sql);
-
-			if(!empty($this->memoria))
-			{	
-				$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
-				$this->Close(1);
-
-				return $datos;
-			}
-			else{
-
-				return "vacio";
-
-			}
-
-			
 		}
 
 		public function InsertarDatos($datos)
@@ -165,7 +94,7 @@
 			try {
 
 				$this->Conectar(1);
-				$this->con1->query("UPDATE basehorarios SET  dia='$datos[0]',hora='$datos[1]',codCurso='$datos[2]',secCurso='$datos[3]',teopra='$datos[4]',codAula='$datos[5]',codDocente='$datos[6]',c1='$datos[7]',c2='$datos[8]',c3='$datos[9]',c4='$datos[10]',c5='$datos[11]',c6='$datos[12]',c7='$datos[13]',c8='$datos[14]',c9='$datos[15]',c10='$datos[16]' WHERE idHorarios='$datos[17]'");
+				$this->con1->query("UPDATE basehorarios SET  dia='$datos[0]',hora='$datos[1]',codCurso='$datos[2]',secCurso='$datos[3]',teopra='$datos[4]',codAula='$datos[5]',codDocente='$datos[6]',c1='$datos[7]',c2='$datos[8]',c3='$datos[9]',c4='$datos[10]',c5='$datos[11]',c6='$datos[12]',c7='$datos[13]',c8='$datos[14]',c9='$datos[15]',c10='$datos[16]',orden=$datos[18],codAula2='$datos[19]' WHERE idHorarios='$datos[17]'");
 
 				} catch (Exception $e) {
 				
@@ -174,6 +103,83 @@
 				}
 
 		}
+
+
+		public function Mostrar($tabla,$orden,$num){
+
+				if($num==1)
+				{
+					$this->memoria=$this->con1->query("SELECT * FROM $tabla WHERE estado=1 ORDER BY $orden");
+					$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
+
+					return $datos;
+				}
+					else if($num==2)
+					{
+						$this->memoria=$this->con2->query("SELECT * FROM $tabla ORDER BY $orden");
+						$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
+
+						return $datos;
+					}
+					else
+					{
+						echo"Error";
+					}
+				
+		}
+
+		public function MostrarCiclos(){
+			$sql="SELECT DISTINCT perAcademico FROM basehorarios";
+			$this->Conectar(1);
+			$this->memoria=$this->con1->query($sql);
+			if(!empty($this->memoria))
+			{	
+				$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
+				$this->Close(1);
+
+				return $datos;
+			}
+			else{
+
+				return "vacio";
+
+			}
+		}
+
+		public function cboDocentes(){
+
+			$this->conectar(2);
+			$this->memoria=$this->con2->query("SELECT codDocente,apePaterno,apeMaterno,nombres from docentes");
+			$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
+			$this->Close(2);
+			return $datos;
+		}
+
+		public function Cargas($curso,$ciclo){
+
+			$this->conectar(1);
+			
+				$sql="SELECT * FROM basehorarios WHERE codCurso='$curso' and perAcademico='$ciclo' ORDER BY orden;";
+			
+			$this->memoria=$this->con1->query($sql);
+
+			if(!empty($this->memoria))
+			{	
+				$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
+				$this->Close(1);
+
+				return $datos;
+			}
+			else{
+
+				return "vacio";
+
+			}
+
+			
+		}
+
+		
 
 		public function MostrarDatosFila($fila)
 		{

@@ -302,37 +302,6 @@ $(document).ready(function(){
 					}
 				}
 			});
-
-
-	// ***************************************************Menu Contextual********************************************************
-	$("tr").mousedown(function(e){
-		trderecho=$(this).attr("id");
-		if(trderecho)
-		{
-			if(e.which==3)
-			{
-			$("#"+trderecho).addClass("pintado")
-			$("#menucontextual").css("top",e.pageY - 20);
-			$("#menucontextual").css("left",e.pageX - 20);
-			$("#menucontextual").show("fast");
-
-			$(document).on("contextmenu", function(e) {
-                return false;
-             });
-			
-			
-			}
-		}
-	});
-		
-	
-
-	$("#menucontextual").mouseleave(function(){
-		$("#"+trderecho).removeClass("pintado")
-		$("#menucontextual").hide("fast");
-		$(document).off("contextmenu");
-		
-	});
 		
 	
 		

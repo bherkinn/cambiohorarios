@@ -22,8 +22,14 @@
 	 $datos[15]=$_POST["txtc9"];
 	 $datos[16]=$_POST["txtc10"];
 	 $datos[17]=$_POST["id"];
+	 //Añadido Recientemente
+	 $datos[18]=$_POST["txtorden"];
+	 $datos[19]=$_POST["cboaula2"];
 
-
+	 // var_dump($datos[18]);
 
 	 $o->ActualizarDatos($datos);
+	 foreach ($datos as $a) {
+	 	echo $a."<br>";
+	 }
 ?>

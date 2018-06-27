@@ -13,15 +13,15 @@
 	<link rel="stylesheet" type="text/css" href="librerias/css/menucontextual.css">
 	<link rel="stylesheet" type="text/css" href="librerias/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
 	<link rel="stylesheet" type="text/css" href="librerias/select2/css/select2.min.css">
-	<link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css">
-	<link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css">
+	<!-- <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css">
+	<link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css"> -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<!-- ***************************************JS************************************* -->
 	<script type="text/javascript" src="librerias/alertify/lib/alertify.js"></script>
 	<script type="text/javascript" src="librerias/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.min.js"></script> -->
 	<script type="text/javascript" src="librerias/select2/js/select2.min.js"></script>
-	<script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.bundle.min.js"></script>
+	<!-- <script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.bundle.min.js"></script> -->
 	<script type="text/javascript" src="librerias/js/fancywebsocket.js"></script>
 
 </head>
@@ -50,7 +50,7 @@
 					<li><a href="index.php"><i class="icono izquierda fas fa-registered"></i>Registrar</a></li>
 					<li><a href="index.php"><i class="icono izquierda fas fa-arrows-alt"></i>Cruces</a></li>
 					<li class="titulo-lista">VISTAS</li>
-					<li><a href="#" id="link1"><i class="icono izquierda fas fa-eye"></i> Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
+					<li><a href="#" id="link1"><i class="icono izquierda fas fa-eye"></i>Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
 						<ul>
 							<li><a href="docentes.php"></i>DOCENTES</a></li>
 							<li><a href="aulas.php">AULAS</a></li>
@@ -87,7 +87,7 @@
 		<br>
 			<ul id="menucontextual" class="dropdown-menu-modificado menu-contextual" style="width: 10px;">
 				<li class="lista">			
-					<a class="borrar comun-lista" href="#"><i class="fas fa-trash" style="font-size: 15px;"></i> Borrar </a>	
+					<a class="borrar comun-lista" id="eliminar-fila" href="#"><i class="fas fa-trash" style="font-size: 15px;"></i> Borrar </a>	
 				</li>
 				<li class="lista">			
 					<a class="borrar comun-lista" href="#"><i class="fas fa-check" style="font-size: 13px;"></i> Marcar </a>	
@@ -123,7 +123,6 @@
 					</center>
 							
 						<select id="cbociclo" class="cbociclos">
-								<option value="todos">Todos</option>
 							<?php 
 								$ciclos=$o->MostrarCiclos();
 								foreach($ciclos as $a)
@@ -143,8 +142,8 @@
 				<br>
 
 					<div class="container-fluid">
-						<div id="tabla">
-							<!-- AQUI SE CARGARA LA TABLA DE ASISTENCIA -->
+						<div id="tabla-carga" class="">
+							<!-- AQUI SE CARGARA LA TABLA DE DATOS -->
 						</div>
 					</div>
 				<br>
@@ -181,6 +180,7 @@
 				$("#select-cursos").select2({
 					 width: '240px',
 				});
+
 			});
 
 		</script>
