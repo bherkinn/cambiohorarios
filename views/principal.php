@@ -13,8 +13,8 @@
 	<link rel="stylesheet" type="text/css" href="librerias/css/menucontextual.css">
 	<link rel="stylesheet" type="text/css" href="librerias/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
 	<link rel="stylesheet" type="text/css" href="librerias/select2/css/select2.min.css">
-	<!-- <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css">
-	<link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css"> -->
+	<link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css">
+	<link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<!-- ***************************************JS************************************* -->
 	<script type="text/javascript" src="librerias/alertify/lib/alertify.js"></script>
@@ -90,10 +90,12 @@
 					<a class="borrar comun-lista" id="eliminar-fila" href="#"><i class="fas fa-trash" style="font-size: 15px;"></i> Borrar </a>	
 				</li>
 				<li class="lista">			
-					<a class="borrar comun-lista" href="#"><i class="fas fa-check" style="font-size: 13px;"></i> Marcar </a>	
+					<a class="borrar comun-lista" id="duplicar-fila" href="#"><i class="fas fa-copy" style="font-size: 14px;"></i> Duplicar </a>	
 				</li>
+			</ul>
+			<ul id="menucontextual-agregar" class="dropdown-menu-modificado menu-contextual" style="width: 10px;">
 				<li class="lista">			
-					<a class="borrar comun-lista" href="#"><i class="fas fa-times" style="font-size: 17px;"></i> Desmarcar </a>	
+					<a class="borrar comun-lista" id="registrar-fila" href="#"><i class="fas fa-save" style="font-size: 15px;"></i> Registrar </a>	
 				</li>
 			</ul>
 		<div id="tabla-acomodar" class="container">

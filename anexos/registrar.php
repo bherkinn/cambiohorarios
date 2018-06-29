@@ -21,6 +21,9 @@
 	 $datos[14]=$_POST["txtc8"];
 	 $datos[15]=$_POST["txtc9"];
 	 $datos[16]=$_POST["txtc10"];
+	 $datos[17]=$_POST["cboperiodo"];
+	 $datos[18]=$_POST["txtorden"];
+	 $datos[19]=$_POST["cboaula2"];
 
 
 	 $o->InsertarDatos($datos);

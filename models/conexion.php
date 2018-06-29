@@ -78,14 +78,15 @@
 			try {
 
 				$this->Conectar(1);
-				$this->con1->query("INSERT INTO basehorarios (dia,hora,codCurso,secCurso,teopra,codAula,codDocente,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10) VALUES ('$datos[0]','$datos[1]','$datos[2]','$datos[3]','$datos[4]','$datos[5]','$datos[6]','$datos[7]','$datos[8]','$datos[9]','$datos[10]','$datos[11]','$datos[12]','$datos[13]','$datos[14]','$datos[15]','$datos[16]')");
+				$this->con1->query("INSERT INTO basehorarios (dia,hora,codCurso,secCurso,teopra,codAula,codDocente,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,perAcademico,orden,codAula2) VALUES ('$datos[0]','$datos[1]','$datos[2]','$datos[3]','$datos[4]','$datos[5]','$datos[6]','$datos[7]','$datos[8]','$datos[9]','$datos[10]','$datos[11]','$datos[12]','$datos[13]','$datos[14]','$datos[15]','$datos[16]','$datos[17]','$datos[18]','$datos[19]')");
+				// $this->Close(1);
 
 				} catch (Exception $e) {
 				
 				echo "error".$e->getMessage();
 			
 				}
-				// $this->Close(1);
+				
 
 		}
 
@@ -104,12 +105,18 @@
 
 		}
 
+		public function Borrar($id)
+		{
+			$this->Conectar(1);
+				$this->con1->query("UPDATE basehorarios SET estado=0 WHERE idHorarios=$id");
+		}
+
 
 		public function Mostrar($tabla,$orden,$num){
 
 				if($num==1)
 				{
-					$this->memoria=$this->con1->query("SELECT * FROM $tabla WHERE estado=1 ORDER BY $orden");
+					$this->memoria=$this->con1->query("SELECT * FROM $tabla ORDER BY $orden");
 					$datos=$this->memoria->fetchAll(PDO::FETCH_OBJ);
 
 					return $datos;
@@ -155,11 +162,11 @@
 			return $datos;
 		}
 
-		public function Cargas($curso,$ciclo){
+		public function Cargas($curso,$ciclo,$estado){
 
 			$this->conectar(1);
 			
-				$sql="SELECT * FROM basehorarios WHERE codCurso='$curso' and perAcademico='$ciclo' ORDER BY orden;";
+				$sql="SELECT * FROM basehorarios WHERE codCurso='$curso' and perAcademico='$ciclo' and estado=$estado ORDER BY orden,idHorarios;";
 			
 			$this->memoria=$this->con1->query($sql);
 

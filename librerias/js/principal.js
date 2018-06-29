@@ -110,11 +110,11 @@ $(document).ready(function(){
 	ciclo=$("#cbociclo").val();
 	curso=$("#select-cursos").val();
 	
-	$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo},
+	$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
 				function(data){	
 					 datosJSON=JSON.parse(data);
-					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",10);
-					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",10);
+					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",20);
+					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",20);
 					 
 					// $("#tabla").html(data).fadeIn();
 			});
@@ -217,29 +217,30 @@ function CrearTablaPrincipal(datosJson,cboaulas,cbodocentes){
 	}
 	//AGREGAR FILA DE GURADAR
 	$("#tabla-principal").append(
-		"<tr>"+
+		"<tr id='agregar-fila'>"+
 		"<td></td>"+
 		"<td><input id='txtorden' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtdia' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txthora' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
+		"<td><input id='txtdia' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='2'></td>"+
+		"<td><input id='txthora' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>"+
 		"<td><input id='txtcurso' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' disabled value='"+$("#select-cursos").val()+"'></td>"+
-		"<td><input id='txtseccion' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txttp' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
+		"<td><input id='txtseccion' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>"+
+		"<td><input id='txttp' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
 		"<td id='tdaulas'><select class='select-aulas' id='select-aulas'><option disabled selected >Elegir</option></select>"+
 		"<td id='tdaulas2'><select class='select-aulas' id='select-aulas2'><option value=''> </option></select>"+
 		"<td id='tddocentes'><select class='select-docentes' id='select-docentes'><option disabled selected >Elegir</option></select>"+
-		"<td><input id='txtc1' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtc2' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtc3' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtc4' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtc5' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtc6' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtc7' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtc8' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-	    "<td><input id='txtc9' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-	    "<td><input id='txtc10' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
+		"<td><input id='txtc1' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+		"<td><input id='txtc2' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+		"<td><input id='txtc3' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+		"<td><input id='txtc4' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+		"<td><input id='txtc5' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+		"<td><input id='txtc6' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+		"<td><input id='txtc7' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+		"<td><input id='txtc8' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+	    "<td><input id='txtc9' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
+	    "<td><input id='txtc10' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
 	    "<td></td>"+
 	    "</tr>");
+
 	for(u=0;u<cantidadAulas;u++)
 		{	
 			// AULAS1
@@ -272,11 +273,50 @@ function CrearTablaPrincipal(datosJson,cboaulas,cbodocentes){
 	});
 
 	//***********************
-	
+	ValidarCajas();
 	MenuContextual();
 	AccionesDeCajas();
 
+}
 
+function ValidarCajas(){
+
+	$('#txtorden').keyup(function(){
+  	var nombre = $(this);
+    nombre.val( nombre.val().replace(/[A-Za-z-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|:|_|.|;|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
+	});
+		$('#txtdia').keyup(function(){
+	  	var dia = $(this);
+	    dia.val( dia.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
+	    dia.val(dia.val().toUpperCase());
+	});
+		$('#txthora').keyup(function(){
+	  	var hora = $(this);
+	    hora.val( hora.val().replace(/[A-Za-z|{}|´|¨|+|¿|?|*|&|%|$|#|""|!|<|>|_|.|;|:|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
+	    hora.val(hora.val().toUpperCase());
+	});
+		$('#txtseccion').keyup(function(){
+	  	var sec = $(this);
+	    sec.val( sec.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡]/g, function(str) { return ''; } ) );
+	    sec.val(sec.val().toUpperCase());
+	});
+		$('#txttp').keyup(function(){
+	  	var dia = $(this);
+	    dia.val( dia.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡]/g, function(str) { return ''; } ) );
+	    dia.val(dia.val().toUpperCase());
+
+	});
+
+	for(i=1;i<=10;i++)
+	{
+		$('#txtc'+i).keyup(function(){
+	  	var dia = $(this);
+	    dia.val( dia.val().replace(/[A-Za-z-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡|/]/g, function(str) { return ''; } ) );
+	    dia.val(dia.val().toUpperCase());
+	    
+		});
+	}
+	
 }
 
 function AccionesDeCajas(){
@@ -332,6 +372,7 @@ function AccionesDeCajas(){
 }
 
 // ***************************************************Menu Contextual********************************************************
+var trderecho;
 
 function MenuContextual(){
 
@@ -340,26 +381,44 @@ function MenuContextual(){
 		trderecho=$(this).attr("id");
 		if(trderecho)
 		{
-			console.log(trderecho)
-			if(e.which==3)
+			if(trderecho!="agregar-fila")
 			{
-			$("#"+trderecho).addClass("pintado")
-			$("#menucontextual").css("top",e.pageY - 20);
-			$("#menucontextual").css("left",e.pageX - 20);
-			$("#menucontextual").show("fast");
+				
+				console.log(trderecho)
+				if(e.which==3)
+				{
+				$("#"+trderecho).addClass("pintado")
+				$("#menucontextual").css("top",e.pageY - 20);
+				$("#menucontextual").css("left",e.pageX - 20);
+				$("#menucontextual").show("fast");
 
-			$(document).on("contextmenu", function(e) {
-                return false;
-             });
+				$(document).on("contextmenu", function(e) {
+	                return false;
+	             });
+				}
+				
 			}
-		}
-		$("#eliminar-fila").click(function(e){
-			e.preventDefault();
-			$("#"+trderecho).fadeOut(1000);
-			$("#menucontextual").hide("fast");
-		})
-	});
+			else
+			{
+				if(e.which==3)
+				{
+				$("#"+trderecho).addClass("pintado")
+				$("#menucontextual-agregar").css("top",e.pageY - 20);
+				$("#menucontextual-agregar").css("left",e.pageX - 20);
+				$("#menucontextual-agregar").show("fast");
+
+				$(document).on("contextmenu", function(e) {
+	                return false;
+	             });
+				}
+			}
 		
+
+		}
+	}); 
+
+	
+
 	
 
 	$("#menucontextual").mouseleave(function(){
@@ -368,12 +427,60 @@ function MenuContextual(){
 		$(document).off("contextmenu");
 		
 	});
+
+	$("#menucontextual-agregar").mouseleave(function(){
+		$("#"+trderecho).removeClass("pintado");
+		$("#menucontextual-agregar").hide("fast");
+		$(document).off("contextmenu");
+		});
 }
 
+// FUNCIONES DEL MENU CONTEXTUAL******************************************
 
-// $(document).ready(function(){
-// 	$("#tabla").load('anexos/tabla.php');
-// });
+$("#eliminar-fila").click(function(e){
+	e.preventDefault();
+	$("#"+trderecho).fadeOut(500);
+	$("#menucontextual").hide("fast");
+	$.post("anexos/tabla-principal/BorrarHorariosTabla.php",{id:trderecho},
+		function(data){
+			alertify.success("Datos Borrados");
+	});
+});
+
+$("#duplicar-fila").click(function(e){
+		e.preventDefault();
+		duplicar(trderecho);
+		setTimeout("buscar()",20);
+		$("#menucontextual").hide("fast");		
+});
+
+$("#registrar-fila").click(
+	function(e){
+		e.preventDefault();
+		guardar();
+		setTimeout("buscar()",20);
+		$("#menucontextual").hide("fast");
+		
+});
+
+// ********************************************************************
+
+function buscar(){
+	$(document).ready(function(){
+		$("#tabla-carga").removeClass("table-responsive border rounded");
+		$("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
+		ciclo=$("#cbociclo").val();
+		curso=$("#select-cursos").val();
+		
+		$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
+					function(data){	
+						 datosJSON=JSON.parse(data);
+						 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",60);
+						 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",60);
+				});
+	})
+		
+}
 
 $(document).ready(function(){
 	$("#select-cursos").change(function(){
@@ -384,7 +491,7 @@ $(document).ready(function(){
 			ciclo=$("#cbociclo").val();
 			curso=$("#select-cursos").val();
 	
-			$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo},
+			$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
 				function(data){	
 					 datosJSON=JSON.parse(data);
 					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",300);
@@ -394,28 +501,26 @@ $(document).ready(function(){
 			});
 		});
 	});
+
+$(document).ready(function(){
+	$("#cbociclo").change(function(){
+		$("#cbociclo option:selected").each(function(){
+			$("#tabla-carga").removeClass("table-responsive border rounded");
+			$("#tabla-carga").html("");
+			$("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
+			ciclo=$("#cbociclo").val();
+			curso=$("#select-cursos").val();
 	
-// });
-
-// $(document).ready(function(){
-// 	$("#cbociclo").change(function(){
-// 		$("#cbociclo option:selected").each(function(){
-// 			$("#tabla").css({"display":"none"});
-// 			$("#tabla").html('<center><img id="cargando" style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-// 			curso=$("#select-cursos").val();
-// 			ciclo=$(this).val();
-// 			disponible=1;
-// 			$.post("anexos/tabla.php",{curso:curso,ciclo:ciclo},
-// 				function(data){
-// 					$("#tabla").css({"display":"none"});
-// 					$("#tabla").html(data).fadeIn();
-// 			});
-// 		})
-// 	})
-	
-// });
-
-
+			$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
+				function(data){	
+					 datosJSON=JSON.parse(data);
+					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",300);
+					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",300);	 
+					// $("#tabla").html(data).fadeIn();
+			});
+			});
+		});
+	});
 
 function editar(indice){
 
@@ -447,46 +552,12 @@ function editar(indice){
 	 		//****************************
 	 		$("#select-docentes"+indice).prop("disabled", false);
 	 		//***************************
-	 		$("#txtc1"+indice).prop("disabled", false);
-	 		$("#txtc1"+indice).addClass('form-control');
-	 		$("#txtc1"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc2"+indice).prop("disabled", false);
-	 		$("#txtc2"+indice).addClass('form-control');
-	 		$("#txtc2"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc3"+indice).prop("disabled", false);
-	 		$("#txtc3"+indice).addClass('form-control');
-	 		$("#txtc3"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc4"+indice).prop("disabled", false);
-	 		$("#txtc4"+indice).addClass('form-control');
-	 		$("#txtc4"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc5"+indice).prop("disabled", false);
-	 		$("#txtc5"+indice).addClass('form-control');
-	 		$("#txtc5"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc6"+indice).prop("disabled", false);
-	 		$("#txtc6"+indice).addClass('form-control');
-	 		$("#txtc6"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc7"+indice).prop("disabled", false);
-	 		$("#txtc7"+indice).addClass('form-control');
-	 		$("#txtc7"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc8"+indice).prop("disabled", false);
-	 		$("#txtc8"+indice).addClass('form-control');
-	 		$("#txtc8"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc9"+indice).prop("disabled", false);
-	 		$("#txtc9"+indice).addClass('form-control');
-	 		$("#txtc9"+indice).removeClass('i');
-	 		//***************************
-	 		$("#txtc10"+indice).prop("disabled", false);
-	 		$("#txtc10"+indice).addClass('form-control');
-	 		$("#txtc10"+indice).removeClass('i');
-	 										
+	 		for(i=1;i<=10;i++)
+	 		{
+	 			$("#txtc"+i+indice).prop("disabled", false);
+		 		$("#txtc"+i+indice).addClass('form-control');
+		 		$("#txtc"+i+indice).removeClass('i');
+	 		}
 	}
 
 function salir(indice){
@@ -518,58 +589,25 @@ function salir(indice){
 	 				// //*******************************
 	 				$("#select-docentes"+indice).prop("disabled", true);
 	 				//*******************************
-	 				$("#txtc1"+indice).prop("disabled", true);
-	 				$("#txtc1"+indice).addClass('i');
-	 				$("#txtc1"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc2"+indice).prop("disabled", true);
-	 				$("#txtc2"+indice).addClass('i');
-	 				$("#txtc2"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc3"+indice).prop("disabled", true);
-	 				$("#txtc3"+indice).addClass('i');
-	 				$("#txtc3"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc4"+indice).prop("disabled", true);
-	 				$("#txtc4"+indice).addClass('i');
-	 				$("#txtc4"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc5"+indice).prop("disabled", true);
-	 				$("#txtc5"+indice).addClass('i');
-	 				$("#txtc5"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc6"+indice).prop("disabled", true);
-	 				$("#txtc6"+indice).addClass('i');
-	 				$("#txtc6"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc7"+indice).prop("disabled", true);
-	 				$("#txtc7"+indice).addClass('i');
-	 				$("#txtc7"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc8"+indice).prop("disabled", true);
-	 				$("#txtc8"+indice).addClass('i');
-	 				$("#txtc8"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc9"+indice).prop("disabled", true);
-	 				$("#txtc9"+indice).addClass('i');
-	 				$("#txtc9"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtc10"+indice).prop("disabled", true);
-	 				$("#txtc10"+indice).addClass('i');
-	 				$("#txtc10"+indice).removeClass('form-control');
-
-	 				
+	 				for(i=1;i<=10;i++)
+			 		{
+			 			$("#txtc"+i+indice).prop("disabled", true);
+	 					$("#txtc"+i+indice).addClass('i');
+	 					$("#txtc"+i+indice).removeClass('form-control');
+	 				}
 } 
 
 function guardar(){
 
 	 		var datos = new FormData();
+	 		datos.append("txtorden",$("#txtorden").val());
 	 		datos.append("txtdia",$("#txtdia").val());
 	 		datos.append("txthora",$("#txthora").val());
 	 		datos.append("txtcurso",$("#txtcurso").val());
 	 		datos.append("txtseccion",$("#txtseccion").val());
 	 		datos.append("txttp",$("#txttp").val());
 	 		datos.append("cboaula",$("#select-aulas").val());
+	 		datos.append("cboaula2",$("#select-aulas2").val());
 	 		datos.append("cbodocente",$("#select-docentes").val());
 	 		datos.append("txtc1",$("#txtc1").val());
 	 		datos.append("txtc2",$("#txtc2").val());
@@ -581,6 +619,7 @@ function guardar(){
 	 		datos.append("txtc8",$("#txtc8").val());
 	 		datos.append("txtc9",$("#txtc9").val());
 	 		datos.append("txtc10",$("#txtc10").val());
+	 		datos.append("cboperiodo",$("#cbociclo").val());
 
 	 		$.ajax({
 
@@ -591,12 +630,7 @@ function guardar(){
 	 			processData: false,
 	 			success:function(resultado)
 	 			{
-	 				// $("#respuesta").html(resultado);
-	 				var idcurso=$("#txtcurso").val();
-			 		$.post("anexos/tabla.php",{ curso: idcurso},
-					function(data){
-					$("#tabla").html(data);
-					});
+	 				setTimeout('alertify.success("Datos Registrados")',60);
 	 			}
 
 	 		});
@@ -641,6 +675,48 @@ function actualizar(indice){
 
 
 	 		});
+	 	}
+
+function duplicar(indice){
+
+	 		var datos = new FormData();
+	 		datos.append("txtorden",$("#txtorden"+indice).val());
+	 		datos.append("txtdia",$("#txtdia"+indice).val());
+	 		datos.append("txthora",$("#txthora"+indice).val());
+	 		datos.append("txtcurso",$("#txtcurso"+indice).val());
+	 		datos.append("txtseccion",$("#txtseccion"+indice).val());
+	 		datos.append("txttp",$("#txttp"+indice).val());
+	 		datos.append("cboaula",$("#select-aulas"+indice).val());
+	 		datos.append("cboaula2",$("#select-aulas2"+indice).val());
+	 		datos.append("cbodocente",$("#select-docentes"+indice).val());
+	 		datos.append("txtc1",$("#txtc1"+indice).val());
+	 		datos.append("txtc2",$("#txtc2"+indice).val());
+	 		datos.append("txtc3",$("#txtc3"+indice).val());
+	 		datos.append("txtc4",$("#txtc4"+indice).val());
+	 		datos.append("txtc5",$("#txtc5"+indice).val());
+	 		datos.append("txtc6",$("#txtc6"+indice).val());
+	 		datos.append("txtc7",$("#txtc7"+indice).val());
+	 		datos.append("txtc8",$("#txtc8"+indice).val());
+	 		datos.append("txtc9",$("#txtc9"+indice).val());
+	 		datos.append("txtc10",$("#txtc10"+indice).val());
+	 		datos.append("cboperiodo",$("#cbociclo").val());
+
+	 		$.ajax({
+
+	 			type:"POST",
+	 			data:datos,
+	 			url:"anexos/registrar.php",
+	 			contentType: false,
+	 			processData: false,
+	 			success:function(resultado)
+	 			{
+	 				// console.log($("#select-docentes"+indice).val());
+	 			}
+
+
+
+	 		});
+
 	 	}
 
 
