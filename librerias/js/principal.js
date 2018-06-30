@@ -219,7 +219,7 @@ function CrearTablaPrincipal(datosJson,cboaulas,cbodocentes){
 	$("#tabla-principal").append(
 		"<tr id='agregar-fila'>"+
 		"<td></td>"+
-		"<td><input id='txtorden' type='text' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
+		"<td><input id='txtorden' type='text' onkeypress='return validarNumericos(event)' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
 		"<td><input id='txtdia' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='2'></td>"+
 		"<td><input id='txthora' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>"+
 		"<td><input id='txtcurso' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' disabled value='"+$("#select-cursos").val()+"'></td>"+
@@ -279,12 +279,21 @@ function CrearTablaPrincipal(datosJson,cboaulas,cbodocentes){
 
 }
 
+function validarNumericos(e){
+	if(e.charCode>=48 && e.charCode<=57)
+	{
+		return true;
+	}
+		return false;
+	
+}
+
 function ValidarCajas(){
 
-	$('#txtorden').keyup(function(){
-  	var nombre = $(this);
-    nombre.val( nombre.val().replace(/[A-Za-z-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|:|_|.|;|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
-	});
+	// $('#txtorden').keyup(function(){
+ //  	var nombre = $(this);
+ //    nombre.val( nombre.val().replace(/[A-Za-z-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|:|_|.|;|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
+	// });
 		$('#txtdia').keyup(function(){
 	  	var dia = $(this);
 	    dia.val( dia.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
@@ -435,7 +444,7 @@ function MenuContextual(){
 		});
 }
 
-// FUNCIONES DEL MENU CONTEXTUAL******************************************
+// -----------------------------------------------------------------------------------------------FUNCIONES DEL MENU CONTEXTUAL
 
 $("#eliminar-fila").click(function(e){
 	e.preventDefault();
@@ -450,23 +459,21 @@ $("#eliminar-fila").click(function(e){
 $("#duplicar-fila").click(function(e){
 		e.preventDefault();
 		duplicar(trderecho);
-		setTimeout("buscar()",20);
-		$("#menucontextual").hide("fast");		
+		$("#menucontextual").hide("fast");	
+		setTimeout("buscar()",100);	
 });
 
-$("#registrar-fila").click(
-	function(e){
+$("#registrar-fila").click(function(e){
 		e.preventDefault();
 		guardar();
-		setTimeout("buscar()",20);
-		$("#menucontextual").hide("fast");
-		
+		$("#menucontextual-agregar").hide("fast");
+		setTimeout("buscar()",800);
 });
 
-// ********************************************************************
+// *****************************************************************************************************************************
 
 function buscar(){
-	$(document).ready(function(){
+
 		$("#tabla-carga").removeClass("table-responsive border rounded");
 		$("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
 		ciclo=$("#cbociclo").val();
@@ -478,8 +485,6 @@ function buscar(){
 						 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",60);
 						 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",60);
 				});
-	})
-		
 }
 
 $(document).ready(function(){
@@ -494,8 +499,8 @@ $(document).ready(function(){
 			$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
 				function(data){	
 					 datosJSON=JSON.parse(data);
-					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",300);
-					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",300);	 
+					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",400);
+					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",400);	 
 					// $("#tabla").html(data).fadeIn();
 			});
 			});
@@ -514,9 +519,8 @@ $(document).ready(function(){
 			$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
 				function(data){	
 					 datosJSON=JSON.parse(data);
-					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",300);
-					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",300);	 
-					// $("#tabla").html(data).fadeIn();
+					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",400);
+					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",400);	 
 			});
 			});
 		});
@@ -630,7 +634,7 @@ function guardar(){
 	 			processData: false,
 	 			success:function(resultado)
 	 			{
-	 				setTimeout('alertify.success("Datos Registrados")',60);
+	 				alertify.success("Datos Registrados");
 	 			}
 
 	 		});
@@ -712,9 +716,6 @@ function duplicar(indice){
 	 			{
 	 				// console.log($("#select-docentes"+indice).val());
 	 			}
-
-
-
 	 		});
 
 	 	}

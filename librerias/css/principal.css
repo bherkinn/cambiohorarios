@@ -10,10 +10,8 @@
 }
 
 .cabezal-menu{
-	/*border: #000 solid 1px;*/
 	border-radius:10px;
 	margin:0px;
-	/*background-color: #fff;*/
 	height: 80px;
 }
 
@@ -27,14 +25,14 @@
 
 .main-mostrar{
 	transition-property: margin-left,width;
-	transition-duration: 0.4s;
+	transition-duration: 0.5s;
 	margin-left: 250px;
 	width: 100%-250px;
 	overflow: hidden;
 }
 .main-ocultar{
 	transition-property: margin-left,width;
-	transition-duration: 0.4s;
+	transition-duration: 0.5s;
 	margin-left: 0px;
 	width: 100%+250px;
 	overflow: hidden;
@@ -54,17 +52,16 @@
 }
 
 .menu{
-	
-	float: right;
-	background:none;
-	border: solid #fff 2px;
-	border-radius: 10px;
-	margin-top: 8px;
+	float: left;
+	background:#127df5;
+	border: none;
+	border-radius: 5px;
+	margin:15px;
 	color: #fff;
 	font-size: 25px;
-	margin-right: 8px;
-	width: 40px;
-	height: 40px;
+	padding: 7px 9px 7px 9px;
+	cursor: pointer;
+	position: absolute;
 }
 .menu:focus{
 	outline: none;
@@ -72,15 +69,29 @@
 .menu:hover{
 	transition-property: background-color, color;
   	transition-duration: 0.5s;
-	color:#0768D5;
-	background-color: #fff;
+	color:#DCF6E8;
+	background-color: #1040C8;
 }
-.div-menu{
-	margin-top: -70px; 
-	margin-left: 241px;
-	background-color:#1278D7; 
-	width: 58px;height: 56px; 
-	border-radius: 0px 20px 20px 0px;
+
+.agregar{
+	float: left;
+	border: none;
+	background:#10E041;
+	border-radius: 10px;
+	margin:20px 15px 15px 70px;
+	color: #fff;
+	font-size: 12px;
+	padding: 7px 9px 7px 9px;
+	cursor: pointer;
+	position: absolute;
+}
+.agregar:hover{
+	outline: none;
+	background: #05C424;
+}
+.agregar:focus{
+	outline: none;
+	background: #2AC656;
 }
 
 .tabla-base{
@@ -97,19 +108,12 @@ header{
 	height: 100%;
 	z-index: 100;
 	left:-250px;
-	border-radius: 0px 20px 20px 0px
 }
 
 body{
-	/*background-attachment: fixed;
-  	overflow: scroll;
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	background-image: url("../img/fondo.jpg");*/
 	min-width: 320px;
 	font-family: 'Roboto', sans-serif;
 	background-color: #FFF;
-
 }
 /******************************************NAV*************************************/
 nav{
@@ -117,18 +121,8 @@ nav{
 }
 .nav{
 	padding-top: 30px;
-	/*margin-right: 20px;*/
 	width: 100px;
-
-
-	/*border: #000 solid 2px;*/
-	/*position: absolute;*/
-	
 }
-/*.nav>li{
-	list-style: none;
-
-}*/
 .icono{
 	font-size: 14px;
 }
@@ -141,7 +135,6 @@ nav{
 	float: right;
 	margin-right: 4px;
 	margin-top: 4px;
-
 }
 
 .titulo-lista{
@@ -207,13 +200,19 @@ nav{
 	}*/
 }	
 /*****************COMBO CICLOS******************/
+.btn-agregar{
+	height: 28px;
+	border:none;
+	border-radius: 3px;
+	font-size: 13px;
+}
 .cbociclos{
 	padding: 5px;
 	font-size: 12px;
 	float: right;
-	margin-top: -28px;
-	border-radius: 4px;
-	margin-right: 20px;
+	margin-left: 20px;
+    border-radius: 4px;
+    position: absolute;
 }
 
 /* ***************COMBO CURSOS**************** */
@@ -295,7 +294,7 @@ nav{
 	background-color: #A2FAB6;
 	color:#fff;
 }
-.titulo-dia{
+/*.titulo-dia{
 	height: 35px;
 	text-align: center;
 	width: 32px;
@@ -340,7 +339,7 @@ nav{
 	max-width: 35px;
 	text-align: center;
 }
-
+*/
 
 /************************************************TABLA DOCENTES********************************************/
 
