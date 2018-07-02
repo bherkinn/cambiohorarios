@@ -87,10 +87,9 @@
 			
 
 		</header>
+	
+			<center><div class="titulo-tabla">DOCENTES - AUTOMÁTICO</div></center>
 		
-		<br>
-		<br>
-		<br>
           <div id="tabla" class="container">
 
 			
@@ -115,7 +114,8 @@
 		    var carga="CARGA HORARIA/SEM.";
 			
 			horainicial=hora;
-			$("#tabla-docentes").append("<tr><td colspan='5' class='cabecera-tabla ca'>"+titulo+"</td><td class='ca'>"+carga+"</td><td rowspan='2'></td></tr>");
+			$("#tabla-docentes").append("<tr><td colspan='5' class='cabecera-tabla ca'>"+titulo+"</td><td class='ca'>"+carga+
+				"</td><td class='td-periodo' rowspan='2'></td></tr>");
 			$("#tabla-docentes").append("<tr><td id='nomdocente' colspan='5' class='cabecera-tabla2'></td><td id='horas' class='hora'></td></tr>");
 			for(i=0;i<filas;i++){
 				$("#tabla-docentes").append("<tr>");

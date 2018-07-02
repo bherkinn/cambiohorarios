@@ -86,9 +86,8 @@
 			
 
 		</header>
-		<br>
-		<br>
-		<br>
+
+			<center><div class="titulo-tabla">CURSOS - AUTOMÁTICO</div></center>
 
           <div id="tabla" class="container">
 
@@ -114,7 +113,8 @@
 		    var titulo="UNIVERSIDAD NACIONAL DE INGENIERIA - FACULTAD DE INGENIERIA MECANICA - COMISION DE HORARIOS";
 			
 			horainicial=hora;
-			$("#tabla-cursos").append("<tr><td colspan='6' class='cabecera-tabla ca'>"+titulo+"</td><td rowspan='2'></td></tr>");
+			$("#tabla-cursos").append("<tr><td colspan='6' class='cabecera-tabla ca'>"+titulo+
+				"</td><td class='td-periodo' rowspan='2'></td></tr>");
 			$("#tabla-cursos").append("<tr><td id='nomcurso' colspan='6' class='cabecera-tabla2'></td></tr>");
 			for(i=0;i<filas;i++){
 				$("#tabla-cursos").append("<tr>");

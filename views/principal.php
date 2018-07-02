@@ -73,13 +73,11 @@
          </div>
       </header>
       <div id="mostrar-menu" class="main-ocultar">
-      	<!-- *******************************************************BOTONES PRINCIPALES**************************************************** -->
+         <!-- *******************************************************BOTONES PRINCIPALES**************************************************** -->
          <button id="menu" class="menu fas fa-bars" style=""></button>
-
          <button id="agregar" class="agregar btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
-         
          <!-- ******************************************************/BOTONES PRINCIPALES************************************************** -->
-		<br>
+         <br>
          <!-- ******************************************************MENUS CONTEXTUALES**************************************************** -->
          <ul id="menucontextual" class="dropdown-menu-modificado menu-contextual" style="width: 10px;">
             <li class="lista">			
@@ -95,37 +93,48 @@
             </li>
          </ul>
          <!-- ******************************************************/MENUS CONTEXTUALES************************************************** -->
-
          <!-- ******************************************************MODAL AGREGAR******************************************************** -->
-		<div id="modal-agregar" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-lg">
-		    <div class="modal-content">
-		      <div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Agregar Periodo Academico</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<select id="periodo-clonar" class="">
-		               <?php 
-		                  $ciclos=$o->MostrarCiclos();
-		                  foreach($ciclos as $a)
-		                  {
-		                  ?>	
-		               <option value="<?php echo $a->perAcademico; ?>">
-		                  <?php echo $a->perAcademico; ?>
-		               </option>
-		               <?php  
-		                  }
-		                  ?>
-	            	</select>
-				</div>
-		    </div>
-		  </div>
-		</div>
-		<!-- ******************************************************/MODAL AGREGAR******************************************************** -->
-
+         <div id="modal-agregar" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Agregar Periodo Academico</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <div class="container-fluid">
+                        <div class="form-inline">
+                           <label class="control-label col-sm-2 col-md-2 col-lg-3">Clonar de :</label>
+                           <select id="periodo-clonar" class="form-control col-sm-3 col-md-3 col-lg-2" style="text-align-last: center;">
+                              <?php 
+                                 $ciclos=$o->MostrarCiclos();
+                                 foreach($ciclos as $a)
+                                 {
+                                 ?>	
+                              <option value="<?php echo $a->perAcademico; ?>">
+                                 <?php echo $a->perAcademico; ?>
+                              </option>
+                              <?php  
+                                 }
+                                 ?>
+                           </select>
+                           <label class="control-label offset-sm-1 offset-md-1 col-sm-2 col-md-2 col-lg-3">Nuevo Periodo:</label>
+                           <input id="txtperiodo" onkeypress="return validarNumericosGuiones(event);" style="text-align: center;" type="text" name="txtperiodo" class="form-control col-sm-3 col-md-3 col-lg-2" autocomplete="off">
+                        </div>
+                        <br>
+                        <button id="agregar-periodo" class="btn btn-primary offset-sm-2 col-sm-8 offset-md-4 col-md-4">Agregar</button>
+                     </div>
+                     <br>
+                     <div id="carga-agregar">
+                     	
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- ******************************************************/MODAL AGREGAR******************************************************** -->
          <center>
             <select id="select-cursos" class="select-cursos">
                <?php 
@@ -195,8 +204,7 @@
          		 width: '240px',
          	});
          
-         });
-         
+         });         
       </script>
       <script type="text/javascript" src="librerias/js/comun.js" ></script>
    </body>

@@ -7,6 +7,7 @@
 					$base=$basehorarios->MostrarDatosFila($indice);
 					foreach ($base as $a) {
 						$idcurso=$a->codCurso;
+						$perAcademico=$a->perAcademico;
 					}
-					echo json_encode($basehorarios->HorarioCurso("$idcurso"));
+					echo json_encode($basehorarios->HorarioCurso("$idcurso",$perAcademico));
  ?>

@@ -11,9 +11,13 @@
 	min-width: 50px;
   text-align: center;
   font-size:12px;
-
-
 }
+
+.td-periodo{
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .contenido-tabla{
 	min-width: 169px;
 	height: 45px;
@@ -42,6 +46,13 @@ th, tr{
 
 .cabecera-tabla{
   font-weight: bold;
+}
+
+.titulo-tabla{
+  padding: 5px;
+  font-weight: bold;
+  font-size: 25px;
+  color: #787777;
 }
 .rotar 
     {  

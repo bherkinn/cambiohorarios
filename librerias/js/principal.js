@@ -1,727 +1,749 @@
 var medida;
-var disponible=1;
-var cerrado="no";
+var disponible = 1;
+var cerrado = "no";
 var idcursor;
 var indicefila;
 
 
-$(document).ready(function(){
-				$("#select-cursos").select2({
-					 width: '240px',
-				});
-			});
+$(document).ready(function() {
+    $("#select-cursos").select2({
+        width: '240px',
+    });
+});
 
-$(document).ready(function(){
+$(document).ready(function() {
 
-	if ($(window).width()<=675)
-	{
-		
-		$("#select-cursos").select2({
-				width: '260px'
-		});
-	
+    if ($(window).width() <= 675) {
 
-	}
-	else{
-		$("#select-cursos").select2({
-				width: '400px'
-		});
-	}
+        $("#select-cursos").select2({
+            width: '260px'
+        });
+
+
+    } else {
+        $("#select-cursos").select2({
+            width: '400px'
+        });
+    }
 });
 
 
-$(window).resize(function(){
-		if ($(window).width()<=1200)
-		{
-			$("#tabla-acomodar").addClass("col-sm-12");
-			$("#tablas-extras").removeClass("container")
-			$("#tablas-extras").addClass("container-fluid");
-		}
-		else{
-			$("#tabla-acomodar").removeClass("col-sm-12");	
-			$("#tablas-extras").removeClass("container-fluid")
-			$("#tablas-extras").addClass("container");
-		}
+$(window).resize(function() {
+    if ($(window).width() <= 1200) {
+        $("#tabla-acomodar").addClass("col-sm-12");
+        $("#tablas-extras").removeClass("container")
+        $("#tablas-extras").addClass("container-fluid");
+    } else {
+        $("#tabla-acomodar").removeClass("col-sm-12");
+        $("#tablas-extras").removeClass("container-fluid")
+        $("#tablas-extras").addClass("container");
+    }
 });
-$(window).ready(function(){
-		if ($(window).width()<=1200)
-		{
-			$("#tabla-acomodar").addClass("col-sm-12");
-			$("#tablas-extras").removeClass("container")
-			$("#tablas-extras").addClass("container-fluid");
-		}
-		else{
-			$("#tabla-acomodar").removeClass("col-sm-12");	
-			$("#tablas-extras").removeClass("container-fluid")
-			$("#tablas-extras").addClass("container");
-		}
+$(window).ready(function() {
+    if ($(window).width() <= 1200) {
+        $("#tabla-acomodar").addClass("col-sm-12");
+        $("#tablas-extras").removeClass("container")
+        $("#tablas-extras").addClass("container-fluid");
+    } else {
+        $("#tabla-acomodar").removeClass("col-sm-12");
+        $("#tablas-extras").removeClass("container-fluid")
+        $("#tablas-extras").addClass("container");
+    }
 });
 
 
-$(window).resize(function(){
-	if($(window).width()!=medida)
-	{
-		if ($(window).width()<=675)
-		{
-			
-			$("#select-cursos").select2({
-					width: '260px'
-			});
+$(window).resize(function() {
+    if ($(window).width() != medida) {
+        if ($(window).width() <= 675) {
 
-		}
-		else{
-			$("#select-cursos").select2({
-					width: '400px'
-			});
-		}
-		medida=$(window).width();
-	}
+            $("#select-cursos").select2({
+                width: '260px'
+            });
+
+        } else {
+            $("#select-cursos").select2({
+                width: '400px'
+            });
+        }
+        medida = $(window).width();
+    }
 });
 
-// $(document).ready(function(){
-// 	$("#tabla").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-// 	ciclo=$("#cbociclo").val();
-// 	curso=$("#select-cursos").val();
-// 	$.post("anexos/tabla.php",{curso:curso,ciclo:ciclo},
-// 				function(data){
-// 					$("#tabla").css({"display":"none"});
-// 					$("#tabla").html(data).fadeIn();
-// 			});
-// });
 let cboaulas;
 let cbodocentes;
-$(document).ready(function(){
-	$.post("anexos/combos/aulas.php",{},
-		function(data){
-			cboaulas=JSON.parse(data);
-		});
+$(document).ready(function() {
+    $.post("anexos/combos/aulas.php", {},
+        function(data) {
+            cboaulas = JSON.parse(data);
+        });
 });
 
-$(document).ready(function(){
-	$.post("anexos/combos/docentes.php",{},
-		function(data){
-			cbodocentes=JSON.parse(data);
-		});
+$(document).ready(function() {
+    $.post("anexos/combos/docentes.php", {},
+        function(data) {
+            cbodocentes = JSON.parse(data);
+        });
 });
 
-$(document).ready(function(){
-	$("#tabla-carga").removeClass("table-responsive border rounded");
-	$("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-	ciclo=$("#cbociclo").val();
-	curso=$("#select-cursos").val();
-	
-	$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
-				function(data){	
-					 datosJSON=JSON.parse(data);
-					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",20);
-					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",20);
-					 
-					// $("#tabla").html(data).fadeIn();
-			});
+$(document).ready(function() {
+    $("#tabla-carga").removeClass("table-responsive border rounded");
+    $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
+    ciclo = $("#cbociclo").val();
+    curso = $("#select-cursos").val();
+
+    $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
+            curso: curso,
+            ciclo: ciclo,
+            estado: 1
+        },
+        function(data) {
+            datosJSON = JSON.parse(data);
+            setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 20);
+            setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 20);
+        });
 });
 
-function CrearTablaPrincipal(datosJson,cboaulas,cbodocentes){
-	$("#tabla-carga").attr("class","table-responsive border rounded");
-	var cantidad=Object.keys(datosJSON).length;
-	var cantidadAulas=Object.keys(cboaulas).length;
-	var cantidadDocentes=Object.keys(cbodocentes).length;
-	var tabla=document.createElement("table");
-	tabla.setAttribute("id","tabla-principal");
-	tabla.setAttribute("class","tabla-principal");
-	var contenedor=document.getElementById("tabla-carga");
-	contenedor.appendChild(tabla);
-	$("#tabla-principal").append("<tr class='head-tabla'><th style='width:2px'></th>"+
-									 "<th class='num th'>N.O.</th>"+
-									 "<th class='th'>DIA</th>"+
-								 	 "<th class='th'>HORA</th>"+
-								 	 "<th class='th'>CURSO</th>"+
-								 	 "<th class='th'>SECCION</th>"+
-								 	 "<th class='th'>T/P</th>"+
-								 	 "<th class='thaula'>AULA</th>"+
-								 	 "<th class='thaula'>AULA 2</th>"+
-								 	 "<th class='thdocente'>DOCENTE</th>"+
-								 	 "<th class='th'>C1</th>"+
-								 	 "<th class='th'>C2</th>"+
-								 	 "<th class='th'>C3</th>"+
-								 	 "<th class='th'>C4</th>"+
-								 	 "<th class='th'>C5</th>"+
-								 	 "<th class='th'>C6</th>"+
-								 	 "<th class='th'>C7</th>"+
-								 	 "<th class='th'>C8</th>"+
-								 	 "<th class='th'>C9</th>"+
-								 	 "<th class='thc10'>C10</th>"+
-								 	 "<th style='width:2px'></th>"+"</tr>");
-	for(i=0;i<cantidad;i++)
-	{	
-		id=datosJSON[i]['idHorarios'];
-		$("#tabla-principal").append(
-		"<tr class='tr' id='"+id+"'>"+
-		"<td></td>"+
-		"<td><input id='txtorden"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['orden']+"'></td>"+
-		"<td><input id='txtdia"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['dia']+"'></td>"+
-		"<td><input id='txthora"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['hora']+"'></td>"+
-		"<td><input id='txtcurso"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['codCurso']+"'></td>"+
-		"<td><input id='txtseccion"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['secCurso']+"'></td>"+
-		"<td><input id='txttp"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['teopra']+"'></td>"+
-		"<td id='tdaulas'><select class='select-aulas' id='select-aulas"+id+"' disabled></select>"+
-		"<td id='tdaulas2'><select class='select-aulas' id='select-aulas2"+id+"' disabled><option value=''> </option></select>"+
-		"<td id='tddocentes'><select class='select-docentes' id='select-docentes"+id+"' disabled></select>"+
-		"<td><input id='txtc1"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c1']+"'></td>"+
-		"<td><input id='txtc2"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c2']+"'></td>"+
-		"<td><input id='txtc3"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c3']+"'></td>"+
-		"<td><input id='txtc4"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c4']+"'></td>"+
-		"<td><input id='txtc5"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c5']+"'></td>"+
-		"<td><input id='txtc6"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c6']+"'></td>"+
-		"<td><input id='txtc7"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c7']+"'></td>"+
-		"<td><input id='txtc8"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c8']+"'></td>"+
-	    "<td><input id='txtc9"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c9']+"'></td>"+
-	    "<td><input id='txtc10"+id+"' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='"+datosJSON[i]['c10']+"'></td>"+
-	    "<td></td>"+
-	    "</tr>");
+function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
+    $("#tabla-carga").attr("class", "table-responsive border rounded");
+    var cantidad = Object.keys(datosJSON).length;
+    var cantidadAulas = Object.keys(cboaulas).length;
+    var cantidadDocentes = Object.keys(cbodocentes).length;
+    var tabla = document.createElement("table");
+    tabla.setAttribute("id", "tabla-principal");
+    tabla.setAttribute("class", "tabla-principal");
+    var contenedor = document.getElementById("tabla-carga");
+    contenedor.appendChild(tabla);
+    $("#tabla-principal").append("<tr class='head-tabla'><th style='width:2px'></th>" +
+        "<th class='num th'>N.O.</th>" +
+        "<th class='th'>DIA</th>" +
+        "<th class='th'>HORA</th>" +
+        "<th class='th'>CURSO</th>" +
+        "<th class='th'>SECCION</th>" +
+        "<th class='th'>T/P</th>" +
+        "<th class='thaula'>AULA</th>" +
+        "<th class='thaula'>AULA 2</th>" +
+        "<th class='thdocente'>DOCENTE</th>" +
+        "<th class='th'>C1</th>" +
+        "<th class='th'>C2</th>" +
+        "<th class='th'>C3</th>" +
+        "<th class='th'>C4</th>" +
+        "<th class='th'>C5</th>" +
+        "<th class='th'>C6</th>" +
+        "<th class='th'>C7</th>" +
+        "<th class='th'>C8</th>" +
+        "<th class='th'>C9</th>" +
+        "<th class='thc10'>C10</th>" +
+        "<th style='width:2px'></th>" + "</tr>");
+    for (i = 0; i < cantidad; i++) {
+        id = datosJSON[i]['idHorarios'];
+        $("#tabla-principal").append(
+            "<tr class='tr' id='" + id + "'>" +
+            "<td></td>" +
+            "<td><input id='txtorden" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['orden'] + "'></td>" +
+            "<td><input id='txtdia" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['dia'] + "'></td>" +
+            "<td><input id='txthora" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['hora'] + "'></td>" +
+            "<td><input id='txtcurso" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['codCurso'] + "'></td>" +
+            "<td><input id='txtseccion" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['secCurso'] + "'></td>" +
+            "<td><input id='txttp" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['teopra'] + "'></td>" +
+            "<td id='tdaulas'><select class='select-aulas' id='select-aulas" + id + "' disabled></select>" +
+            "<td id='tdaulas2'><select class='select-aulas' id='select-aulas2" + id + "' disabled><option value=''> </option></select>" +
+            "<td id='tddocentes'><select class='select-docentes' id='select-docentes" + id + "' disabled></select>" +
+            "<td><input id='txtc1" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c1'] + "'></td>" +
+            "<td><input id='txtc2" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c2'] + "'></td>" +
+            "<td><input id='txtc3" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c3'] + "'></td>" +
+            "<td><input id='txtc4" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c4'] + "'></td>" +
+            "<td><input id='txtc5" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c5'] + "'></td>" +
+            "<td><input id='txtc6" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c6'] + "'></td>" +
+            "<td><input id='txtc7" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c7'] + "'></td>" +
+            "<td><input id='txtc8" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c8'] + "'></td>" +
+            "<td><input id='txtc9" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c9'] + "'></td>" +
+            "<td><input id='txtc10" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c10'] + "'></td>" +
+            "<td></td>" +
+            "</tr>");
 
-		for(u=0;u<cantidadAulas;u++)
-		{	
-			// AULAS1
-			$("#select-aulas"+datosJSON[i]['idHorarios']).append("<option value='"+cboaulas[u]['aula']+"'>"+cboaulas[u]['aula']+"</option>");
-			if(datosJSON[i]['codAula']==cboaulas[u]['aula'])
-				{
-					$("#select-aulas"+datosJSON[i]['idHorarios']+">option"+"[value='"+datosJSON[i]['codAula']+"']").attr("selected","");
-				}
-			$("#select-aulas"+datosJSON[i]['idHorarios']+">option"+"[value='"+cboaulas[u]['aula']+"']").attr(
-												"title","Capacidad: "+cboaulas[u]['capacidad']+
-														"Tipo: "+cboaulas[u]['tipSilla']+
-														"Entrada: "+cboaulas[u]['tipEntrada']);
+        for (u = 0; u < cantidadAulas; u++) {
+            // AULAS1
+            $("#select-aulas" + datosJSON[i]['idHorarios']).append("<option value='" + cboaulas[u]['aula'] + "'>" + cboaulas[u]['aula'] + "</option>");
+            if (datosJSON[i]['codAula'] == cboaulas[u]['aula']) {
+                $("#select-aulas" + datosJSON[i]['idHorarios'] + ">option" + "[value='" + datosJSON[i]['codAula'] + "']").attr("selected", "");
+            }
+            $("#select-aulas" + datosJSON[i]['idHorarios'] + ">option" + "[value='" + cboaulas[u]['aula'] + "']").attr(
+                "title", "Capacidad: " + cboaulas[u]['capacidad'] +
+                "Tipo: " + cboaulas[u]['tipSilla'] +
+                "Entrada: " + cboaulas[u]['tipEntrada']);
 
-			// AULAS2
-			$("#select-aulas2"+datosJSON[i]['idHorarios']).append("<option value='"+cboaulas[u]['aula']+"'>"+cboaulas[u]['aula']+"</option>");
-			if(datosJSON[i]['codAula2']==cboaulas[u]['aula'])
-				{
-					$("#select-aulas2"+datosJSON[i]['idHorarios']+">option"+"[value='"+datosJSON[i]['codAula2']+"']").attr("selected","");
-				}
-			$("#select-aulas2"+datosJSON[i]['idHorarios']+">option"+"[value='"+cboaulas[u]['aula']+"']").attr(
-												"title","Capacidad: "+cboaulas[u]['capacidad']+
-														"Tipo: "+cboaulas[u]['tipSilla']+
-														"Entrada: "+cboaulas[u]['tipEntrada']);
-		}
+            // AULAS2
+            $("#select-aulas2" + datosJSON[i]['idHorarios']).append("<option value='" + cboaulas[u]['aula'] + "'>" + cboaulas[u]['aula'] + "</option>");
+            if (datosJSON[i]['codAula2'] == cboaulas[u]['aula']) {
+                $("#select-aulas2" + datosJSON[i]['idHorarios'] + ">option" + "[value='" + datosJSON[i]['codAula2'] + "']").attr("selected", "");
+            }
+            $("#select-aulas2" + datosJSON[i]['idHorarios'] + ">option" + "[value='" + cboaulas[u]['aula'] + "']").attr(
+                "title", "Capacidad: " + cboaulas[u]['capacidad'] +
+                "Tipo: " + cboaulas[u]['tipSilla'] +
+                "Entrada: " + cboaulas[u]['tipEntrada']);
+        }
 
-		for(a=0;a<cantidadDocentes;a++)
-		{
-			$("#select-docentes"+datosJSON[i]['idHorarios']).append("<option value='"+cbodocentes[a]["codDocente"]+"'>"+cbodocentes[a]['apePaterno']+" "+
-																   cbodocentes[a]['apeMaterno']+", "+cbodocentes[a]['nombres']+"</option>");
-			if(datosJSON[i]['codDocente']==cbodocentes[a]['codDocente'])
-				{
-					$("#select-docentes"+datosJSON[i]['idHorarios']+">option"+"[value='"+datosJSON[i]['codDocente']+"']").attr("selected","");
-				}
-		}
-		
-	}
-	//AGREGAR FILA DE GURADAR
-	$("#tabla-principal").append(
-		"<tr id='agregar-fila'>"+
-		"<td></td>"+
-		"<td><input id='txtorden' type='text' onkeypress='return validarNumericos(event)' class='form-control txtform' spellcheck='false' autocomplete='off'></td>"+
-		"<td><input id='txtdia' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='2'></td>"+
-		"<td><input id='txthora' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>"+
-		"<td><input id='txtcurso' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' disabled value='"+$("#select-cursos").val()+"'></td>"+
-		"<td><input id='txtseccion' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>"+
-		"<td><input id='txttp' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-		"<td id='tdaulas'><select class='select-aulas' id='select-aulas'><option disabled selected >Elegir</option></select>"+
-		"<td id='tdaulas2'><select class='select-aulas' id='select-aulas2'><option value=''> </option></select>"+
-		"<td id='tddocentes'><select class='select-docentes' id='select-docentes'><option disabled selected >Elegir</option></select>"+
-		"<td><input id='txtc1' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-		"<td><input id='txtc2' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-		"<td><input id='txtc3' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-		"<td><input id='txtc4' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-		"<td><input id='txtc5' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-		"<td><input id='txtc6' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-		"<td><input id='txtc7' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-		"<td><input id='txtc8' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-	    "<td><input id='txtc9' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-	    "<td><input id='txtc10' type='text' class='form-control txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>"+
-	    "<td></td>"+
-	    "</tr>");
+        for (a = 0; a < cantidadDocentes; a++) {
+            $("#select-docentes" + datosJSON[i]['idHorarios']).append("<option value='" + cbodocentes[a]["codDocente"] + "'>" + cbodocentes[a]['apePaterno'] + " " +
+                cbodocentes[a]['apeMaterno'] + ", " + cbodocentes[a]['nombres'] + "</option>");
+            if (datosJSON[i]['codDocente'] == cbodocentes[a]['codDocente']) {
+                $("#select-docentes" + datosJSON[i]['idHorarios'] + ">option" + "[value='" + datosJSON[i]['codDocente'] + "']").attr("selected", "");
+            }
+        }
 
-	for(u=0;u<cantidadAulas;u++)
-		{	
-			// AULAS1
-			$("#select-aulas").append("<option value='"+cboaulas[u]['aula']+"'>"+cboaulas[u]['aula']+"</option>");
-			
-			$("#select-aulas>option"+"[value='"+cboaulas[u]['aula']+"']").attr(
-												"title","Capacidad: "+cboaulas[u]['capacidad']+
-														"Tipo: "+cboaulas[u]['tipSilla']+
-														"Entrada: "+cboaulas[u]['tipEntrada']);
-			// AULAS2
-			$("#select-aulas2").append("<option value='"+cboaulas[u]['aula']+"'>"+cboaulas[u]['aula']+"</option>");
-			
-			$("#select-aulas2>option"+"[value='"+cboaulas[u]['aula']+"']").attr(
-												"title","Capacidad: "+cboaulas[u]['capacidad']+
-														"Tipo: "+cboaulas[u]['tipSilla']+
-														"Entrada: "+cboaulas[u]['tipEntrada']);
-		}
+    }
+    //AGREGAR FILA DE GURADAR
+    $("#tabla-principal").append(
+        "<tr id='agregar-fila'>" +
+        "<td></td>" +
+        "<td><input id='txtorden' type='text' onkeypress='return validarNumericos(event)' class='form-control-n txtform' spellcheck='false' autocomplete='off'></td>" +
+        "<td><input id='txtdia' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='2'></td>" +
+        "<td><input id='txthora' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>" +
+        "<td><input id='txtcurso' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' disabled value='" + $("#select-cursos").val() + "'></td>" +
+        "<td><input id='txtseccion' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>" +
+        "<td><input id='txttp' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td id='tdaulas'><select class='select-aulas' id='select-aulas'><option disabled selected >Elegir</option></select>" +
+        "<td id='tdaulas2'><select class='select-aulas' id='select-aulas2'><option value=''> </option></select>" +
+        "<td id='tddocentes'><select class='select-docentes' id='select-docentes'><option disabled selected >Elegir</option></select>" +
+        "<td><input id='txtc1' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc2' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc3' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc4' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc5' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc6' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc7' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc8' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc9' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td><input id='txtc10' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
+        "<td></td>" +
+        "</tr>");
 
-		for(a=0;a<cantidadDocentes;a++)
-		{
-			$("#select-docentes").append("<option value='"+cbodocentes[a]["codDocente"]+"'>"+cbodocentes[a]['apePaterno']+" "+
-																   cbodocentes[a]['apeMaterno']+", "+cbodocentes[0]['nombres']+"</option>");		
-		}
+    for (u = 0; u < cantidadAulas; u++) {
+        // AULAS1
+        $("#select-aulas").append("<option value='" + cboaulas[u]['aula'] + "'>" + cboaulas[u]['aula'] + "</option>");
 
-	$(".select-aulas").select2({
-		width:"80px"
-	});
-	$(".select-docentes").select2({
-		width:"160px"
-	});
+        $("#select-aulas>option" + "[value='" + cboaulas[u]['aula'] + "']").attr(
+            "title", "Capacidad: " + cboaulas[u]['capacidad'] +
+            "Tipo: " + cboaulas[u]['tipSilla'] +
+            "Entrada: " + cboaulas[u]['tipEntrada']);
+        // AULAS2
+        $("#select-aulas2").append("<option value='" + cboaulas[u]['aula'] + "'>" + cboaulas[u]['aula'] + "</option>");
 
-	//***********************
-	ValidarCajas();
-	MenuContextual();
-	AccionesDeCajas();
+        $("#select-aulas2>option" + "[value='" + cboaulas[u]['aula'] + "']").attr(
+            "title", "Capacidad: " + cboaulas[u]['capacidad'] +
+            "Tipo: " + cboaulas[u]['tipSilla'] +
+            "Entrada: " + cboaulas[u]['tipEntrada']);
+    }
+
+    for (a = 0; a < cantidadDocentes; a++) {
+        $("#select-docentes").append("<option value='" + cbodocentes[a]["codDocente"] + "'>" + cbodocentes[a]['apePaterno'] + " " +
+            cbodocentes[a]['apeMaterno'] + ", " + cbodocentes[0]['nombres'] + "</option>");
+    }
+
+    $(".select-aulas").select2({
+        width: "80px"
+    });
+    $(".select-docentes").select2({
+        width: "160px"
+    });
+
+    //***********************
+    ValidarCajas();
+    MenuContextual();
+    AccionesDeCajas();
 
 }
 
-function validarNumericos(e){
-	if(e.charCode>=48 && e.charCode<=57)
-	{
-		return true;
-	}
-		return false;
-	
+function validarNumericos(e) {
+    if (e.charCode >= 48 && e.charCode <= 57) {
+        return true;
+    }
+    return false;
+
 }
 
-function ValidarCajas(){
+function validarNumericosGuiones(e) {
+    if (e.charCode >= 48 && e.charCode <= 57 || e.charCode == 45) {
+        return true;
+    }
+    return false;
 
-	// $('#txtorden').keyup(function(){
- //  	var nombre = $(this);
- //    nombre.val( nombre.val().replace(/[A-Za-z-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|:|_|.|;|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
-	// });
-		$('#txtdia').keyup(function(){
-	  	var dia = $(this);
-	    dia.val( dia.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
-	    dia.val(dia.val().toUpperCase());
-	});
-		$('#txthora').keyup(function(){
-	  	var hora = $(this);
-	    hora.val( hora.val().replace(/[A-Za-z|{}|´|¨|+|¿|?|*|&|%|$|#|""|!|<|>|_|.|;|:|,|^|`|°|()|=|/|'|¡]/g, function(str) { return ''; } ) );
-	    hora.val(hora.val().toUpperCase());
-	});
-		$('#txtseccion').keyup(function(){
-	  	var sec = $(this);
-	    sec.val( sec.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡]/g, function(str) { return ''; } ) );
-	    sec.val(sec.val().toUpperCase());
-	});
-		$('#txttp').keyup(function(){
-	  	var dia = $(this);
-	    dia.val( dia.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡]/g, function(str) { return ''; } ) );
-	    dia.val(dia.val().toUpperCase());
-
-	});
-
-	for(i=1;i<=10;i++)
-	{
-		$('#txtc'+i).keyup(function(){
-	  	var dia = $(this);
-	    dia.val( dia.val().replace(/[A-Za-z-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡|/]/g, function(str) { return ''; } ) );
-	    dia.val(dia.val().toUpperCase());
-	    
-		});
-	}
-	
 }
 
-function AccionesDeCajas(){
+function ValidarCajas() {
+    $("#txtperiodo").keyup(function() {
+        var periodo = $(this);
+        periodo.val(periodo.val().replace(/[A-Za-z|ñ|Ñ|{}|´|¨|+|¿|?|*|&|%|$|#|""|!|<|>|:|_|.|;|,|^|`|°|()|=|/|'|¡]/g, function(str) {
+            return '';
+        }));
+    });
 
-	var comboactivo=0;
-	var idcursor;
-	var idcursoractivo;
-	var open=0;
+    $('#txtorden').keyup(function() {
+        var nombre = $(this);
+        nombre.val(nombre.val().replace(/[A-Za-z-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|:|_|.|;|,|^|`|°|()|=|/|'|¡]/g, function(str) {
+            return '';
+        }));
+    });
+    $('#txtdia').keyup(function() {
+        var dia = $(this);
+        dia.val(dia.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|/|'|¡]/g, function(str) {
+            return '';
+        }));
+        dia.val(dia.val().toUpperCase());
+    });
+    $('#txthora').keyup(function() {
+        var hora = $(this);
+        hora.val(hora.val().replace(/[A-Za-z|{}|´|¨|+|¿|?|*|&|%|$|#|""|!|<|>|_|.|;|:|,|^|`|°|()|=|/|'|¡]/g, function(str) {
+            return '';
+        }));
+        hora.val(hora.val().toUpperCase());
+    });
+    $('#txtseccion').keyup(function() {
+        var sec = $(this);
+        sec.val(sec.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡]/g, function(str) {
+            return '';
+        }));
+        sec.val(sec.val().toUpperCase());
+    });
+    $('#txttp').keyup(function() {
+        var dia = $(this);
+        dia.val(dia.val().replace(/[1-9-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡]/g, function(str) {
+            return '';
+        }));
+        dia.val(dia.val().toUpperCase());
 
-	$("tr").click(function(){
-		idcursor=$(this).attr("id");
-		editar(idcursor);
-		open=1;
-		//*********Comprobar si el cursor esta activo**********
-		if(idcursoractivo)
-		{	
-			if(idcursor!=idcursoractivo)
-			{
-				salir(idcursoractivo);
-			}	
-		}
-		idcursoractivo=idcursor;	
-		comboactivo=1;
-	});
+    });
 
-	$("#tabla-carga").mouseleave(function(){
-		if(open==1)
-		{
-				if(comboactivo==0)
-				{
-					salir(idcursoractivo);
-					open=0;
-				}	
-		}
-				
-	});
+    for (i = 1; i <= 10; i++) {
+        $('#txtc' + i).keyup(function() {
+            var dia = $(this);
+            dia.val(dia.val().replace(/[A-Za-z-|{}|´|¨|+|¿|?|*|-|&|%|$|#|""|!|<|>|-|_|.|;|:|,|^|`|°|()|=|'|¡|/]/g, function(str) {
+                return '';
+            }));
+            dia.val(dia.val().toUpperCase());
 
-	$("td, th").mouseenter(function(){
-		idcelda=$(this).attr("id");
-		if(idcelda)
-		{
-			comboactivo=1;
-		}
-		else
-		{
-			if(comboactivo==1)
-			{
-				comboactivo=0;
-			}
-		}
+        });
+    }
 
-	});
+}
+
+function AccionesDeCajas() {
+
+    var comboactivo = 0;
+    var idcursor;
+    var idcursoractivo;
+    var open = 0;
+
+    $("tr").click(function() {
+        idcursor= $(this).attr("id");
+        if(idcursor)
+        {
+        	if(idcursor!="agregar-fila")
+        	send(idcursor);
+	        editar(idcursor);
+	        open = 1;
+	        //*********Comprobar si el cursor esta activo**********
+	        if (idcursoractivo) {
+	            if (idcursor != idcursoractivo) {
+	                salir(idcursoractivo);
+	            }
+	        }
+	        idcursoractivo = idcursor;
+	        comboactivo = 1;
+        }
+        
+    });
+
+    $("#tabla-carga").mouseleave(function() {
+        if (open == 1) {
+            if (comboactivo == 0) {
+                salir(idcursoractivo);
+                open = 0;
+            }
+        }
+
+    });
+
+    $("td, th").mouseenter(function() {
+        idcelda = $(this).attr("id");
+        if (idcelda) {
+            comboactivo = 1;
+        } else {
+            if (comboactivo == 1) {
+                comboactivo = 0;
+            }
+        }
+
+    });
 }
 
 // ***************************************************Menu Contextual********************************************************
 var trderecho;
 
-function MenuContextual(){
+function MenuContextual() {
 
-	$("tr").mousedown(function(e){
-		comboactivo=1;
-		trderecho=$(this).attr("id");
-		if(trderecho)
-		{
-			if(trderecho!="agregar-fila")
-			{
-				
-				console.log(trderecho)
-				if(e.which==3)
-				{
-				$("#"+trderecho).addClass("pintado")
-				$("#menucontextual").css("top",e.pageY - 20);
-				$("#menucontextual").css("left",e.pageX - 20);
-				$("#menucontextual").show("fast");
+    $("tr").mousedown(function(e) {
+        comboactivo = 1;
+        trderecho = $(this).attr("id");
+        if (trderecho) {
+            if (trderecho != "agregar-fila") {
 
-				$(document).on("contextmenu", function(e) {
-	                return false;
-	             });
-				}
-				
-			}
-			else
-			{
-				if(e.which==3)
-				{
-				$("#"+trderecho).addClass("pintado")
-				$("#menucontextual-agregar").css("top",e.pageY - 20);
-				$("#menucontextual-agregar").css("left",e.pageX - 20);
-				$("#menucontextual-agregar").show("fast");
+                console.log(trderecho)
+                if (e.which == 3) {
+                    $("#" + trderecho).addClass("pintado")
+                    $("#menucontextual").css("top", e.pageY - 20);
+                    $("#menucontextual").css("left", e.pageX - 20);
+                    $("#menucontextual").show("fast");
 
-				$(document).on("contextmenu", function(e) {
-	                return false;
-	             });
-				}
-			}
-		
+                    $(document).on("contextmenu", function(e) {
+                        return false;
+                    });
+                }
 
-		}
-	}); 
+            } else {
+                if (e.which == 3) {
+                    $("#" + trderecho).addClass("pintado")
+                    $("#menucontextual-agregar").css("top", e.pageY - 20);
+                    $("#menucontextual-agregar").css("left", e.pageX - 20);
+                    $("#menucontextual-agregar").show("fast");
 
-	
+                    $(document).on("contextmenu", function(e) {
+                        return false;
+                    });
+                }
+            }
 
-	
 
-	$("#menucontextual").mouseleave(function(){
-		$("#"+trderecho).removeClass("pintado")
-		$("#menucontextual").hide("fast");
-		$(document).off("contextmenu");
-		
-	});
+        }
+    });
 
-	$("#menucontextual-agregar").mouseleave(function(){
-		$("#"+trderecho).removeClass("pintado");
-		$("#menucontextual-agregar").hide("fast");
-		$(document).off("contextmenu");
-		});
+
+
+
+    $("#menucontextual").mouseleave(function() {
+        $("#" + trderecho).removeClass("pintado")
+        $("#menucontextual").hide("fast");
+        $(document).off("contextmenu");
+
+    });
+
+    $("#menucontextual-agregar").mouseleave(function() {
+        $("#" + trderecho).removeClass("pintado");
+        $("#menucontextual-agregar").hide("fast");
+        $(document).off("contextmenu");
+    });
 }
 
 // -----------------------------------------------------------------------------------------------FUNCIONES DEL MENU CONTEXTUAL
 
-$("#eliminar-fila").click(function(e){
-	e.preventDefault();
-	$("#"+trderecho).fadeOut(500);
-	$("#menucontextual").hide("fast");
-	$.post("anexos/tabla-principal/BorrarHorariosTabla.php",{id:trderecho},
-		function(data){
-			alertify.success("Datos Borrados");
+$("#eliminar-fila").click(function(e) {
+    e.preventDefault();
+    $("#" + trderecho).fadeOut(500);
+    $("#menucontextual").hide("fast");
+    $.post("anexos/tabla-principal/BorrarHorariosTabla.php", {
+            id: trderecho
+        },
+        function(data) {
+            alertify.success("Datos Borrados");
+        });
+});
+
+$("#duplicar-fila").click(function(e) {
+    e.preventDefault();
+    duplicar(trderecho);
+    $("#menucontextual").hide("fast");
+    setTimeout("buscar()", 100);
+});
+
+$("#registrar-fila").click(function(e) {
+    e.preventDefault();
+    guardar();
+    $("#menucontextual-agregar").hide("fast");
+    setTimeout("buscar()", 800);
+});
+
+$("#agregar-periodo").click(function(){
+	var anteperiodo=$("#periodo-clonar").val();
+	var neoperiodo=$("#txtperiodo").val();
+	setTimeout("mostrarcargando();",1000);
+	$.ajax({
+		data:{anteperiodo:anteperiodo,neoperiodo:neoperiodo},
+		url:"anexos/nuevoperiodo.php",
+		type: "post",
+		success:function(data){
+			setTimeout("mostrarcheck();",5000);
+			setTimeout("mostrarcheck2();",6800);
+			setTimeout("location.reload()",7500);
+		}
+
 	});
-});
-
-$("#duplicar-fila").click(function(e){
-		e.preventDefault();
-		duplicar(trderecho);
-		$("#menucontextual").hide("fast");	
-		setTimeout("buscar()",100);	
-});
-
-$("#registrar-fila").click(function(e){
-		e.preventDefault();
-		guardar();
-		$("#menucontextual-agregar").hide("fast");
-		setTimeout("buscar()",800);
+	// alert(anteperiodo+"  "+ neoperiodo);
 });
 
 // *****************************************************************************************************************************
+function mostrarcargando()
+{
+	$('#carga-agregar').append("<center><img style='height:80px;' src='librerias/img/cargando.gif'/></center>").fadeIn();
+}
+function mostrarcheck()
+{
+	$('#carga-agregar').html("<center><img style='height:80px;' src='librerias/img/exito.gif'/></center>").fadeIn();
+}
+function mostrarcheck2()
+{
+	$('#carga-agregar').html("<center><img style='height:80px;' src='librerias/img/exito.jpg'/></center>");
+}
+function buscar() {
 
-function buscar(){
+    $("#tabla-carga").removeClass("table-responsive border rounded");
+    $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
+    ciclo = $("#cbociclo").val();
+    curso = $("#select-cursos").val();
 
-		$("#tabla-carga").removeClass("table-responsive border rounded");
-		$("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-		ciclo=$("#cbociclo").val();
-		curso=$("#select-cursos").val();
-		
-		$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
-					function(data){	
-						 datosJSON=JSON.parse(data);
-						 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",60);
-						 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",60);
-				});
+    $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
+            curso: curso,
+            ciclo: ciclo,
+            estado: 1
+        },
+        function(data) {
+            datosJSON = JSON.parse(data);
+            setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 60);
+            setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 60);
+        });
 }
 
-$(document).ready(function(){
-	$("#select-cursos").change(function(){
-		$("#select-cursos option:selected").each(function(){
-			$("#tabla-carga").removeClass("table-responsive border rounded");
-			$("#tabla-carga").html("");
-			$("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-			ciclo=$("#cbociclo").val();
-			curso=$("#select-cursos").val();
-	
-			$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
-				function(data){	
-					 datosJSON=JSON.parse(data);
-					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",400);
-					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",400);	 
-					// $("#tabla").html(data).fadeIn();
-			});
-			});
-		});
-	});
+$(document).ready(function() {
+    $("#select-cursos").change(function() {
+        $("#select-cursos option:selected").each(function() {
+            $("#tabla-carga").removeClass("table-responsive border rounded");
+            $("#tabla-carga").html("");
+            $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
+            ciclo = $("#cbociclo").val();
+            curso = $("#select-cursos").val();
 
-$(document).ready(function(){
-	$("#cbociclo").change(function(){
-		$("#cbociclo option:selected").each(function(){
-			$("#tabla-carga").removeClass("table-responsive border rounded");
-			$("#tabla-carga").html("");
-			$("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-			ciclo=$("#cbociclo").val();
-			curso=$("#select-cursos").val();
-	
-			$.post("anexos/tabla-principal/ObtenerHorariosTabla.php",{curso:curso,ciclo:ciclo,estado:1},
-				function(data){	
-					 datosJSON=JSON.parse(data);
-					 setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');",400);
-					 setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));",400);	 
-			});
-			});
-		});
-	});
+            $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
+                    curso: curso,
+                    ciclo: ciclo,
+                    estado: 1
+                },
+                function(data) {
+                    datosJSON = JSON.parse(data);
+                    setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 400);
+                    setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 400);
+                    // $("#tabla").html(data).fadeIn();
+                });
+        });
+    });
+});
 
-function editar(indice){
+$(document).ready(function() {
+    $("#cbociclo").change(function() {
+        $("#cbociclo option:selected").each(function() {
+            $("#tabla-carga").removeClass("table-responsive border rounded");
+            $("#tabla-carga").html("");
+            $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
+            ciclo = $("#cbociclo").val();
+            curso = $("#select-cursos").val();
 
-			$("#txtorden"+indice).prop("disabled", false);
-	 		$("#txtorden"+indice).addClass('form-control');
-	 		$("#txtorden"+indice).removeClass('i');
-			//*****************************
-	 		$("#txtdia"+indice).prop("disabled", false);
-	 		// $("#txtdia"+indice).focus();
-	 		$("#txtdia"+indice).addClass('form-control');
-	 		$("#txtdia"+indice).removeClass('i');  
-	 								 
-	 		//****************************
-	 		$("#txthora"+indice).prop("disabled", false);
-	 		$("#txthora"+indice).addClass('form-control');
-	 		$("#txthora"+indice).removeClass('i');
-	 								  
-	 		//****************************
-	 		$("#txtseccion"+indice).prop("disabled", false);
-	 		$("#txtseccion"+indice).addClass('form-control');	 	
-	 		$("#txtseccion"+indice).removeClass('i');	 							     
-	 		//****************************
-	 		$("#txttp"+indice).prop("disabled", false);
-	 		$("#txttp"+indice).addClass('form-control'); 	
-	 		$("#txttp"+indice).removeClass('i');							
-	 		//****************************
-	 		$("#select-aulas"+indice).prop("disabled", false);
-	 		$("#select-aulas2"+indice).prop("disabled", false);
-	 		//****************************
-	 		$("#select-docentes"+indice).prop("disabled", false);
-	 		//***************************
-	 		for(i=1;i<=10;i++)
-	 		{
-	 			$("#txtc"+i+indice).prop("disabled", false);
-		 		$("#txtc"+i+indice).addClass('form-control');
-		 		$("#txtc"+i+indice).removeClass('i');
-	 		}
-	}
+            $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
+                    curso: curso,
+                    ciclo: ciclo,
+                    estado: 1
+                },
+                function(data) {
+                    datosJSON = JSON.parse(data);
+                    setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 400);
+                    setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 400);
+                });
+        });
+    });
+});
 
-function salir(indice){
+function editar(indice) {
 
-					actualizar(indice);
-					$("#txtorden"+indice).prop("disabled", true);
-	 				$("#txtorden"+indice).addClass('i');
-	 				$("#txtorden"+indice).removeClass('form-control');
+    $("#txtorden" + indice).prop("disabled", false);
+    $("#txtorden" + indice).addClass('form-control-n');
+    $("#txtorden" + indice).removeClass('i');
+    //*****************************
+    $("#txtdia" + indice).prop("disabled", false);
+    // $("#txtdia"+indice).focus();
+    $("#txtdia" + indice).addClass('form-control-n');
+    $("#txtdia" + indice).removeClass('i');
 
-					$("#txtdia"+indice).prop("disabled", true);
-	 				$("#txtdia"+indice).addClass('i');
-	 				$("#txtdia"+indice).removeClass('form-control');  
-	 				
-	 				//*******************************
-	 				$("#txthora"+indice).prop("disabled", true);
-	 				$("#txthora"+indice).addClass('i');
-	 				$("#txthora"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txtseccion"+indice).prop("disabled", true);
-	 				$("#txtseccion"+indice).addClass('i');
-	 				$("#txtseccion"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#txttp"+indice).prop("disabled", true);
-	 				$("#txttp"+indice).addClass('i');
-	 				$("#txttp"+indice).removeClass('form-control');
-	 				//*******************************
-	 				$("#select-aulas"+indice).prop("disabled", true);
-	 				$("#select-aulas2"+indice).prop("disabled", true);
-	 				// //*******************************
-	 				$("#select-docentes"+indice).prop("disabled", true);
-	 				//*******************************
-	 				for(i=1;i<=10;i++)
-			 		{
-			 			$("#txtc"+i+indice).prop("disabled", true);
-	 					$("#txtc"+i+indice).addClass('i');
-	 					$("#txtc"+i+indice).removeClass('form-control');
-	 				}
-} 
+    //****************************
+    $("#txthora" + indice).prop("disabled", false);
+    $("#txthora" + indice).addClass('form-control-n');
+    $("#txthora" + indice).removeClass('i');
 
-function guardar(){
+    //****************************
+    $("#txtseccion" + indice).prop("disabled", false);
+    $("#txtseccion" + indice).addClass('form-control-n');
+    $("#txtseccion" + indice).removeClass('i');
+    //****************************
+    $("#txttp" + indice).prop("disabled", false);
+    $("#txttp" + indice).addClass('form-control-n');
+    $("#txttp" + indice).removeClass('i');
+    //****************************
+    $("#select-aulas" + indice).prop("disabled", false);
+    $("#select-aulas2" + indice).prop("disabled", false);
+    //****************************
+    $("#select-docentes" + indice).prop("disabled", false);
+    //***************************
+    for (i = 1; i <= 10; i++) {
+        $("#txtc" + i + indice).prop("disabled", false);
+        $("#txtc" + i + indice).addClass('form-control-n');
+        $("#txtc" + i + indice).removeClass('i');
+    }
+}
 
-	 		var datos = new FormData();
-	 		datos.append("txtorden",$("#txtorden").val());
-	 		datos.append("txtdia",$("#txtdia").val());
-	 		datos.append("txthora",$("#txthora").val());
-	 		datos.append("txtcurso",$("#txtcurso").val());
-	 		datos.append("txtseccion",$("#txtseccion").val());
-	 		datos.append("txttp",$("#txttp").val());
-	 		datos.append("cboaula",$("#select-aulas").val());
-	 		datos.append("cboaula2",$("#select-aulas2").val());
-	 		datos.append("cbodocente",$("#select-docentes").val());
-	 		datos.append("txtc1",$("#txtc1").val());
-	 		datos.append("txtc2",$("#txtc2").val());
-	 		datos.append("txtc3",$("#txtc3").val());
-	 		datos.append("txtc4",$("#txtc4").val());
-	 		datos.append("txtc5",$("#txtc5").val());
-	 		datos.append("txtc6",$("#txtc6").val());
-	 		datos.append("txtc7",$("#txtc7").val());
-	 		datos.append("txtc8",$("#txtc8").val());
-	 		datos.append("txtc9",$("#txtc9").val());
-	 		datos.append("txtc10",$("#txtc10").val());
-	 		datos.append("cboperiodo",$("#cbociclo").val());
+function salir(indice) {
 
-	 		$.ajax({
+    actualizar(indice);
+    $("#txtorden" + indice).prop("disabled", true);
+    $("#txtorden" + indice).addClass('i');
+    $("#txtorden" + indice).removeClass('form-control-n');
 
-	 			type:"POST",
-	 			data:datos,
-	 			url:"anexos/registrar.php",
-	 			contentType: false,
-	 			processData: false,
-	 			success:function(resultado)
-	 			{
-	 				alertify.success("Datos Registrados");
-	 			}
+    $("#txtdia" + indice).prop("disabled", true);
+    $("#txtdia" + indice).addClass('i');
+    $("#txtdia" + indice).removeClass('form-control-n');
 
-	 		});
-	 	}
+    //*******************************
+    $("#txthora" + indice).prop("disabled", true);
+    $("#txthora" + indice).addClass('i');
+    $("#txthora" + indice).removeClass('form-control-n');
+    //*******************************
+    $("#txtseccion" + indice).prop("disabled", true);
+    $("#txtseccion" + indice).addClass('i');
+    $("#txtseccion" + indice).removeClass('form-control-n');
+    //*******************************
+    $("#txttp" + indice).prop("disabled", true);
+    $("#txttp" + indice).addClass('i');
+    $("#txttp" + indice).removeClass('form-control-n');
+    //*******************************
+    $("#select-aulas" + indice).prop("disabled", true);
+    $("#select-aulas2" + indice).prop("disabled", true);
+    // //*******************************
+    $("#select-docentes" + indice).prop("disabled", true);
+    //*******************************
+    for (i = 1; i <= 10; i++) {
+        $("#txtc" + i + indice).prop("disabled", true);
+        $("#txtc" + i + indice).addClass('i');
+        $("#txtc" + i + indice).removeClass('form-control-n');
+    }
+}
 
-function actualizar(indice){
+function guardar() {
 
-	 		var datos = new FormData();
-	 		datos.append("txtorden",$("#txtorden"+indice).val());
-	 		datos.append("txtdia",$("#txtdia"+indice).val());
-	 		datos.append("txthora",$("#txthora"+indice).val());
-	 		datos.append("txtcurso",$("#txtcurso"+indice).val());
-	 		datos.append("txtseccion",$("#txtseccion"+indice).val());
-	 		datos.append("txttp",$("#txttp"+indice).val());
-	 		datos.append("cboaula",$("#select-aulas"+indice).val());
-	 		datos.append("cboaula2",$("#select-aulas2"+indice).val());
-	 		datos.append("cbodocente",$("#select-docentes"+indice).val());
-	 		datos.append("txtc1",$("#txtc1"+indice).val());
-	 		datos.append("txtc2",$("#txtc2"+indice).val());
-	 		datos.append("txtc3",$("#txtc3"+indice).val());
-	 		datos.append("txtc4",$("#txtc4"+indice).val());
-	 		datos.append("txtc5",$("#txtc5"+indice).val());
-	 		datos.append("txtc6",$("#txtc6"+indice).val());
-	 		datos.append("txtc7",$("#txtc7"+indice).val());
-	 		datos.append("txtc8",$("#txtc8"+indice).val());
-	 		datos.append("txtc9",$("#txtc9"+indice).val());
-	 		datos.append("txtc10",$("#txtc10"+indice).val());
-	 		datos.append("id",indice);
+    var datos = new FormData();
+    datos.append("txtorden", $("#txtorden").val());
+    datos.append("txtdia", $("#txtdia").val());
+    datos.append("txthora", $("#txthora").val());
+    datos.append("txtcurso", $("#txtcurso").val());
+    datos.append("txtseccion", $("#txtseccion").val());
+    datos.append("txttp", $("#txttp").val());
+    datos.append("cboaula", $("#select-aulas").val());
+    datos.append("cboaula2", $("#select-aulas2").val());
+    datos.append("cbodocente", $("#select-docentes").val());
+    datos.append("txtc1", $("#txtc1").val());
+    datos.append("txtc2", $("#txtc2").val());
+    datos.append("txtc3", $("#txtc3").val());
+    datos.append("txtc4", $("#txtc4").val());
+    datos.append("txtc5", $("#txtc5").val());
+    datos.append("txtc6", $("#txtc6").val());
+    datos.append("txtc7", $("#txtc7").val());
+    datos.append("txtc8", $("#txtc8").val());
+    datos.append("txtc9", $("#txtc9").val());
+    datos.append("txtc10", $("#txtc10").val());
+    datos.append("cboperiodo", $("#cbociclo").val());
 
-	 		$.ajax({
+    $.ajax({
 
-	 			type:"POST",
-	 			data:datos,
-	 			url:"anexos/actualizar.php",
-	 			contentType: false,
-	 			processData: false,
-	 			success:function(resultado)
-	 			{
-	 				// console.log($("#select-docentes"+indice).val());
-	 			}
+        type: "POST",
+        data: datos,
+        url: "anexos/registrar.php",
+        contentType: false,
+        processData: false,
+        success: function(resultado) {
+            alertify.success("Datos Registrados");
+        }
 
+    });
+}
 
+function actualizar(indice) {
 
-	 		});
-	 	}
+    var datos = new FormData();
+    datos.append("txtorden", $("#txtorden" + indice).val());
+    datos.append("txtdia", $("#txtdia" + indice).val());
+    datos.append("txthora", $("#txthora" + indice).val());
+    datos.append("txtcurso", $("#txtcurso" + indice).val());
+    datos.append("txtseccion", $("#txtseccion" + indice).val());
+    datos.append("txttp", $("#txttp" + indice).val());
+    datos.append("cboaula", $("#select-aulas" + indice).val());
+    datos.append("cboaula2", $("#select-aulas2" + indice).val());
+    datos.append("cbodocente", $("#select-docentes" + indice).val());
+    datos.append("txtc1", $("#txtc1" + indice).val());
+    datos.append("txtc2", $("#txtc2" + indice).val());
+    datos.append("txtc3", $("#txtc3" + indice).val());
+    datos.append("txtc4", $("#txtc4" + indice).val());
+    datos.append("txtc5", $("#txtc5" + indice).val());
+    datos.append("txtc6", $("#txtc6" + indice).val());
+    datos.append("txtc7", $("#txtc7" + indice).val());
+    datos.append("txtc8", $("#txtc8" + indice).val());
+    datos.append("txtc9", $("#txtc9" + indice).val());
+    datos.append("txtc10", $("#txtc10" + indice).val());
+    datos.append("id", indice);
 
-function duplicar(indice){
+    $.ajax({
 
-	 		var datos = new FormData();
-	 		datos.append("txtorden",$("#txtorden"+indice).val());
-	 		datos.append("txtdia",$("#txtdia"+indice).val());
-	 		datos.append("txthora",$("#txthora"+indice).val());
-	 		datos.append("txtcurso",$("#txtcurso"+indice).val());
-	 		datos.append("txtseccion",$("#txtseccion"+indice).val());
-	 		datos.append("txttp",$("#txttp"+indice).val());
-	 		datos.append("cboaula",$("#select-aulas"+indice).val());
-	 		datos.append("cboaula2",$("#select-aulas2"+indice).val());
-	 		datos.append("cbodocente",$("#select-docentes"+indice).val());
-	 		datos.append("txtc1",$("#txtc1"+indice).val());
-	 		datos.append("txtc2",$("#txtc2"+indice).val());
-	 		datos.append("txtc3",$("#txtc3"+indice).val());
-	 		datos.append("txtc4",$("#txtc4"+indice).val());
-	 		datos.append("txtc5",$("#txtc5"+indice).val());
-	 		datos.append("txtc6",$("#txtc6"+indice).val());
-	 		datos.append("txtc7",$("#txtc7"+indice).val());
-	 		datos.append("txtc8",$("#txtc8"+indice).val());
-	 		datos.append("txtc9",$("#txtc9"+indice).val());
-	 		datos.append("txtc10",$("#txtc10"+indice).val());
-	 		datos.append("cboperiodo",$("#cbociclo").val());
-
-	 		$.ajax({
-
-	 			type:"POST",
-	 			data:datos,
-	 			url:"anexos/registrar.php",
-	 			contentType: false,
-	 			processData: false,
-	 			success:function(resultado)
-	 			{
-	 				// console.log($("#select-docentes"+indice).val());
-	 			}
-	 		});
-
-	 	}
+        type: "POST",
+        data: datos,
+        url: "anexos/actualizar.php",
+        contentType: false,
+        processData: false,
+        success: function(resultado) {
+            // console.log($("#select-docentes"+indice).val());
+        }
 
 
 
+    });
+}
 
+function duplicar(indice) {
 
+    var datos = new FormData();
+    datos.append("txtorden", $("#txtorden" + indice).val());
+    datos.append("txtdia", $("#txtdia" + indice).val());
+    datos.append("txthora", $("#txthora" + indice).val());
+    datos.append("txtcurso", $("#txtcurso" + indice).val());
+    datos.append("txtseccion", $("#txtseccion" + indice).val());
+    datos.append("txttp", $("#txttp" + indice).val());
+    datos.append("cboaula", $("#select-aulas" + indice).val());
+    datos.append("cboaula2", $("#select-aulas2" + indice).val());
+    datos.append("cbodocente", $("#select-docentes" + indice).val());
+    datos.append("txtc1", $("#txtc1" + indice).val());
+    datos.append("txtc2", $("#txtc2" + indice).val());
+    datos.append("txtc3", $("#txtc3" + indice).val());
+    datos.append("txtc4", $("#txtc4" + indice).val());
+    datos.append("txtc5", $("#txtc5" + indice).val());
+    datos.append("txtc6", $("#txtc6" + indice).val());
+    datos.append("txtc7", $("#txtc7" + indice).val());
+    datos.append("txtc8", $("#txtc8" + indice).val());
+    datos.append("txtc9", $("#txtc9" + indice).val());
+    datos.append("txtc10", $("#txtc10" + indice).val());
+    datos.append("cboperiodo", $("#cbociclo").val());
 
+    $.ajax({
+
+        type: "POST",
+        data: datos,
+        url: "anexos/registrar.php",
+        contentType: false,
+        processData: false,
+        success: function(resultado) {
+            // console.log($("#select-docentes"+indice).val());
+        }
+    });
+
+}
