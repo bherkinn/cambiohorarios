@@ -90,10 +90,10 @@
 		</header>
 
 		<main id="mostrar-menu" class="main-ocultar">
-		<br>
-		<br>
-		<br>
-          <div id="tabla" class="container" style="">
+
+		<center><div class="titulo-tabla">MODULO 1 - AUTOMÁTICO</div></center>
+
+         <div id="tabla" class="container" style="">
 
 			
 

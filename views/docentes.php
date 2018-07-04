@@ -30,10 +30,6 @@
 	<script type="text/javascript" src="librerias/js/fancywebsocket.js"></script>
 <!-- 	<script type="text/javascript" src="librerias/jqueryPlugintipsy/js/jquery.tipsy.js"></script> -->
 
-	
-
-	
-
 </head>
 
 <body>

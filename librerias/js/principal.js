@@ -441,7 +441,7 @@ $("#eliminar-fila").click(function(e) {
     $("#" + trderecho).fadeOut(500);
     $("#menucontextual").hide("fast");
     $.post("anexos/tabla-principal/BorrarHorariosTabla.php", {
-            id: trderecho
+            id: trderecho,estado:0  
         },
         function(data) {
             alertify.success("Datos Borrados");

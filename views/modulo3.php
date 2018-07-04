@@ -88,10 +88,8 @@
 		</header>
 
 		
-		<br>
-		<br>
-		<br>
-          <div id="tabla" class="container" style="">
+		<center><div class="titulo-tabla">MODULO 3 - AUTOMÁTICO</div></center>
+        <div id="tabla" class="container" style="">
 
 			
 

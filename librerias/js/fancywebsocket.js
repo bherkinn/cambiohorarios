@@ -40,35 +40,11 @@ var FancyWebSocket = function(url)
 	
 	var dispatch = function(event_name, fila)
 	 {
-	// 	if(message == null || message == "")//aqui es donde se realiza toda la accion
-	// 		{
-	// 		}
-	// 		else
-	// 		{
-	// 			var JSONdata    = JSON.parse(message); //parseo la informacion
-	// 			switch(JSONdata[0].actualizacion)//que tipo de actualizacion vamos a hacer(un nuevo mensaje, solicitud de amistad nueva, etc )
-	// 			{
-	// 				case '1':
-				//actualiza_mensaje(message);
-				/****************************************/
-				// if(docentes)
-				// {
-				// 	var hdocentes=JSON.parse(docentes);
-				// 	llenarTablaDocente(hdocentes);
-				// }
-				/****************************************/
-
 				if(fila)
 				{
 					$("#aviso").removeClass("rotar");
 					$("#aviso").addClass("deshabilitar");
 
-
-					for(u=1;u<=3;u++)
-					{
-						$("#m"+u+"vacio").removeClass("rotar");
-						$("#m"+u+"vacio").addClass("deshabilitar");
-					}
 
 					$.post("anexos/docentes/ObtenerHorariosDocentes.php",{idfila:fila},
 						function(data){
@@ -96,13 +72,9 @@ var FancyWebSocket = function(url)
 						var hciclos=JSON.parse(data);
 
 						distribuirDatos(hciclos);
-						modulosvacios(cciclo);
 
-					});	
-
-					
+					});		
 				}
-
 	}
 };
 
@@ -130,10 +102,10 @@ var datos="";
 var camposDocentes=new Array();
 var camposAulas=new Array();
 var camposCursos=new Array();
-var camposModulo=new Array();
+var camposModulo1=new Array();
+var camposModulo2=new Array();
+var camposModulo3=new Array();
 /*---------------------------------*/
-var ciclos=new Array();
-var grupos=new Array();
 var cciclo=0;
 /*---------------------------------*/
 var contador=0;
@@ -143,20 +115,17 @@ var pasar=1;
 
 
 function distribuirDatos(datos){
-
+	// var ciclos=new Array();
+	// var grupos=new Array();
 	cciclo=0;
 	ciclos=[];
 	grupos=[];
-
+	numciclo=[];
 
 	for(i=1;i<=10;i++)
 	{	
 		if(datos[0]["c"+i]!="")
 		{	
-			// console.log("-----------------------------------------------------");
-			// console.log(datos[0]["c"+i]);
-			if(datos[0]["c"+i]!=" ")
-			{	
 			longcadena=datos[0]["c"+i].length;
 
 			for(u=0;u<longcadena;u++)
@@ -167,47 +136,68 @@ function distribuirDatos(datos){
 					grupos[cciclo]=datos[0]["c"+i].substr(u,1);
 					idmodulo="m"+(cciclo+1);
 					numerociclo=i;
-					//alert(idmodulo);
-					if(camposModulo[0])
-					{
-						limpiarCajas(camposModulo);
-						contadormodulo=0;
-					}
-
-					llenarModulos(ciclos[cciclo],grupos[cciclo],idmodulo,numerociclo,datos[0]['perAcademico'])
-
+					numciclo[cciclo]=i;
 					cciclo++;
 				}
-				
-				
 			}
 
-			}
-			
 		}
-		
+	}
+	if(ciclos[0])
+	{
+		modulosllenos(1);
+		$.post("anexos/modulos/ObtenerHorariosModulos.php",{ciclo:ciclos[0],grupo:grupos[0],periodo:datos[0]['perAcademico']},
+		function(data){
+			hmodulos1=JSON.parse(data);
+			llenarTablaModulo1(hmodulos1,numciclo[0],grupos[0]);
+		});
+	}
+	else
+	{
+		limpiarCajas(camposModulo1);
+		modulosvacios(1);
+	}	
+
+	if(ciclos[1])
+	{	
+		modulosllenos(2);
+		$.post("anexos/modulos/ObtenerHorariosModulos.php",{ciclo:ciclos[1],grupo:grupos[1],periodo:datos[0]['perAcademico']},
+		function(data){
+			hmodulos2=JSON.parse(data);
+			llenarTablaModulo2(hmodulos2,numciclo[1],grupos[1]);
+		});
+	}
+	else
+	{
+		limpiarCajas(camposModulo2);
+		modulosvacios(2);
+	}
+
+	if(ciclos[2])
+	{	
+		modulosllenos(3);
+		$.post("anexos/modulos/ObtenerHorariosModulos.php",{ciclo:ciclos[2],grupo:grupos[2],periodo:datos[0]['perAcademico']},
+		function(data){
+			hmodulos3=JSON.parse(data);
+			llenarTablaModulo3(hmodulos3,numciclo[2],grupos[2]);
+		});
+	}
+	else
+	{
+		limpiarCajas(camposModulo3);
+		modulosvacios(3);
 	}
 	
 }
 
-function modulosvacios(vacios){
-	if(vacios<3){
-			while((vacios+1)<=3)
-			{
-				vacios++;
-				$("#m"+vacios+"vacio").removeClass("deshabilitar");
-				$("#m"+vacios+"vacio").addClass("rotar");
-				
-			}
-	}
+function modulosllenos(llenos){
+		$("#m"+llenos+"vacio").removeClass("rotar");
+		$("#m"+llenos+"vacio").addClass("deshabilitar");
 }
-function llenarModulos(ciclo,grupo,idmodulo,numerociclo,periodo)
-{
-	$.post("anexos/modulos/ObtenerHorariosModulos.php",{ciclo:ciclo,grupo:grupo,periodo:periodo},
-	function(data){
-	hmodulos=JSON.parse(data);
-	llenarTablasModulos(hmodulos,idmodulo,numerociclo,grupo);
-	});
+
+function modulosvacios(vacios){
+		$("#m"+vacios+"vacio").removeClass("deshabilitar");
+		$("#m"+vacios+"vacio").addClass("rotar");			
 }
 
 function fecha()
@@ -231,22 +221,21 @@ function fecha()
 
 	var fechafinal=dia+"/"+mes+"/"+año;
 	return fechafinal;
-
-
 }
 
-function llenarTablasModulos(jsondatos,idmodulo,numerociclo,grupo)
+function llenarTablaModulo1(jsondatos,numerociclo,grupo)
 {
-	// console.log(jsondatos);
-	// console.log(jsondatos[0]['idHorarios']);
-
 	var cantidad=Object.keys(jsondatos).length;
 	var dia;
 
+	if(camposModulo1[0])
+	{
+		limpiarCajas(camposModulo1);
+	}
 	
-	$("#"+idmodulo+"datos").html(numerociclo+"° Ciclo");
-	$("#"+idmodulo+"fecha").html(fecha());
-	$("#"+idmodulo+"grupo").html(grupo)
+	$("#m1datos").html(numerociclo+"° Ciclo");
+	$("#m1fecha").html(fecha());
+	$("#m1grupo").html(grupo)
 	for(i=0;i<cantidad;i++)
 	{
 		var hinicio=parseInt(jsondatos[i]['hora'].substr(0,2));
@@ -269,45 +258,171 @@ function llenarTablasModulos(jsondatos,idmodulo,numerociclo,grupo)
 			break;
 		}
 
-		// console.log("el dia es "+dia);
-		
-
-		// console.log(hinicio+""+hfinal);
-
 		while(hinicio<hfinal)
 		{	
 			
-			var celda = $("#"+idmodulo+hinicio+dia).html();
+			var celda = $("#m1"+hinicio+dia).html();
 			if(celda=="")
 			{
-				$("#"+idmodulo+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
-				$("#"+idmodulo+hinicio+dia).addClass("pintado-true");
-				canhoras++;
+				$("#m1"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m1"+hinicio+dia).addClass("pintado-true");
 			}
 			else
 			{
-				$("#"+idmodulo+hinicio+dia).removeClass("pintado-true");
-				$("#"+idmodulo+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
-				$("#"+idmodulo+hinicio+dia).addClass("pintado-false");
-				canhoras++;
+				$("#m1"+hinicio+dia).removeClass("pintado-true");
+				$("#m1"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m1"+hinicio+dia).addClass("pintado-false");
 			}
 
-			camposModulo[contadormodulo]="#"+idmodulo+hinicio+dia;
+			camposModulo1[contadormodulo]="#m1"+hinicio+dia;
 			hinicio++;
 			contadormodulo++;
 		}
 
-		camposModulo[contadormodulo]="#"+idmodulo+"datos";
+		camposModulo1[contadormodulo]="#m1"+"datos";
 		contadormodulo++;
-		camposModulo[contadormodulo]="#"+idmodulo+"grupo";
+		camposModulo1[contadormodulo]="#m1"+"grupo";
 		contadormodulo++;
-		camposModulo[contadormodulo]="#"+idmodulo+"fecha";
+		camposModulo1[contadormodulo]="#m1"+"fecha";
+		contadormodulo++;
+	}
+	contadormodulo=0;
+}
+
+function llenarTablaModulo2(jsondatos,numerociclo,grupo)
+{
+	var cantidad=Object.keys(jsondatos).length;
+	var dia;
+
+	if(camposModulo2[0])
+	{
+		limpiarCajas(camposModulo2);
+	}
+	
+	$("#m2datos").html(numerociclo+"° Ciclo");
+	$("#m2fecha").html(fecha());
+	$("#m2grupo").html(grupo)
+	for(i=0;i<cantidad;i++)
+	{
+		var hinicio=parseInt(jsondatos[i]['hora'].substr(0,2));
+		var hfinal=parseInt(jsondatos[i]['hora'].substr(3,5));
+		switch(jsondatos[i]['dia'])
+		{
+			case "LU":dia=1;
+			break;
+			case "MA":dia=2;
+			break;
+			case "MI":dia=3;
+			break;
+			case "JU":dia=4;
+			break;
+			case "VI":dia=5;
+			break;
+			case "SA":dia=6;
+			break;
+			case "DO":dia=7;
+			break;
+		}
+
+		while(hinicio<hfinal)
+		{	
+			
+			var celda = $("#m2"+hinicio+dia).html();
+			if(celda=="")
+			{
+				$("#m2"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m2"+hinicio+dia).addClass("pintado-true");
+			}
+			else
+			{
+				$("#m2"+hinicio+dia).removeClass("pintado-true");
+				$("#m2"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m2"+hinicio+dia).addClass("pintado-false");
+			}
+
+			camposModulo2[contadormodulo]="#m2"+hinicio+dia;
+			hinicio++;
+			contadormodulo++;
+		}
+
+		camposModulo2[contadormodulo]="#m2"+"datos";
+		contadormodulo++;
+		camposModulo2[contadormodulo]="#m2"+"grupo";
+		contadormodulo++;
+		camposModulo2[contadormodulo]="#m2"+"fecha";
 		contadormodulo++;
 
 	}
-	canhoras=0;
+	contadormodulo=0;
 }
 
+function llenarTablaModulo3(jsondatos,numerociclo,grupo)
+{
+	var cantidad=Object.keys(jsondatos).length;
+	var dia;
+
+	if(camposModulo3[0])
+	{
+		limpiarCajas(camposModulo3);
+	}
+	
+	$("#m3datos").html(numerociclo+"° Ciclo");
+	$("#m3fecha").html(fecha());
+	$("#m3grupo").html(grupo)
+	for(i=0;i<cantidad;i++)
+	{
+		var hinicio=parseInt(jsondatos[i]['hora'].substr(0,2));
+		var hfinal=parseInt(jsondatos[i]['hora'].substr(3,5));
+		switch(jsondatos[i]['dia'])
+		{
+			case "LU":dia=1;
+			break;
+			case "MA":dia=2;
+			break;
+			case "MI":dia=3;
+			break;
+			case "JU":dia=4;
+			break;
+			case "VI":dia=5;
+			break;
+			case "SA":dia=6;
+			break;
+			case "DO":dia=7;
+			break;
+		}
+
+		while(hinicio<hfinal)
+		{	
+			
+			var celda = $("#m3"+hinicio+dia).html();
+			if(celda=="")
+			{
+				$("#m3"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m3"+hinicio+dia).addClass("pintado-true");
+			}
+			else
+			{
+				$("#m3"+hinicio+dia).removeClass("pintado-true");
+				$("#m3"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m3"+hinicio+dia).addClass("pintado-false");
+			}
+
+			camposModulo3[contadormodulo]="#m3"+hinicio+dia;
+			hinicio++;
+			contadormodulo++;
+		}
+
+		camposModulo3[contadormodulo]="#m3"+"datos";
+		contadormodulo++;
+		camposModulo3[contadormodulo]="#m3"+"grupo";
+		contadormodulo++;
+		camposModulo3[contadormodulo]="#m3"+"fecha";
+		contadormodulo++;
+	}
+
+	contadormodulo=0;
+
+}
 
 function llenarTablaCursos(jsondatos){
 

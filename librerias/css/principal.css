@@ -47,9 +47,8 @@
 	/*font-weight: bold;*/
 }
 
-.border{
-	border: 2px solid #656565;
-}
+.border-recuperar{
+	border: 1px solid #dee2e6 !important;}
 
 .menu{
 	float: left;
@@ -206,7 +205,21 @@ nav{
 	border-radius: 3px;
 	font-size: 13px;
 }
-.cbociclos{
+/*.cboperiodo{
+  width: 80px;
+  display: block; 
+  padding: 5px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}*/
+
+.cboperiodo{
 	padding: 5px;
 	font-size: 12px;
 	float: right;
@@ -248,6 +261,15 @@ nav{
 	overflow-y:hidden;
 
 }
+
+.table-responsive-bootstrap{
+	padding: 0px;
+	font-size: 12px;
+	max-width: 2000px;
+	overflow-y:hidden;
+
+}
+
 .tabla-principal
 {
 	min-width: 960px;

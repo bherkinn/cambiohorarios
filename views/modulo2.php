@@ -89,14 +89,12 @@
 		</header>
 
 		
-		<br>
-		<br>
-		<br>
+		  <center><div class="titulo-tabla">MODULO 2 - AUTOMÁTICO</div></center>
           <div id="tabla" class="container" style="">
 
 			
 
-		</div>
+		  </div>
 		<br>
 
 

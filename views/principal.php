@@ -10,11 +10,14 @@
       <link rel="stylesheet" type="text/css" href="librerias/css/menucontextual.css">
       <link rel="stylesheet" type="text/css" href="librerias/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
       <link rel="stylesheet" type="text/css" href="librerias/select2/css/select2.min.css">
-      <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css">
-      <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css">
+      <!-- <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css"> -->
+      <!-- <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css"> -->
       <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
       <!-- ***************************************JS************************************* -->
-      <script type="text/javascript" src="librerias/alertify/lib/alertify.js"></script>
+      <!-- <script type="text/javascript" src="librerias/alertify/lib/alertify.js"></script> -->
+      <link rel="stylesheet" type="text/css" href="librerias/AlertifyJS-master/build/css/alertify.css">
+     <!--  <link rel="stylesheet" type="text/css" href="librerias/AlertifyJS-master/build/css/alertify.rtl.css"> -->
+<script type="text/javascript" src="librerias/AlertifyJS-master/build/alertify.js"></script>
       <script type="text/javascript" src="librerias/jquery-3.3.1.min.js"></script>
       <script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.min.js"></script>
       <script type="text/javascript" src="librerias/select2/js/select2.min.js"></script>
@@ -44,6 +47,7 @@
                   <!-- <li class="titulo-lista">PRINCIPAL</li> -->
                   <li><a href="index.php"><i class="icono izquierda fas fa-registered"></i>Registrar</a></li>
                   <li><a href="index.php"><i class="icono izquierda fas fa-arrows-alt"></i>Cruces</a></li>
+                  <li><a href="restaurar.php"><i class="icono izquierda fas fa-arrows-alt"></i>Restaurar</a></li>
                   <li class="titulo-lista">VISTAS</li>
                   <li>
                      <a href="#" id="link1"><i class="icono izquierda fas fa-eye"></i>Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
@@ -75,9 +79,8 @@
       <div id="mostrar-menu" class="main-ocultar">
          <!-- *******************************************************BOTONES PRINCIPALES**************************************************** -->
          <button id="menu" class="menu fas fa-bars" style=""></button>
-         <button id="agregar" class="agregar btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
-         <!-- ******************************************************/BOTONES PRINCIPALES************************************************** -->
-         <br>
+         <!-- <button id="agregar" class="agregar btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button> -->
+         
          <!-- ******************************************************MENUS CONTEXTUALES**************************************************** -->
          <ul id="menucontextual" class="dropdown-menu-modificado menu-contextual" style="width: 10px;">
             <li class="lista">			
@@ -92,7 +95,7 @@
                <a class="borrar comun-lista" id="registrar-fila" href="#"><i class="fas fa-save" style="font-size: 15px;"></i> Registrar </a>	
             </li>
          </ul>
-         <!-- ******************************************************/MENUS CONTEXTUALES************************************************** -->
+
          <!-- ******************************************************MODAL AGREGAR******************************************************** -->
          <div id="modal-agregar" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -135,44 +138,69 @@
             </div>
          </div>
          <!-- ******************************************************/MODAL AGREGAR******************************************************** -->
-         <center>
-            <select id="select-cursos" class="select-cursos">
-               <?php 
-                  $o->Open(2);
-                  $tabla=$o->Mostrar("cursos","codCurso",2);
-                  foreach($tabla as $a)
-                  {
-                  ?>	
-               <option value="<?php echo $a->codCurso; ?>">
-                  <?php echo $a->codCurso." - ".$a->nomCurso; ?>
-               </option>
-               <?php  
-                  }
-                  $o->Close(2);	
-                  ?>
-            </select>
-            <select id="cbociclo" class="cbociclos">
-               <?php 
-                  $ciclos=$o->MostrarCiclos();
-                  foreach($ciclos as $a)
-                  {
-                  ?>	
-               <option value="<?php echo $a->perAcademico; ?>">
-                  <?php echo $a->perAcademico; ?>
-               </option>
-               <?php  
-                  }
-                  ?>
-            </select>
-         </center>
-         <br>
+         <div class="container-fluid" style="margin-top: 20px;margin-bottom: 20px;height: 25px;">
+         	<!-- <div class="offset-1 col-10 col-sm-10 col-md-10 col-lg-10 border" style="">
+         		<div class="row">
+         			<button id="agregar" class="btn btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
+	         		<button id="agregar" class="offset-1 offset-sm-1 offset-md-1 btn btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
+	         		<button id="agregar" class="offset-1 offset-sm-1 offset-md-1 btn btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
+	         		 <select id="cbociclo" class="offset-1 offset-sm-1 offset-md-1 cboperiodo " style="font-size: 12px"> -->
+				               <?php 
+				                  /*$ciclos=$o->MostrarCiclos();
+				                  foreach($ciclos as $a)
+				                  {*/
+				                  ?>	
+				               <!-- <option value="<?php /*echo $a->perAcademico; */?>"> -->
+				                  <?php /*echo $a->perAcademico;*/ ?>
+				               <!-- </option> -->
+				               <?php  
+				                  // }
+				                  ?>
+				    <!-- </select>
+
+         		</div>
+         	</div> -->
+         </div>
+         	
          <div id="tabla-acomodar" class="container">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border rounded" >
-               <br>
+              
                <div class="container-fluid">
-                  <div id="tabla-carga" class="">
-                     <!-- AQUI SE CARGARA LA TABLA DE DATOS -->
-                  </div>
+               	<div style="margin-top: 15px;margin-bottom: 15px;">
+               	  <center>
+		            <select id="select-cursos" class="select-cursos">
+		               <?php 
+		                  $o->Open(2);
+		                  $tabla=$o->Mostrar("cursos","codCurso",2);
+		                  foreach($tabla as $a)
+		                  {
+		                  ?>	
+		               <option value="<?php echo $a->codCurso; ?>">
+		                  <?php echo $a->codCurso." - ".$a->nomCurso; ?>
+		               </option>
+		               <?php  
+		                  }
+		                  $o->Close(2);	
+		                  ?>
+		            </select>
+		            <select id="cbociclo" class="cboperiodo " style="font-size: 12px;float: left;">
+				               <?php 
+				                  $ciclos=$o->MostrarCiclos();
+				                  foreach($ciclos as $a)
+				                  {
+				                  ?>	
+				               <option value="<?php echo $a->perAcademico; ?>">
+				                  <?php echo $a->perAcademico; ?>
+				               </option>
+				               <?php  
+				                  }
+				                  ?>
+				    </select>
+		          </center>
+		        </div>
+                <div id="tabla-carga" class="">
+                 <!-- AQUI SE CARGARA LA TABLA DE DATOS -->
+                </div>  
                </div>
                <br>
             </div>
