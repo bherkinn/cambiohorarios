@@ -111,17 +111,7 @@
                         <div class="form-inline">
                            <label class="control-label col-sm-2 col-md-2 col-lg-3">Clonar de :</label>
                            <select id="periodo-clonar" class="form-control col-sm-3 col-md-3 col-lg-2" style="text-align-last: center;">
-                              <?php 
-                                 $ciclos=$o->MostrarCiclos();
-                                 foreach($ciclos as $a)
-                                 {
-                                 ?>	
-                              <option value="<?php echo $a->perAcademico; ?>">
-                                 <?php echo $a->perAcademico; ?>
-                              </option>
-                              <?php  
-                                 }
-                                 ?>
+
                            </select>
                            <label class="control-label offset-sm-1 offset-md-1 col-sm-2 col-md-2 col-lg-3">Nuevo Periodo:</label>
                            <input id="txtperiodo" onkeypress="return validarNumericosGuiones(event);" style="text-align: center;" type="text" name="txtperiodo" class="form-control col-sm-3 col-md-3 col-lg-2" autocomplete="off">
@@ -169,32 +159,10 @@
                	<div style="margin-top: 15px;margin-bottom: 15px;">
                	  <center>
 		            <select id="select-cursos" class="select-cursos">
-		               <?php 
-		                  $o->Open(2);
-		                  $tabla=$o->Mostrar("cursos","codCurso",2);
-		                  foreach($tabla as $a)
-		                  {
-		                  ?>	
-		               <option value="<?php echo $a->codCurso; ?>">
-		                  <?php echo $a->codCurso." - ".$a->nomCurso; ?>
-		               </option>
-		               <?php  
-		                  }
-		                  $o->Close(2);	
-		                  ?>
+		               
 		            </select>
-		            <select id="cbociclo" class="cboperiodo " style="font-size: 12px;float: left;">
-				               <?php 
-				                  $ciclos=$o->MostrarCiclos();
-				                  foreach($ciclos as $a)
-				                  {
-				                  ?>	
-				               <option value="<?php echo $a->perAcademico; ?>">
-				                  <?php echo $a->perAcademico; ?>
-				               </option>
-				               <?php  
-				                  }
-				                  ?>
+                  <button id="btn-borrar-curso"class="btn-danger btn-borrar-curso" style="font-size: 12px;float: left;">Borrar</button>
+		            <select id="cboperiodo" class="cboperiodo " style="font-size: 12px;float: left;">
 				    </select>
 		          </center>
 		        </div>

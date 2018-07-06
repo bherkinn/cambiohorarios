@@ -23,6 +23,7 @@
 	margin-top: 5px;
 }
 
+/*------------------------------------MENU AMBURQUESA------------------------------*/
 .main-mostrar{
 	transition-property: margin-left,width;
 	transition-duration: 0.5s;
@@ -37,6 +38,7 @@
 	width: 100%+250px;
 	overflow: hidden;
 }
+/*--------------------------------------------------------------------------------*/
 
 .nom-titulo{
 	margin-top: -70px;
@@ -222,8 +224,8 @@ nav{
 .cboperiodo{
 	padding: 5px;
 	font-size: 12px;
-	float: right;
-	margin-left: 20px;
+/*	float: right;*/
+	margin-left: 70px;
     border-radius: 4px;
     position: absolute;
 }
@@ -397,6 +399,24 @@ nav{
 .cbodocentes{
 	width: 220px;
 }
+.btn-borrar-curso{
+	border:none;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 12px;
+    border-radius: 4px;
+    position: absolute;
+    margin-left:10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.btn-borrar-curso:focus{
+	outline: none;
+}
+
+
 
 
 

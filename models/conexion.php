@@ -121,6 +121,15 @@ Class Conexion
 							ALTER TABLE temporal DROP COLUMN idHorarios;
 							INSERT into basehorarios (perAcademico,dia,hora,codCurso,secCurso,teopra,codAula,codAula2,codDocente,orden,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,estado) SELECT * from temporal;");
     }
+
+    public function BorrarPorCurso($codCurso,$periodo){
+
+        $sql="UPDATE basehorarios SET estado=0 WHERE codCurso='$codCurso' AND perAcademico='$periodo'";
+        $this->Conectar(1);
+        $this->con1->query($sql);
+
+    }
+
     
     // ----------------------------------------------------VISUALIZAR DATOS-----------------------------------------------------
     
@@ -128,13 +137,17 @@ Class Conexion
     {
         
         if ($num == 1) {
+            $this->Open(1);
             $this->memoria = $this->con1->query("SELECT * FROM $tabla ORDER BY $orden");
             $datos         = $this->memoria->fetchAll(PDO::FETCH_OBJ);
+            $this->Close(1);
             
             return $datos;
         } else if ($num == 2) {
+            $this->Open(2);
             $this->memoria = $this->con2->query("SELECT * FROM $tabla ORDER BY $orden");
             $datos         = $this->memoria->fetchAll(PDO::FETCH_OBJ);
+            $this->Close(2);
             
             return $datos;
         } else {
@@ -142,17 +155,36 @@ Class Conexion
         }
         
     }
-    
-    public function MostrarCiclos()
-    {
-        $sql = "SELECT DISTINCT perAcademico FROM basehorarios";
+
+     public function mostrarPeriodos(){
+
+        $sql = "SELECT * FROM curricula";
         $this->Conectar(1);
         $this->memoria = $this->con1->query($sql);
         if (!empty($this->memoria)) {
             $datos = $this->memoria->fetchAll(PDO::FETCH_OBJ);
             $this->Close(1);
-            
+
             return $datos;
+
+        } else {
+            
+            return "vacio";
+            
+        }
+    }
+
+    public function mostrarCursosPorPeriodo($vercurricular){
+
+        $sql="SELECT cursos.* FROM cursos INNER JOIN curricular on cursos.codCurso=curricular.codCurso where curricular.verCurricular='$vercurricular' ORDER BY cursos.codCurso";
+         $this->Conectar(2);
+        $this->memoria = $this->con2->query($sql);
+        if (!empty($this->memoria)) {
+            $datos = $this->memoria->fetchAll(PDO::FETCH_OBJ);
+            $this->Close(2);
+
+            return $datos;
+
         } else {
             
             return "vacio";

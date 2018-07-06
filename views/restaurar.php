@@ -96,15 +96,18 @@
 		    $.post("anexos/combos/docentes.php", {},
 		        function(data) {
 		            jsondocentes = JSON.parse(data);
+
+		            $.post("anexos/recuperar/ObtenerDatosRecuperar.php",{},
+	      			function(data){
+	      				var recuperar=JSON.parse(data);
+	      				CrearTablaRecuperar(recuperar,jsondocentes);
+	      			});
+
 		        });
 		});
 
       	$(document).ready(function(){
-      		$.post("anexos/recuperar/ObtenerDatosRecuperar.php",{},
-      			function(data){
-      				var recuperar=JSON.parse(data);
-      				CrearTablaRecuperar(recuperar,jsondocentes);
-      			});
+      		
       		
       	});
 
@@ -115,7 +118,8 @@
 
       		$("#contenedor-recuperar").append("<table id='tabla-recuperar' class='table border-recuperar' ><tr class=''>" +
       			"<th style='width:50px;'></th>" +
-      			"<th style='width:150px;'>FECHA Y HORA</th>" +
+      			"<th style='max-width:80px;'>FECHA</th>" +
+      			"<th style='min-width:50px;'>HORA</th>" +
 		        "<th class='num th'>N.O.</th>" +
 		        "<th class='th'>DIA</th>" +
 		        "<th class='th'>HORA</th>" +
@@ -146,7 +150,8 @@
       			}
 
       			$("#tabla-recuperar").append("<tr id='"+recuperar[i]["idHorarios"]+"'><td><button onclick='Restaurar("+recuperar[i]["idHorarios"]+")' class='btn btn-info fas fa-reply'</button></td>"+
-      			"<td>"+recuperar[i]["fecha"]+"</td>"+
+      			"<td>"+fecha(recuperar[i]["fecha"])+"</td>"+
+      			"<td>"+hora(recuperar[i]["fecha"])+"</td>"+
       			"<td>"+recuperar[i]["orden"]+"</td>"+
       			"<td>"+recuperar[i]["dia"]+"</td>"+
       			"<td>"+recuperar[i]["hora"]+"</td>"+
@@ -171,9 +176,24 @@
 
       	}
 
+      	function fecha(datos){
+      		año=datos.substr(0,4);
+      		mes=datos.substr(5,2);
+      		dia=datos.substr(8,2);
+
+      		fechafinal=dia+"/"+mes+"/"+año;
+
+      		return fechafinal;
+      	}
+
+      	function hora(datos){
+      		horas=datos.substr(10,6);
+      		return horas;
+      	}
+
       	function Restaurar(id){
 
-      		alertify.confirm("Usted va a restaurar un  Horario eliminado con anterioridad <br>"+
+      		alertify.confirm("Ud. va a restaurar un  Horario eliminado con anterioridad <br>"+
       			"¿Desea Restaurar?",
 		    function(){
 
