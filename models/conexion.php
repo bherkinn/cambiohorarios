@@ -115,11 +115,18 @@ Class Conexion
     }
 
     public function NuevoPeriodo($anteperiodo,$neoperiodo){
-    	$this->Conectar(1);
+    	$this->Open(1);
         $this->con1->query("CREATE TEMPORARY TABLE temporal AS SELECT * FROM basehorarios WHERE perAcademico='$anteperiodo';
 							UPDATE temporal SET perAcademico='$neoperiodo';
 							ALTER TABLE temporal DROP COLUMN idHorarios;
-							INSERT into basehorarios (perAcademico,dia,hora,codCurso,secCurso,teopra,codAula,codAula2,codDocente,orden,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,estado) SELECT * from temporal;");
+							INSERT into basehorarios (perAcademico,dia,hora,codCurso,secCurso,teopra,codAula,codAula2,codDocente,orden,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,estado,fecha) SELECT * from temporal;");
+    }
+
+    public function agregarPeriodoPorCurricula($periodo,$curricula){
+
+        $sql="INSERT INTO curricula VALUES ('$periodo','$curricula')";
+        $this->Open(1);
+        $this->con1->query($sql);
     }
 
     public function BorrarPorCurso($codCurso,$periodo){
@@ -164,6 +171,43 @@ Class Conexion
         if (!empty($this->memoria)) {
             $datos = $this->memoria->fetchAll(PDO::FETCH_OBJ);
             $this->Close(1);
+
+            return $datos;
+
+        } else {
+            
+            return "vacio";
+            
+        }
+    }
+
+
+    public function mostrarVerCurricular()
+    {
+        $sql = "SELECT DISTINCT verCurricular FROM curricular";
+        $this->Conectar(2);
+        $this->memoria = $this->con2->query($sql);
+        if (!empty($this->memoria)) {
+            $datos = $this->memoria->fetchAll(PDO::FETCH_OBJ);
+            $this->Close(2);
+
+            return $datos;
+
+        } else {
+            
+            return "vacio";
+            
+        }
+    }
+
+    public function mostrarVerCurricularTabla()
+    {
+        $sql = "SELECT DISTINCT verCurricular FROM curricular";
+        $this->Conectar(2);
+        $this->memoria = $this->con2->query($sql);
+        if (!empty($this->memoria)) {
+            $datos = $this->memoria->fetchAll(PDO::FETCH_OBJ);
+            $this->Close(2);
 
             return $datos;
 

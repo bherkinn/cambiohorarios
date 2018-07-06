@@ -7,7 +7,7 @@ var indicefila;
 
 $(document).ready(function() {
     $("#select-cursos").select2({
-        width: '240px',
+        width: '350px',
     });
 });
 
@@ -22,7 +22,7 @@ $(document).ready(function() {
 
     } else {
         $("#select-cursos").select2({
-            width: '400px'
+            width: '350px'
         });
     }
 });
@@ -62,7 +62,7 @@ $(window).resize(function() {
 
         } else {
             $("#select-cursos").select2({
-                width: '400px'
+                width: '300px'
             });
         }
         medida = $(window).width();
@@ -86,10 +86,13 @@ $(document).ready(function() {
 });
 var cursostotal;
 var cantidadct;
+var cbocursos;
+var cantidadcbc;
 
 $(document).ready(function(){
     $.post("anexos/combos/cursos.php",{},
         function(datoscursos){
+
             cursostotal=JSON.parse(datoscursos);
             cantidadct=Object.keys(cursostotal).length;
 
@@ -108,24 +111,24 @@ $(document).ready(function(){
                     cbocursos=JSON.parse(dtcursos);
                     cantidadcbc=Object.keys(cbocursos).length;
                     for(a=0;a<cantidadct;a++)
+                {
+                    for(i=0;i<cantidadcbc;i++)
                     {
-                        for(i=0;i<cantidadcbc;i++)
+                        if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
                         {
-
-                            if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
-                            {
-                                 $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
-                                 ingrese=1;
-                            }
-                            
+                             ingrese=1;
                         }
-                        if(ingrese=0)
-                        {
-                            $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
-                        }
-
+                        
+                    }
+                    if(ingrese==1)
+                    {
+                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
                         ingrese=0;
                     }
+                    else{
+                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
+                    }  
+                }
                     
                     $("#tabla-carga").removeClass("table-responsive border rounded");
                     $("#tabla-carga").html("");
@@ -143,6 +146,22 @@ $(document).ready(function(){
                             setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 400);
                             setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 400);
                             // $("#tabla").html(data).fadeIn();
+                            $.post("anexos/combos/versionCurricular.php",{},
+                                function(datosCurricular){
+                                    vercurricular=JSON.parse(datosCurricular);
+                                    cantidadvc=Object.keys(vercurricular).length;
+                                    for(u=0;u<cantidadvc;u++)
+                                    {   
+                                        if(u==(cantidadvc-1))
+                                        {   
+                                            $("#cbocurricular").append("<option value="+vercurricular[u]["verCurricular"]+" selected >"+vercurricular[u]["verCurricular"]+"</option>");
+                                        }
+                                        else
+                                        {
+                                            $("#cbocurricular").append("<option value="+vercurricular[u]["verCurricular"]+" >"+vercurricular[u]["verCurricular"]+"</option>");
+                                        }
+                                    }
+                                });
                         });
 
                 });
@@ -155,7 +174,6 @@ $(document).ready(function(){
 $(document).ready(function() {
     $("#cboperiodo").change(function() {
         $("#cboperiodo option:selected").each(function() {
-
             vercurricular=$("#cboperiodo").val();
             $.post("anexos/combos/cursosPorCurricula.php",{vercurricular:vercurricular},
             function(dtcursos){
@@ -181,6 +199,23 @@ $(document).ready(function() {
                         $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
                     }  
                 }
+                $("#tabla-carga").removeClass("table-responsive border rounded");
+                $("#tabla-carga").html("");
+                $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
+                ciclo = $("#cboperiodo option:selected").text();
+                curso = $("#select-cursos").val();
+
+                $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
+                        curso: curso,
+                        ciclo: ciclo,
+                        estado: 1
+                    },
+                    function(data) {
+                        datosJSON = JSON.parse(data);
+                        setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 400);
+                        setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 400);
+                        // $("#tabla").html(data).fadeIn();
+                    });
             });
         });
     });
@@ -188,7 +223,7 @@ $(document).ready(function() {
 /*********************Mensajes de Confirmacion**************************/
 
 $("#btn-borrar-curso").click(function(){
-    alertify.confirm("Esta a punto de Eliminar el Horario Completo de un Curso <br><br>¿Desea Eliminaro?",
+    alertify.confirm("Esta a punto de Eliminar el Horario Completo de un Curso <br><br>¿Desea Eliminarlo?",
         function(){
               setTimeout("borrarPorCurso();",200);
         },
@@ -614,21 +649,72 @@ $("#registrar-fila").click(function(e) {
     setTimeout("buscar()", 800);
 });
 
+$("#cambiar-curso-fila").click(function(e){
+    e.preventDefault();
+    $('#modal-cambiar-curso').modal('show');
+    $("#cbocursofinal").val($("#select-cursos").val());
+    $("#cbocursofinal").html("");
+                for(a=0;a<cantidadct;a++)
+                {
+                    for(i=0;i<cantidadcbc;i++)
+                    {
+                        if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
+                        {
+                             ingrese=1;
+                        }
+                        
+                    }
+                    if(ingrese==1)
+                    {
+                        $("#cbocursofinal").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
+                        ingrese=0;
+                    }
+                    else{
+                        $("#cbocursofinal").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
+                    }  
+                }
+});
+
+$("#btn-cambiar-curso").click(function(){
+    cursoinicial=$("#txtcursoinicial").val();
+    cursofinal=$("#cbocursofinal").val();
+
+    if(cursoinicial!=cursofinal)
+    {
+
+    }
+    else
+    {
+        alertify
+          .alert("Los cursos coinciden (no seria un caMbio)", function(){
+            alertify.message('OK');
+          });
+    }
+});
+
 $("#agregar-periodo").click(function(){
 	var anteperiodo=$("#periodo-clonar").val();
 	var neoperiodo=$("#txtperiodo").val();
-	setTimeout("mostrarcargando();",1000);
-	$.ajax({
-		data:{anteperiodo:anteperiodo,neoperiodo:neoperiodo},
-		url:"anexos/nuevoperiodo.php",
-		type: "post",
-		success:function(data){
-			setTimeout("mostrarcheck();",5000);
-			setTimeout("mostrarcheck2();",6800);
-			setTimeout("location.reload()",7500);
-		}
+    var curricula=$("#cbocurricular").val();
+    alertify.confirm("Usted va a crear el periodo '"+neoperiodo+"' con los datos del periodo '"+anteperiodo+"' 'con la curricula del "+curricula+"<br>¿Desea crear Periodo?",
+        function(){
+            setTimeout("mostrarcargando();",1000);
+            $.ajax({
+                data:{anteperiodo:anteperiodo,neoperiodo:neoperiodo,curricula:curricula},
+                url:"anexos/nuevoperiodo.php",
+                type: "post",
+                success:function(data){
+                    setTimeout("mostrarcheck();",5000);
+                    setTimeout("mostrarcheck2();",6800);
+                    setTimeout("location.reload()",7500);
+                }
 
-	});
+            });
+        },
+        function(){
+
+        });
+	
 	// alert(anteperiodo+"  "+ neoperiodo);
 });
 

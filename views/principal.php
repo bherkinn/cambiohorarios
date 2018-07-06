@@ -77,9 +77,11 @@
          </div>
       </header>
       <div id="mostrar-menu" class="main-ocultar">
+         <iframe id="iframe" style="width:100%;height:100%;position:absolute;border:none;background-color:transparent" allowtransparency=true>
+         </iframe>
          <!-- *******************************************************BOTONES PRINCIPALES**************************************************** -->
          <button id="menu" class="menu fas fa-bars" style=""></button>
-         <!-- <button id="agregar" class="agregar btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button> -->
+         <button id="agregar" class="agregar btn-success" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
          
          <!-- ******************************************************MENUS CONTEXTUALES**************************************************** -->
          <ul id="menucontextual" class="dropdown-menu-modificado menu-contextual" style="width: 10px;">
@@ -89,6 +91,9 @@
             <li class="lista">			
                <a class="borrar comun-lista" id="duplicar-fila" href="#"><i class="fas fa-copy" style="font-size: 14px;"></i> Duplicar </a>	
             </li>
+            <li class="lista">         
+               <a class="borrar comun-lista" id="cambiar-curso-fila" href="#"><i class="fas fa-exchange-alt" style="font-size: 14px;"></i> Cambiar Curso </a>  
+            </li>
          </ul>
          <ul id="menucontextual-agregar" class="dropdown-menu-modificado menu-contextual" style="width: 10px;">
             <li class="lista">			
@@ -96,8 +101,47 @@
             </li>
          </ul>
 
+         <!-- ******************************************************MODAL CAMBIAR CURSO**************************************************** -->
+         <div id="modal-cambiar-curso" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Cambiar Curso</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <div class=" offset-1 col-10">
+                        <center>
+                           Curso Actual :
+                        </center>
+                     </div>
+
+                     <input type="text" style="text-align: center;margin-bottom: 5px;" id="txtcursoinicial" class="form-control offset-1 col-10 " disabled>
+                     <div class=" offset-1 col-10 ">
+                        <center>
+                           Cambiar a :
+                        </center>
+                     </div>
+
+                    <!--  <input type="text" style="text-align: center;margin-bottom: 15px;" id="txtcursofinal" class="form-control offset-sm-1 col-sm-10"> -->
+                     <select id='cbocursofinal' class="form-control offset-1 col-10" style="text-align-last: center;margin-bottom: 15px;font-size: 11px;">
+                        
+                     </select>
+                     <button class="offset-1 col-10 btn btn-info" id="btn-cambiar-curso">Cambiar</button>
+                     <br>
+                     <br>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+         <!-- ******************************************************/MODAL CAMBIAR CURSO************************************************** -->
+
          <!-- ******************************************************MODAL AGREGAR******************************************************** -->
          <div id="modal-agregar" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
             <div class="modal-dialog modal-lg">
                <div class="modal-content">
                   <div class="modal-header">
@@ -117,6 +161,14 @@
                            <input id="txtperiodo" onkeypress="return validarNumericosGuiones(event);" style="text-align: center;" type="text" name="txtperiodo" class="form-control col-sm-3 col-md-3 col-lg-2" autocomplete="off">
                         </div>
                         <br>
+                        <div class="form-inline">
+                           <label class="control-label offset-sm-2 offset-md-3 col-sm-2 col-md-2 col-lg-3">Versión Curricular:</label>
+                           <select id="cbocurricular" class=" offset-sm-1 offset-md-1 offset-lg-0 form-control col-sm-4 col-md-3 col-lg-2" style="text-align-last: center;">
+
+                           </select>
+                        </div>
+                           
+                        <br>
                         <button id="agregar-periodo" class="btn btn-primary offset-sm-2 col-sm-8 offset-md-4 col-md-4">Agregar</button>
                      </div>
                      <br>
@@ -129,27 +181,7 @@
          </div>
          <!-- ******************************************************/MODAL AGREGAR******************************************************** -->
          <div class="container-fluid" style="margin-top: 20px;margin-bottom: 20px;height: 25px;">
-         	<!-- <div class="offset-1 col-10 col-sm-10 col-md-10 col-lg-10 border" style="">
-         		<div class="row">
-         			<button id="agregar" class="btn btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
-	         		<button id="agregar" class="offset-1 offset-sm-1 offset-md-1 btn btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
-	         		<button id="agregar" class="offset-1 offset-sm-1 offset-md-1 btn btn-success fas fa-plus-circle" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
-	         		 <select id="cbociclo" class="offset-1 offset-sm-1 offset-md-1 cboperiodo " style="font-size: 12px"> -->
-				               <?php 
-				                  /*$ciclos=$o->MostrarCiclos();
-				                  foreach($ciclos as $a)
-				                  {*/
-				                  ?>	
-				               <!-- <option value="<?php /*echo $a->perAcademico; */?>"> -->
-				                  <?php /*echo $a->perAcademico;*/ ?>
-				               <!-- </option> -->
-				               <?php  
-				                  // }
-				                  ?>
-				    <!-- </select>
 
-         		</div>
-         	</div> -->
          </div>
          	
          <div id="tabla-acomodar" class="container">
@@ -161,7 +193,7 @@
 		            <select id="select-cursos" class="select-cursos">
 		               
 		            </select>
-                  <button id="btn-borrar-curso"class="btn-danger btn-borrar-curso" style="font-size: 12px;float: left;">Borrar</button>
+                  <button id="btn-borrar-curso" class="btn-danger btn-borrar-curso" style="font-size: 12px;float: left;">Borrar</button>
 		            <select id="cboperiodo" class="cboperiodo " style="font-size: 12px;float: left;">
 				    </select>
 		          </center>
@@ -197,7 +229,7 @@
       <script type="text/javascript" src="librerias/js/principal.js" >
          $(document).ready(function(){
          	$("#select-cursos").select2({
-         		 width: '240px',
+         		 width: '220px',
          	});
          
          });         
