@@ -114,6 +114,12 @@ Class Conexion
         $this->con1->query("UPDATE basehorarios SET estado=$estado WHERE idHorarios=$id");
     }
 
+    public function modificarCursoTablaHorarios($id,$codCurso){
+        $this->Conectar(1);
+        $this->con1->query("UPDATE basehorarios SET codCurso='$codCurso' WHERE idHorarios=$id");
+
+    }
+
     public function NuevoPeriodo($anteperiodo,$neoperiodo){
     	$this->Open(1);
         $this->con1->query("CREATE TEMPORARY TABLE temporal AS SELECT * FROM basehorarios WHERE perAcademico='$anteperiodo';
@@ -272,7 +278,7 @@ Class Conexion
     public function Recuperar(){
         $this->conectar(1);
         
-        $sql = "SELECT * FROM basehorarios WHERE perAcademico='2018-1' AND estado=0 ORDER BY fecha DESC";
+        $sql = "SELECT * FROM basehorarios WHERE estado=0 ORDER BY fecha DESC";
         
         $this->memoria = $this->con1->query($sql);
         

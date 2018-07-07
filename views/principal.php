@@ -6,13 +6,14 @@
       <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
       <!-- **************************************CSS************************************* -->
       <link rel="stylesheet" type="text/css" href="librerias/bootstrap4/css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="librerias/css/fuente.css">
       <link rel="stylesheet" type="text/css" href="librerias/css/principal.css">
       <link rel="stylesheet" type="text/css" href="librerias/css/menucontextual.css">
       <link rel="stylesheet" type="text/css" href="librerias/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
       <link rel="stylesheet" type="text/css" href="librerias/select2/css/select2.min.css">
       <!-- <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css"> -->
       <!-- <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css"> -->
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
       <!-- ***************************************JS************************************* -->
       <!-- <script type="text/javascript" src="librerias/alertify/lib/alertify.js"></script> -->
       <link rel="stylesheet" type="text/css" href="librerias/AlertifyJS-master/build/css/alertify.css">
@@ -118,7 +119,7 @@
                         </center>
                      </div>
 
-                     <input type="text" style="text-align: center;margin-bottom: 5px;" id="txtcursoinicial" class="form-control offset-1 col-10 " disabled>
+                     <input type="text" style="text-align: center;margin-bottom: 5px; font-size: 12px;" id="txtcursoinicial" class="form-control offset-1 col-10 " disabled>
                      <div class=" offset-1 col-10 ">
                         <center>
                            Cambiar a :
@@ -153,6 +154,13 @@
                   <div class="modal-body">
                      <div class="container-fluid">
                         <div class="form-inline">
+                           <label class="control-label  col-sm-2 col-md-2 col-lg-3">Versión Curricular:</label>
+                           <select id="cbocurricular" class="offset-lg-0 form-control col-sm-3 col-md-3 col-lg-2" style="text-align-last: center;">
+
+                           </select>
+                        </div>
+                         <br>
+                        <div class="form-inline">
                            <label class="control-label col-sm-2 col-md-2 col-lg-3">Clonar de :</label>
                            <select id="periodo-clonar" class="form-control col-sm-3 col-md-3 col-lg-2" style="text-align-last: center;">
 
@@ -160,14 +168,6 @@
                            <label class="control-label offset-sm-1 offset-md-1 col-sm-2 col-md-2 col-lg-3">Nuevo Periodo:</label>
                            <input id="txtperiodo" onkeypress="return validarNumericosGuiones(event);" style="text-align: center;" type="text" name="txtperiodo" class="form-control col-sm-3 col-md-3 col-lg-2" autocomplete="off">
                         </div>
-                        <br>
-                        <div class="form-inline">
-                           <label class="control-label offset-sm-2 offset-md-3 col-sm-2 col-md-2 col-lg-3">Versión Curricular:</label>
-                           <select id="cbocurricular" class=" offset-sm-1 offset-md-1 offset-lg-0 form-control col-sm-4 col-md-3 col-lg-2" style="text-align-last: center;">
-
-                           </select>
-                        </div>
-                           
                         <br>
                         <button id="agregar-periodo" class="btn btn-primary offset-sm-2 col-sm-8 offset-md-4 col-md-4">Agregar</button>
                      </div>
@@ -193,7 +193,8 @@
 		            <select id="select-cursos" class="select-cursos">
 		               
 		            </select>
-                  <button id="btn-borrar-curso" class="btn-danger btn-borrar-curso" style="font-size: 12px;float: left;">Borrar</button>
+                  <button id="btn-actualizar-tabla" class="fas fa-redo-alt btn-info btn-actualizar-tabla" style="float: left;"></button>
+                  <button id="btn-borrar-curso" class="btn-danger btn-borrar-curso" style="float: left;">Borrar</button>
 		            <select id="cboperiodo" class="cboperiodo " style="font-size: 12px;float: left;">
 				    </select>
 		          </center>

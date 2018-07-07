@@ -126,9 +126,9 @@
 		        "<th class='th'>CURSO</th>" +
 		        "<th class='th'>SECCION</th>" +
 		        "<th class='th'>T/P</th>" +
-		        "<th class='thaula'>AULA</th>" +
-		        "<th class='thaula'>AULA 2</th>" +
-		        "<th class='thdocente'>DOCENTE</th>" +
+		        "<th class=''>AULA</th>" +
+		        "<th class=''>AULA 2</th>" +
+		        "<th class=''>DOCENTE</th>" +
 		        "<th class='th'>C1</th>" +
 		        "<th class='th'>C2</th>" +
 		        "<th class='th'>C3</th>" +

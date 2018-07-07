@@ -223,7 +223,8 @@ $(document).ready(function() {
 /*********************Mensajes de Confirmacion**************************/
 
 $("#btn-borrar-curso").click(function(){
-    alertify.confirm("Esta a punto de Eliminar el Horario Completo de un Curso <br><br>¿Desea Eliminarlo?",
+    cursoeliminar=$("#select-cursos").val();
+    alertify.confirm("Esta a punto de Eliminar el Horario Completo del curso "+cursoeliminar+"<br><br>¿Desea Eliminarlo?",
         function(){
               setTimeout("borrarPorCurso();",200);
         },
@@ -251,23 +252,7 @@ function borrarPorCurso(){
 $(document).ready(function() {
     $("#select-cursos").change(function() {
         $("#select-cursos option:selected").each(function() {
-            $("#tabla-carga").removeClass("table-responsive border rounded");
-            $("#tabla-carga").html("");
-            $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-            ciclo = $("#cboperiodo option:selected").text();
-            curso = $("#select-cursos").val();
-
-            $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
-                    curso: curso,
-                    ciclo: ciclo,
-                    estado: 1
-                },
-                function(data) {
-                    datosJSON = JSON.parse(data);
-                    setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 400);
-                    setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 400);
-                    // $("#tabla").html(data).fadeIn();
-                });
+            buscar();
         });
     });
 });
@@ -304,7 +289,7 @@ function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
         "<th class='num th'>N.O.</th>" +
         "<th class='th'>DIA</th>" +
         "<th class='th'>HORA</th>" +
-        "<th class='th'>CURSO</th>" +
+        // "<th class='th'>CURSO</th>" +
         "<th class='th'>SECCION</th>" +
         "<th class='th'>T/P</th>" +
         "<th class='thaula'>AULA</th>" +
@@ -329,7 +314,7 @@ function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
             "<td><input id='txtorden" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['orden'] + "'></td>" +
             "<td><input id='txtdia" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['dia'] + "'></td>" +
             "<td><input id='txthora" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['hora'] + "'></td>" +
-            "<td><input id='txtcurso" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['codCurso'] + "'></td>" +
+            // "<td><input id='txtcurso" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['codCurso'] + "'></td>" +
             "<td><input id='txtseccion" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['secCurso'] + "'></td>" +
             "<td><input id='txttp" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['teopra'] + "'></td>" +
             "<td id='tdaulas'><select class='select-aulas' id='select-aulas" + id + "' disabled></select>" +
@@ -386,7 +371,7 @@ function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
         "<td><input id='txtorden' type='text' onkeypress='return validarNumericos(event)' class='form-control-n txtform' spellcheck='false' autocomplete='off'></td>" +
         "<td><input id='txtdia' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='2'></td>" +
         "<td><input id='txthora' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>" +
-        "<td><input id='txtcurso' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' disabled value='" + $("#select-cursos").val() + "'></td>" +
+        // "<td><input id='txtcurso' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' disabled value='" + $("#select-cursos").val() + "'></td>" +
         "<td><input id='txtseccion' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='5'></td>" +
         "<td><input id='txttp' type='text' class='form-control-n txtform' spellcheck='false' autocomplete='off' maxlength='3'></td>" +
         "<td id='tdaulas'><select class='select-aulas' id='select-aulas'><option disabled selected >Elegir</option></select>" +
@@ -424,14 +409,14 @@ function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
 
     for (a = 0; a < cantidadDocentes; a++) {
         $("#select-docentes").append("<option value='" + cbodocentes[a]["codDocente"] + "'>" + cbodocentes[a]['apePaterno'] + " " +
-            cbodocentes[a]['apeMaterno'] + ", " + cbodocentes[0]['nombres'] + "</option>");
+            cbodocentes[a]['apeMaterno'] + ", " + cbodocentes[a]['nombres'] + "</option>");
     }
 
     $(".select-aulas").select2({
-        width: "80px"
+        width: "90px"
     });
     $(".select-docentes").select2({
-        width: "160px"
+        width: "200px"
     });
 
     //***********************
@@ -652,7 +637,7 @@ $("#registrar-fila").click(function(e) {
 $("#cambiar-curso-fila").click(function(e){
     e.preventDefault();
     $('#modal-cambiar-curso').modal('show');
-    $("#cbocursofinal").val($("#select-cursos").val());
+    $("#txtcursoinicial").val($("#select-cursos").val());
     $("#cbocursofinal").html("");
                 for(a=0;a<cantidadct;a++)
                 {
@@ -674,6 +659,9 @@ $("#cambiar-curso-fila").click(function(e){
                     }  
                 }
 });
+$("#btn-actualizar-tabla").click(function(){
+    buscar();
+});
 
 $("#btn-cambiar-curso").click(function(){
     cursoinicial=$("#txtcursoinicial").val();
@@ -681,13 +669,25 @@ $("#btn-cambiar-curso").click(function(){
 
     if(cursoinicial!=cursofinal)
     {
+        alertify.confirm("Se pasaran los datos seleccionados del curso "+cursoinicial+" al "+cursofinal+" <br> ¿Desea Continuar?",
+            function(){
+                $.post("anexos/tabla-principal/CambiarCursoFila.php",{id:trderecho,codCurso:cursofinal},
+                    function(){
+                        $('#modal-cambiar-curso').modal('hide');
+                        $("#"+trderecho).fadeOut();
+                        alertify.success("CAMBIOS REALIZADOS");
+                    });
+                
+            },
+            function(){
 
+            });
     }
     else
     {
         alertify
-          .alert("Los cursos coinciden (no seria un caMbio)", function(){
-            alertify.message('OK');
+          .alert("Los cursos coinciden", function(){
+            
           });
     }
 });
@@ -696,7 +696,7 @@ $("#agregar-periodo").click(function(){
 	var anteperiodo=$("#periodo-clonar").val();
 	var neoperiodo=$("#txtperiodo").val();
     var curricula=$("#cbocurricular").val();
-    alertify.confirm("Usted va a crear el periodo '"+neoperiodo+"' con los datos del periodo '"+anteperiodo+"' 'con la curricula del "+curricula+"<br>¿Desea crear Periodo?",
+    alertify.confirm("Usted va a crear el periodo '"+neoperiodo+"' con los datos del periodo '"+anteperiodo+"' y la curricula del "+curricula+"<br>¿Desea crear Periodo?",
         function(){
             setTimeout("mostrarcargando();",1000);
             $.ajax({
@@ -734,8 +734,9 @@ function mostrarcheck2()
 function buscar() {
 
     $("#tabla-carga").removeClass("table-responsive border rounded");
+    $("#tabla-carga").html("");
     $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-    ciclo = $("#cboperiodo").val();
+    ciclo = $("#cboperiodo option:selected").text();
     curso = $("#select-cursos").val();
 
     $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
@@ -745,8 +746,9 @@ function buscar() {
         },
         function(data) {
             datosJSON = JSON.parse(data);
-            setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 60);
-            setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 60);
+            setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 400);
+            setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 400);
+            // $("#tabla").html(data).fadeIn();
         });
 }
 
@@ -832,7 +834,7 @@ function guardar() {
     datos.append("txtorden", $("#txtorden").val());
     datos.append("txtdia", $("#txtdia").val());
     datos.append("txthora", $("#txthora").val());
-    datos.append("txtcurso", $("#txtcurso").val());
+    datos.append("txtcurso", $("#select-cursos").val());
     datos.append("txtseccion", $("#txtseccion").val());
     datos.append("txttp", $("#txttp").val());
     datos.append("cboaula", $("#select-aulas").val());
@@ -848,7 +850,7 @@ function guardar() {
     datos.append("txtc8", $("#txtc8").val());
     datos.append("txtc9", $("#txtc9").val());
     datos.append("txtc10", $("#txtc10").val());
-    datos.append("cboperiodo", $("#cboperiodo").val());
+    datos.append("cboperiodo", $("#cboperiodo option:selected").text());
 
     $.ajax({
 
@@ -870,7 +872,7 @@ function actualizar(indice) {
     datos.append("txtorden", $("#txtorden" + indice).val());
     datos.append("txtdia", $("#txtdia" + indice).val());
     datos.append("txthora", $("#txthora" + indice).val());
-    datos.append("txtcurso", $("#txtcurso" + indice).val());
+    datos.append("txtcurso", $("#select-cursos").val());
     datos.append("txtseccion", $("#txtseccion" + indice).val());
     datos.append("txttp", $("#txttp" + indice).val());
     datos.append("cboaula", $("#select-aulas" + indice).val());
@@ -910,7 +912,7 @@ function duplicar(indice) {
     datos.append("txtorden", $("#txtorden" + indice).val());
     datos.append("txtdia", $("#txtdia" + indice).val());
     datos.append("txthora", $("#txthora" + indice).val());
-    datos.append("txtcurso", $("#txtcurso" + indice).val());
+    datos.append("txtcurso", $("#select-cursos").val());
     datos.append("txtseccion", $("#txtseccion" + indice).val());
     datos.append("txttp", $("#txttp" + indice).val());
     datos.append("cboaula", $("#select-aulas" + indice).val());
@@ -926,7 +928,7 @@ function duplicar(indice) {
     datos.append("txtc8", $("#txtc8" + indice).val());
     datos.append("txtc9", $("#txtc9" + indice).val());
     datos.append("txtc10", $("#txtc10" + indice).val());
-    datos.append("cboperiodo", $("#cboperiodo").val());
+    datos.append("cboperiodo", $("#cboperiodo option:selected").text());
 
     $.ajax({
 

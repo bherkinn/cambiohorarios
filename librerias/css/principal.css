@@ -225,7 +225,7 @@ nav{
 	padding: 5px;
 	font-size: 12px;
 /*	float: right;*/
-	margin-left: 70px;
+	margin-left: 110px;
     border-radius: 4px;
     position: absolute;
 }
@@ -293,13 +293,13 @@ nav{
 }
 .thdocente{
 	text-align: center;
-	min-width: 160px;
+	min-width: 200px;
 	padding-right: 9px;
 	padding-left: 9px;
 }
 .thaula{
 	text-align: center;
-	min-width: 80px;
+	min-width: 90px;
 	padding-right: 9px;
 	padding-left: 9px;
 }
@@ -407,7 +407,7 @@ nav{
 	font-size: 12px;
     border-radius: 4px;
     position: absolute;
-    margin-left:10px;
+    margin-left:50px;
     outline: none;
     cursor: pointer;
 }
@@ -416,6 +416,25 @@ nav{
 	outline: none;
 }
 
+.btn-actualizar-tabla{
+	border:none;
+	padding: 4.5px;
+	padding-left: 6px;
+	padding-right: 6px;
+	font-size: 20px;
+    border-radius: 4px;
+    position: absolute;
+    margin-left:10px;
+    outline: none;
+    cursor: pointer;
+    background-color: #3BBFC7;
+}
+.btn-actualizar-tabla:hover{
+	background-color: #3EABB2;
+}
+.btn-actualizar-tabla:focus{
+	outline: none;
+}
 
 
 
