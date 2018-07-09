@@ -25,7 +25,7 @@ function llenarTablaCursos(jsondatos){
 	}
 
 	
-
+	$(".td-periodo").html(jsondatos[0]["perAcademico"]);
 	$("#nomcurso").html(jsondatos[0]["codCurso"]+" - "+jsondatos[0]["nomCurso"]);
 	$("#caracteristica").html("Capacidad "+jsondatos[0]['capacidad']+" sillas <br> Con Pizarra "+jsondatos[0]["pizarra"]+" y "+taburete+" tiene taburete");
 	console.log(jsondatos);

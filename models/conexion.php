@@ -169,6 +169,15 @@ Class Conexion
         
     }
 
+     public function mostrarAulas(){
+        $this->Open(2);
+        $this->memoria = $this->con2->query("SELECT aula FROM aulas");
+        $datos         = $this->memoria->fetchAll(PDO::FETCH_OBJ);
+        $this->Close(2);
+        
+        return $datos;
+     }
+
      public function mostrarPeriodos(){
 
         $sql = "SELECT * FROM curricula";

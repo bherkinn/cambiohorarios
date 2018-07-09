@@ -230,7 +230,7 @@ $("#btn-borrar-curso").click(function(){
         },
         function(){
 
-        });
+        }); 
 });
 
 function borrarPorCurso(){

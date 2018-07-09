@@ -29,10 +29,21 @@
 	<!-- <script type="text/javascript" src="../../librerias/js/fancywebsocket.js"></script> -->
 <!-- 	<script type="text/javascript" src="librerias/jqueryPlugintipsy/js/jquery.tipsy.js"></script> -->
 
-	<?php 
-		require_once("../../models/conexion.php");
-		$o= new Conexion();
-	 ?>
+	<style type="text/css">
+	 	.cboperiodo{
+			padding: 5px;
+			font-size: 12px;
+			margin-left: 20px;
+		    border-radius: 4px;
+		    position: absolute;
+		}
+		.titulo-tabla{
+			padding: 5px;
+			font-weight: bold;
+			font-size: 28px;
+			color: #787777;
+		}
+	 </style>
 
 	
 
@@ -90,29 +101,16 @@
 		<br>
 
 		<center>
-							<select id="select-cursos" class="select-cursos">
-								<?php 
-								$o->Open(2);
-								$tabla=$o->Mostrar("cursos","codCurso",2);
-								foreach($tabla as $a)
-								{
-							?>	
-								<option value="<?php echo $a->codCurso; ?>">
-									
-										<?php echo $a->codCurso." - ".$a->nomCurso; ?>
-									
-								</option>
-							<?php  
-								}
-								$o->Close(2);	
-							?>
-							</select>
+				<select id="select-cursos" class="select-cursos">
+					
+				</select>
+				<select id="cboperiodo" class="cboperiodo " style="font-size: 12px;">
+				</select>
 		</center>
 		<br>
 		<br>
           <div id="tabla" class="container">
 
-			
 
 		</div>
 		<br>
@@ -135,7 +133,7 @@
 		    var titulo="UNIVERSIDAD NACIONAL DE INGENIERIA - FACULTAD DE INGENIERIA MECANICA - COMISION DE HORARIOS";
 			
 			horainicial=hora;
-			$("#tabla-cursos").append("<tr><td colspan='6' class='cabecera-tabla ca'>"+titulo+"</td><td rowspan='2'></td></tr>");
+			$("#tabla-cursos").append("<tr><td colspan='6' class='cabecera-tabla ca'>"+titulo+"</td><td rowspan='2' class='td-periodo'></td></tr>");
 			$("#tabla-cursos").append("<tr><td id='nomcurso' colspan='6' class='cabecera-tabla2'></td></tr>");
 			for(i=0;i<filas;i++){
 				$("#tabla-cursos").append("<tr>");
@@ -165,7 +163,6 @@
 
 							inicial=hora.toString().length;
 							final=(hora+1).toString().length;
-							console.log(cantidad);
 
 							if(inicial>1&&final>1)
 							{
@@ -209,33 +206,132 @@
 
 	<script type="text/javascript">
 
+		ingrese=0;
 		$(document).ready(function(){
-			idcurso=$("#select-cursos").val();
-			$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso},
-						function(data){
-						var hcursos=JSON.parse(data);
-						
-							llenarTablaCursos(hcursos);
-						
-			});
-		});
+    	$.post("../../anexos/combos/cursos.php",{},
+        function(datoscursos){
 
-		$(document).ready(function(){
-			$("#select-cursos").change(function(){
-				$("#select-cursos option:selected").each(function(){
-					idcurso=$(this).val();
-					$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso},
-						function(data){
-						var hcursos=JSON.parse(data);
+            cursostotal=JSON.parse(datoscursos);
+            cantidadct=Object.keys(cursostotal).length;
+
+            $.post("../../anexos/combos/periodo.php",{},
+            function(data){
+                cboperiodo=JSON.parse(data);
+                cantidadcbp=Object.keys(cboperiodo).length;
+                for(i=0;i<cantidadcbp;i++)
+                {
+                    $("#cboperiodo").append("<option value="+cboperiodo[i]["perAcademico"]+">"+cboperiodo[i]["perAcademico"]+"</option>");
+                    $("#periodo-clonar").append("<option value="+cboperiodo[i]["perAcademico"]+">"+cboperiodo[i]["perAcademico"]+"</option>");
+                }
+                vercurricular=$("#cboperiodo").val();
+                $.post("../../anexos/combos/cursosPorCurricula.php",{vercurricular:vercurricular},
+                function(dtcursos){
+                    cbocursos=JSON.parse(dtcursos);
+                    cantidadcbc=Object.keys(cbocursos).length;
+                    for(a=0;a<cantidadct;a++)
+                {
+                    for(i=0;i<cantidadcbc;i++)
+                    {
+                        if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
+                        {
+                             ingrese=1;
+                        }
+                        
+                    }
+                    if(ingrese==1)
+                    {
+                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
+                        ingrese=0;
+                    }
+                    else{
+                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
+                    }  
+                }
+
+                periodo=$("#cboperiodo").val();
+				idcurso=$("#select-cursos").val();
+				$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso,periodo:periodo},
+					function(data){
+					var hcursos=JSON.parse(data);
+					
+						llenarTablaCursos(hcursos);
+					
+				});
+
+            	});
+            });
+         });
+});
+
+$(document).ready(function() {
+    $("#cboperiodo").change(function() {
+        $("#cboperiodo option:selected").each(function() {
+            vercurricular=$("#cboperiodo").val();
+            $.post("../../anexos/combos/cursosPorCurricula.php",{vercurricular:vercurricular},
+            function(dtcursos){
+                cbocursos=JSON.parse(dtcursos);
+                cantidadcbc=Object.keys(cbocursos).length;
+                $("#select-cursos").html("");
+                for(a=0;a<cantidadct;a++)
+                {
+                    for(i=0;i<cantidadcbc;i++)
+                    {
+                        if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
+                        {
+                             ingrese=1;
+                        }
+                        
+                    }
+                    if(ingrese==1)
+                    {
+                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
+                        ingrese=0;
+                    }
+                    else{
+                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
+                    }  
+                }
+
+                periodo=$("#cboperiodo").val();
+				idcurso=$("#select-cursos").val();
+				$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso,periodo:periodo},
+					function(data){
+					var hcursos=JSON.parse(data);
+					
+						llenarTablaCursos(hcursos);
+					
+				});
+
+            });
+        });
+    });
+});
+		// $(document).ready(function(){
+		// 	idcurso=$("#select-cursos").val();
+		// 	$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso},
+		// 				function(data){
+		// 				var hcursos=JSON.parse(data);
 						
-							llenarTablaCursos(hcursos);
+		// 					llenarTablaCursos(hcursos);
 						
-					});
+		// 	});
+		// });
+
+		// $(document).ready(function(){
+		$("#select-cursos").change(function(){
+			$("#select-cursos option:selected").each(function(){
+				periodo=$("#cboperiodo").val();
+				idcurso=$("#select-cursos").val();
+				$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso,periodo:periodo},
+					function(data){
+					var hcursos=JSON.parse(data);
+					
+						llenarTablaCursos(hcursos);
+					
 				});
 			});
-			
 		});
-
+		
 		var medida;
 
 		$(window).resize(function(){

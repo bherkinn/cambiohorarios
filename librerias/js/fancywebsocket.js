@@ -47,33 +47,38 @@ var FancyWebSocket = function(url)
 
 
 					$.post("anexos/docentes/ObtenerHorariosDocentes.php",{idfila:fila},
-						function(data){
-						var hdocentes=JSON.parse(data);
-						llenarTablaDocente(hdocentes);
+					function(data){
+					var hdocentes=JSON.parse(data);
+					llenarTablaDocente(hdocentes);
 
-					});	
-
-					$.post("anexos/aulas/ObtenerHorariosAulas.php",{idfila:fila},
+						$.post("anexos/aulas/ObtenerHorariosAulas.php",{idfila:fila},
 						function(data){
 						var haulas=JSON.parse(data);
 						llenarTablaAulas(haulas);
 
+							$.post("anexos/cursos/ObtenerHorariosCursos.php",{idfila:fila},
+							function(data){
+							var hcursos=JSON.parse(data);
+							llenarTablaCursos(hcursos);
+							
+								$.post("anexos/ObtenerHorariosModulos.php",{idfila:fila},
+								function(data){
+								var hciclos=JSON.parse(data);
+
+								distribuirDatos(hciclos);
+
+								});	
+
+							});	
+						});	
+
 					});	
 
-					$.post("anexos/cursos/ObtenerHorariosCursos.php",{idfila:fila},
-						function(data){
-						var hcursos=JSON.parse(data);
-						llenarTablaCursos(hcursos);
+					
 
-					});	
+					
 
-					$.post("anexos/ObtenerHorariosModulos.php",{idfila:fila},
-						function(data){
-						var hciclos=JSON.parse(data);
-
-						distribuirDatos(hciclos);
-
-					});		
+						
 				}
 	}
 };

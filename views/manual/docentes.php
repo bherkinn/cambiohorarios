@@ -29,10 +29,22 @@
 	<!-- <script type="text/javascript" src="../../librerias/js/fancywebsocket.js"></script> -->
 <!-- 	<script type="text/javascript" src="librerias/jqueryPlugintipsy/js/jquery.tipsy.js"></script> -->
 
-	<?php 
-		require_once("../../models/conexion.php");
-		$o= new Conexion();
-	 ?>
+
+	 <style type="text/css">
+	 	.cboperiodo{
+			padding: 5px;
+			font-size: 12px;
+			margin-left: 20px;
+		    border-radius: 4px;
+		    position: absolute;
+		}
+		.titulo-tabla{
+			padding: 5px;
+			font-weight: bold;
+			font-size: 28px;
+			color: #787777;
+		}
+	 </style>
 
 	
 
@@ -87,28 +99,26 @@
 			</div>
 		</header>		
 		
-		<br>
-
-		<center>
-							<select id="select-docentes" class="select-cursos">
-								<?php 
-									$o->Open(2);
-									$tabla=$o->Mostrar("docentes","apePaterno",2);
-									foreach($tabla as $a)
-									{
-								?>	
-									<option value="<?php echo $a->codDocente; ?>">
-										
-											<?php echo $a->apePaterno." ".$a->apeMaterno.", ".$a->nombres; ?>
-										
-									</option>
-								<?php  
-									}
-									$o->Close(2);	
-								?>
-							</select>
+		<center><div class="titulo-tabla">DOCENTES - MANUAL</div></center>
+		<div style="margin-bottom: 15px;"> <center> 
+		<select id="select-docentes">
+					
+		</select>
+		<select id="cboperiodo" class="cboperiodo " style="font-size: 12px;">
+		</select>
 		</center>
-		<br>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="container-fluid">
+				<center>
+					<div id="tabla" class="">
+	
+			
+
+					</div>
+				</center>
+		</div>
+		</div>
 		<br>
           <div id="tabla" class="container">
 
@@ -136,7 +146,7 @@
 		    var carga="CARGA HORARIA/SEM.";
 			
 			horainicial=hora;
-			$("#tabla-docentes").append("<tr><td colspan='5' class='cabecera-tabla ca'>"+titulo+"</td><td class='ca'>"+carga+"</td><td rowspan='2'></td></tr>");
+			$("#tabla-docentes").append("<tr><td colspan='5' class='cabecera-tabla ca'>"+titulo+"</td><td class='ca'>"+carga+"</td><td class='td-periodo' rowspan='2'></td></tr>");
 			$("#tabla-docentes").append("<tr><td id='nomdocente' colspan='5' class='cabecera-tabla2'></td><td id='horas' class='hora'></td></tr>");
 			for(i=0;i<filas;i++){
 				$("#tabla-docentes").append("<tr>");
@@ -166,7 +176,7 @@
 
 							inicial=hora.toString().length;
 							final=(hora+1).toString().length;
-							console.log(cantidad);
+							// console.log(cantidad);
 
 							if(inicial>1&&final>1)
 							{
@@ -206,28 +216,65 @@
 
     </style>
 		
-	<script type="text/javascript" src="../../librerias/js/comun.js" >
-		
-	</script>
+	<script type="text/javascript" src="../../librerias/js/comun.js" ></script>
 
 	<script type="text/javascript">
 
-		$(document).ready(function(){
-			iddocente=$("#select-docentes").val();
-			$.post("../../anexos/docentes/ObtenerHorariosDocentesManual.php",{iddocente:iddocente},
+		$.post("../../anexos/combos/periodo.php",{},
+            function(data){
+                cboperiodo=JSON.parse(data);
+                cantidadcbp=Object.keys(cboperiodo).length;
+                for(i=0;i<cantidadcbp;i++)
+                {
+                    $("#cboperiodo").append("<option value="+cboperiodo[i]["perAcademico"]+">"+cboperiodo[i]["perAcademico"]+"</option>");
+                }
+
+                $.post("../../anexos/docentes/ObtenerDocentes.php",{},
+	            function(data){
+	            	cbodocente=JSON.parse(data);
+                	cantidaddocente=Object.keys(cbodocente).length;
+                	for(u=0;u<cantidaddocente;u++)
+                	{
+                		$("#select-docentes").append("<option value="+cbodocente[u]["codDocente"]+">"+cbodocente[u]["apePaterno"]+" "+cbodocente[u]["apeMaterno"]+", "+cbodocente[u]["nombres"]+"</option>");
+
+                	}
+
+                	iddocente=$("#select-docentes").val();
+                	periodo=$("#cboperiodo").val();
+					$.post("../../anexos/docentes/ObtenerHorariosDocentesManual.php",{iddocente:iddocente,periodo:periodo},
 						function(data){
 						var hdocentes=JSON.parse(data);
 						
 							llenarTablaDocente(hdocentes);
 						
 					});
-		});
+				});
+            });
+
 
 		$(document).ready(function(){
 			$("#select-docentes").change(function(){
 				$("#select-docentes option:selected").each(function(){
-					iddocente=$(this).val();
-					$.post("../../anexos/docentes/ObtenerHorariosDocentesManual.php",{iddocente:iddocente},
+					iddocente=$("#select-docentes").val();
+                	periodo=$("#cboperiodo").val();
+					$.post("../../anexos/docentes/ObtenerHorariosDocentesManual.php",{iddocente:iddocente,periodo:periodo},
+						function(data){
+						var hdocentes=JSON.parse(data);
+						
+							llenarTablaDocente(hdocentes);
+						
+					});
+				})
+			})
+			
+		});
+
+		$(document).ready(function(){
+			$("#cboperiodo").change(function(){
+				$("#cboperiodo option:selected").each(function(){
+					iddocente=$("#select-docentes").val();
+                	periodo=$("#cboperiodo").val();
+					$.post("../../anexos/docentes/ObtenerHorariosDocentesManual.php",{iddocente:iddocente,periodo:periodo},
 						function(data){
 						var hdocentes=JSON.parse(data);
 						

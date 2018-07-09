@@ -24,6 +24,7 @@ function llenarTablaAulas(jsondatos){
 
 	$("#nomaula").html("AULA: "+jsondatos[0]["codAula"]);
 	$("#caracteristica").html("Capacidad "+jsondatos[0]['capacidad']+" sillas <br> Con Pizarra "+jsondatos[0]["pizarra"]+" y "+taburete+" tiene taburete");
+	$(".td-periodo").html(jsondatos[0]["perAcademico"]);
 	console.log(jsondatos);
 	console.log(jsondatos[0]['idHorarios']);
 

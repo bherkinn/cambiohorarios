@@ -29,25 +29,30 @@
 	<!-- <script type="text/javascript" src="../../librerias/js/fancywebsocket.js"></script> -->
 <!-- 	<script type="text/javascript" src="librerias/jqueryPlugintipsy/js/jquery.tipsy.js"></script> -->
 
+	<style type="text/css">
+	 	.cboperiodo{
+			padding: 5px;
+			font-size: 12px;
+			margin-left: 20px;
+		    border-radius: 4px;
+		    position: absolute;
+		}
+		.titulo-tabla{
+			padding: 5px;
+			font-weight: bold;
+			font-size: 28px;
+			color: #787777;
+		}
+	 </style>
+
 	<?php 
 		require_once("../../models/conexion.php");
 		$o= new Conexion();
 	 ?>
 
-	
-
 </head>
 
 <body>
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
-
-		<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-lg">
-		    <div class="modal-content">
-		      ...
-		    </div>
-		  </div>
-		</div>
 		
 		<header>
 			<div class="cabecera">
@@ -97,35 +102,29 @@
 			</div>
 		</header>		
 		
-		<br>
-	
+		<center><div class="titulo-tabla">AULAS - MANUAL</div></center>
+		<div style="margin-bottom: 15px;">
 		<center>
-							<select id="select-aulas" class="select-cursos">
-								<?php 
-								$o->Open(2);
-								$tabla=$o->Mostrar("aulas","aula",2);
-								foreach($tabla as $a)
-								{
-							?>	
-								<option value="<?php echo $a->aula; ?>">
-									
-										<?php echo $a->aula;
-										?>
-									
-								</option>
-							<?php  
-								}
-								$o->Close(2);	
-							?>
-							</select>
+				<select id="select-aulas">
+					
+				</select>
+				<select id="cboperiodo" class="cboperiodo " style="font-size: 12px;">
+				</select>
 		</center>
-		<br>
-		<br>
-          <div id="tabla" class="container">
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="container-fluid">
+				<center>
+					<div id="tabla" class="">
 
 			
 
+					</div>
+				</center>
 		</div>
+		</div>
+		
+          
 		<br>
 
 
@@ -146,7 +145,7 @@
 		    var titulo="UNIVERSIDAD NACIONAL DE INGENIERIA - FACULTAD DE INGENIERIA MECANICA - COMISION DE HORARIOS";
 			
 			horainicial=hora;
-			$("#tabla-docentes").append("<tr><td colspan='6' class='cabecera-tabla ca'>"+titulo+"</td><td rowspan='2'></td></tr>");
+			$("#tabla-docentes").append("<tr><td colspan='6' class='cabecera-tabla ca'>"+titulo+"</td><td class='td-periodo' rowspan='2'></td></tr>");
 			$("#tabla-docentes").append("<tr><td id='nomaula' colspan='3' class='cabecera-tabla2'></td><td colspan='3' id='caracteristica' class='caract'></td></tr>");
 			for(i=0;i<filas;i++){
 				$("#tabla-docentes").append("<tr>");
@@ -220,32 +219,71 @@
 
 	<script type="text/javascript">
 
-		$(document).ready(function(){
-			idaula=$("#select-aulas").val();
-			$.post("../../anexos/aulas/ObtenerHorariosAulasManual.php",{idaula:idaula},
-						function(data){
-						var haulas=JSON.parse(data);
-						
-							llenarTablaAulas(haulas);
-						
-			});
-		});
+		$.post("../../anexos/combos/periodo.php",{},
+            function(data){
+                cboperiodo=JSON.parse(data);
+                cantidadcbp=Object.keys(cboperiodo).length;
+                for(i=0;i<cantidadcbp;i++)
+                {
+                    $("#cboperiodo").append("<option value="+cboperiodo[i]["perAcademico"]+">"+cboperiodo[i]["perAcademico"]+"</option>");
+                }
+
+                $.post("../../anexos/aulas/ObtenerAulas.php",{},
+	            function(data){
+	            	cboaula=JSON.parse(data);
+                	cantidadaula=Object.keys(cboaula).length;
+                	for(u=0;u<cantidadaula;u++)
+                	{
+                		$("#select-aulas").append("<option value="+cboaula[u]["aula"]+">"+cboaula[u]["aula"]+"</option>");
+
+                	}
+
+                	idaula=$("#select-aulas").val();
+                	periodo=$("#cboperiodo").val();
+					$.post("../../anexos/aulas/ObtenerHorariosAulasManual.php",{idaula:idaula,periodo:periodo},
+								function(data){
+								var haulas=JSON.parse(data);
+								
+									llenarTablaAulas(haulas);
+								
+					});
+				});
+            });
 
 		$(document).ready(function(){
 			$("#select-aulas").change(function(){
 				$("#select-aulas option:selected").each(function(){
-					idaula=$(this).val();
-					$.post("../../anexos/aulas/ObtenerHorariosAulasManual.php",{idaula:idaula},
-						function(data){
-						var haulas=JSON.parse(data);
-						
-							llenarTablaAulas(haulas);
-						
+					idaula=$("#select-aulas").val();
+                	periodo=$("#cboperiodo").val();
+					$.post("../../anexos/aulas/ObtenerHorariosAulasManual.php",{idaula:idaula,periodo:periodo},
+								function(data){
+								var haulas=JSON.parse(data);
+								
+									llenarTablaAulas(haulas);
+								
 					});
 				});
 			});
 			
 		});
+
+		$(document).ready(function(){
+			$("#cboperiodo").change(function(){
+				$("#cboperiodo option:selected").each(function(){
+					idaula=$("#select-aulas").val();
+                	periodo=$("#cboperiodo").val();
+					$.post("../../anexos/aulas/ObtenerHorariosAulasManual.php",{idaula:idaula,periodo:periodo},
+								function(data){
+								var haulas=JSON.parse(data);
+								
+									llenarTablaAulas(haulas);
+								
+					});
+				});
+			});
+			
+		});
+
 
 
 		// ************************************************
