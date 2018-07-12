@@ -47,8 +47,7 @@
                <ul class="nav">
                   <!-- <li class="titulo-lista">PRINCIPAL</li> -->
                   <li><a href="index.php"><i class="icono izquierda fas fa-registered"></i>Registrar</a></li>
-                  <li><a href="index.php"><i class="icono izquierda fas fa-arrows-alt"></i>Cruces</a></li>
-                  <li><a href="restaurar.php"><i class="icono izquierda fas fa-arrows-alt"></i>Restaurar</a></li>
+                  <li><a href="restaurar.php"><i class="icono izquierda fas fa-redo-alt"></i>Restaurar</a></li>
                   <li class="titulo-lista">VISTAS</li>
                   <li>
                      <a href="#" id="link1"><i class="icono izquierda fas fa-eye"></i>Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
@@ -77,7 +76,7 @@
             </nav>
          </div>
       </header>
-      <div id="mostrar-menu" class="main-ocultar">
+      <div id="mostrar-menu" class="div-ocultar">
          <iframe id="iframe" style="width:100%;height:100%;position:absolute;border:none;background-color:transparent" allowtransparency=true>
          </iframe>
          <!-- *******************************************************BOTONES PRINCIPALES**************************************************** -->
@@ -140,6 +139,44 @@
          </div>
          <!-- ******************************************************/MODAL CAMBIAR CURSO************************************************** -->
 
+         <!-- ******************************************************MODAL CAMBIAR CURSO TOTAL**************************************************** -->
+         <div id="modal-cambiar-curso-total" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Cambiar Curso Total</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <div class=" offset-1 col-10">
+                        <center>
+                           Curso Actual :
+                        </center>
+                     </div>
+
+                     <input type="text" style="text-align: center;margin-bottom: 5px; font-size: 12px;" id="txtcursoinicialtotal" class="form-control offset-1 col-10 " disabled>
+                     <div class=" offset-1 col-10 ">
+                        <center>
+                           Cambiar a :
+                        </center>
+                     </div>
+
+                    <!--  <input type="text" style="text-align: center;margin-bottom: 15px;" id="txtcursofinal" class="form-control offset-sm-1 col-sm-10"> -->
+                     <select id='cbocursofinaltotal' class="form-control offset-1 col-10" style="text-align-last: center;margin-bottom: 15px;font-size: 11px;">
+                        
+                     </select>
+                     <button class="offset-1 col-10 btn btn-info" id="btn-cambiar-curso-total">Cambiar Todo</button>
+                     <br>
+                     <br>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+         <!-- ******************************************************/MODAL CAMBIAR CURSO TOTAL************************************************** -->
+
          <!-- ******************************************************MODAL AGREGAR******************************************************** -->
          <div id="modal-agregar" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 
@@ -194,6 +231,8 @@
 		               
 		            </select>
                   <button id="btn-actualizar-tabla" class="fas fa-redo-alt btn-info btn-actualizar-tabla" style="float: left;"></button>
+                  <button id="btn-cambiartotal-curso" class="btn-success btn-cambiar-curso" style="float: left;">Cambiar</button>
+
                   <button id="btn-borrar-curso" class="btn-danger btn-borrar-curso" style="float: left;">Borrar</button>
 		            <select id="cboperiodo" class="cboperiodo " style="font-size: 12px;float: left;">
 				    </select>

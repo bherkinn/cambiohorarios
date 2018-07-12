@@ -97,21 +97,25 @@
 			</nav>
 			</div>
 		</header>		
-		
-		<br>
-
+		<center><div class="titulo-tabla">CURSOS - MANUAL</div></center>
+		<div style="margin-bottom: 15px;">
 		<center>
-				<select id="select-cursos" class="select-cursos">
-					
+				<select id="select-cursos" class="select-cursos">	
 				</select>
+
 				<select id="cboperiodo" class="cboperiodo " style="font-size: 12px;">
 				</select>
 		</center>
-		<br>
-		<br>
-          <div id="tabla" class="container">
+	    </div>
+		
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="container-fluid">
+				<center>
+					<div id="tabla" class="">
 
-
+					</div>
+				</center>
+		</div>
 		</div>
 		<br>
 
@@ -220,8 +224,7 @@
                 cantidadcbp=Object.keys(cboperiodo).length;
                 for(i=0;i<cantidadcbp;i++)
                 {
-                    $("#cboperiodo").append("<option value="+cboperiodo[i]["perAcademico"]+">"+cboperiodo[i]["perAcademico"]+"</option>");
-                    $("#periodo-clonar").append("<option value="+cboperiodo[i]["perAcademico"]+">"+cboperiodo[i]["perAcademico"]+"</option>");
+                    $("#cboperiodo").append("<option value='"+cboperiodo[i]["verCurricular"]+"'>"+cboperiodo[i]["perAcademico"]+"</option>");
                 }
                 vercurricular=$("#cboperiodo").val();
                 $.post("../../anexos/combos/cursosPorCurricula.php",{vercurricular:vercurricular},
@@ -229,26 +232,26 @@
                     cbocursos=JSON.parse(dtcursos);
                     cantidadcbc=Object.keys(cbocursos).length;
                     for(a=0;a<cantidadct;a++)
-                {
-                    for(i=0;i<cantidadcbc;i++)
-                    {
-                        if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
-                        {
-                             ingrese=1;
-                        }
-                        
-                    }
-                    if(ingrese==1)
-                    {
-                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
-                        ingrese=0;
-                    }
-                    else{
-                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
-                    }  
-                }
+                	{
+	                    for(i=0;i<cantidadcbc;i++)
+	                    {
+	                        if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
+	                        {
+	                             ingrese=1;
+	                        }
+	                        
+	                    }
+	                    if(ingrese==1)
+	                    {
+	                        $("#select-cursos").append("<option value='"+cursostotal[a]["codCurso"]+"'>"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
+	                        ingrese=0;
+	                    }
+	                    else{
+	                        $("#select-cursos").append("<option value='"+cursostotal[a]["codCurso"]+"'>"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
+	                    }  
+                	}
 
-                periodo=$("#cboperiodo").val();
+                periodo=$("#cboperiodo option:selected").text();
 				idcurso=$("#select-cursos").val();
 				$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso,periodo:periodo},
 					function(data){
@@ -263,7 +266,7 @@
          });
 });
 
-$(document).ready(function() {
+
     $("#cboperiodo").change(function() {
         $("#cboperiodo option:selected").each(function() {
             vercurricular=$("#cboperiodo").val();
@@ -284,15 +287,15 @@ $(document).ready(function() {
                     }
                     if(ingrese==1)
                     {
-                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
+                        $("#select-cursos").append("<option value='"+cursostotal[a]["codCurso"]+"'>"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
                         ingrese=0;
                     }
                     else{
-                        $("#select-cursos").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
+                        $("#select-cursos").append("<option value='"+cursostotal[a]["codCurso"]+"'>"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
                     }  
                 }
 
-                periodo=$("#cboperiodo").val();
+                periodo=$("#cboperiodo option:selected").text();
 				idcurso=$("#select-cursos").val();
 				$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso,periodo:periodo},
 					function(data){
@@ -305,7 +308,7 @@ $(document).ready(function() {
             });
         });
     });
-});
+
 		// $(document).ready(function(){
 		// 	idcurso=$("#select-cursos").val();
 		// 	$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso},
@@ -320,7 +323,7 @@ $(document).ready(function() {
 		// $(document).ready(function(){
 		$("#select-cursos").change(function(){
 			$("#select-cursos option:selected").each(function(){
-				periodo=$("#cboperiodo").val();
+				periodo=$("#cboperiodo option:selected").text();
 				idcurso=$("#select-cursos").val();
 				$.post("../../anexos/cursos/ObtenerHorariosCursosManual.php",{idcurso:idcurso,periodo:periodo},
 					function(data){

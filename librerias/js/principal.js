@@ -95,6 +95,7 @@ $(document).ready(function(){
 
             cursostotal=JSON.parse(datoscursos);
             cantidadct=Object.keys(cursostotal).length;
+            ingrese=0;
 
             $.post("anexos/combos/periodo.php",{},
             function(data){
@@ -111,13 +112,20 @@ $(document).ready(function(){
                     cbocursos=JSON.parse(dtcursos);
                     cantidadcbc=Object.keys(cbocursos).length;
                     for(a=0;a<cantidadct;a++)
-                {
+                {   
+
                     for(i=0;i<cantidadcbc;i++)
-                    {
+                    {   
+                        if(cursostotal[i]['nomCurso']==null)
+                        {
+                            cursostotal[i]['nomCurso']="xxxxxxxxxxxxxxxxxxx";
+                        }
+
                         if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
                         {
                              ingrese=1;
                         }
+                        
                         
                     }
                     if(ingrese==1)
@@ -320,18 +328,26 @@ function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
             "<td id='tdaulas'><select class='select-aulas' id='select-aulas" + id + "' disabled></select>" +
             "<td id='tdaulas2'><select class='select-aulas' id='select-aulas2" + id + "' disabled><option value=''> </option></select>" +
             "<td id='tddocentes'><select class='select-docentes' id='select-docentes" + id + "' disabled></select>" +
-            "<td><input id='txtc1" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c1'] + "'></td>" +
-            "<td><input id='txtc2" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c2'] + "'></td>" +
-            "<td><input id='txtc3" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c3'] + "'></td>" +
-            "<td><input id='txtc4" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c4'] + "'></td>" +
-            "<td><input id='txtc5" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c5'] + "'></td>" +
-            "<td><input id='txtc6" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c6'] + "'></td>" +
-            "<td><input id='txtc7" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c7'] + "'></td>" +
-            "<td><input id='txtc8" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c8'] + "'></td>" +
-            "<td><input id='txtc9" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c9'] + "'></td>" +
-            "<td><input id='txtc10" + id + "' type='text' disabled class='i txtform' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c10'] + "'></td>" +
+            "<td><input id='txtc1" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c1'] + "'></td>" +
+            "<td><input id='txtc2" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c2'] + "'></td>" +
+            "<td><input id='txtc3" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c3'] + "'></td>" +
+            "<td><input id='txtc4" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c4'] + "'></td>" +
+            "<td><input id='txtc5" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c5'] + "'></td>" +
+            "<td><input id='txtc6" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c6'] + "'></td>" +
+            "<td><input id='txtc7" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c7'] + "'></td>" +
+            "<td><input id='txtc8" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c8'] + "'></td>" +
+            "<td><input id='txtc9" + id + "' type='text' disabled class='i txtform ciclo' spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c9'] + "'></td>" +
+            "<td><input id='txtc10" + id + "' type='text' disabled class='i txtform ciclo'  spellcheck='false' autocomplete='off' value='" + datosJSON[i]['c10'] + "'></td>" +
             "<td></td>" +
             "</tr>");
+
+        for(j=1;j<=10;j++)
+        {
+            if($("#txtc"+j+id).val()!="")
+            {
+                $("#txtc"+j+id).attr("title","Aqui estamos");
+            }
+        }
 
         for (u = 0; u < cantidadAulas; u++) {
             // AULAS1
@@ -659,6 +675,64 @@ $("#cambiar-curso-fila").click(function(e){
                     }  
                 }
 });
+
+// -------------------------------------------BOTONES DE LA TABLA PRINCIPAL----------------------------------------
+
+$("#btn-cambiartotal-curso").click(function(){
+    $("#modal-cambiar-curso-total").modal("show");
+    $("#txtcursoinicialtotal").val($("#select-cursos").val());
+    $("#cbocursofinaltotal").html("");
+                for(a=0;a<cantidadct;a++)
+                {
+                    for(i=0;i<cantidadcbc;i++)
+                    {
+                        if(cursostotal[a]['codCurso']==cbocursos[i]['codCurso'])
+                        {
+                             ingrese=1;
+                        }
+                        
+                    }
+                    if(ingrese==1)
+                    {
+                        $("#cbocursofinaltotal").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+"</option>");
+                        ingrese=0;
+                    }
+                    else{
+                        $("#cbocursofinaltotal").append("<option value="+cursostotal[a]["codCurso"]+">"+cursostotal[a]["codCurso"]+" - "+cursostotal[a]["nomCurso"]+" -------"+"</option>");
+                    }  
+                }
+});
+
+$("#btn-cambiar-curso-total").click(function(){
+    periodoactual=$("#cboperiodo option:selected").text();
+    cursoinicial=$("#txtcursoinicialtotal").val();
+    cursofinal=$("#cbocursofinaltotal").val();
+
+    if(cursoinicial!=cursofinal)
+    {
+        alertify.confirm("Se pasaran los datos seleccionados del curso "+cursoinicial+" al "+cursofinal+" <br> ¿Desea Continuar?",
+            function(){
+                $.post("anexos/tabla-principal/CambiarCursoTotal.php",{periodo:periodoactual,codCurso:cursoinicial,codCursoNuevo:cursofinal},
+                    function(){
+                        $('#modal-cambiar-curso-total').modal('hide');
+                        $(".tr").fadeOut();
+                        alertify.success("CAMBIOS REALIZADOS");
+                    });
+                
+            },
+            function(){
+
+            });
+    }
+    else
+    {
+        alertify
+          .alert("Los cursos coinciden", function(){
+            
+          });
+    }
+});
+
 $("#btn-actualizar-tabla").click(function(){
     buscar();
 });
@@ -691,6 +765,8 @@ $("#btn-cambiar-curso").click(function(){
           });
     }
 });
+
+
 
 $("#agregar-periodo").click(function(){
 	var anteperiodo=$("#periodo-clonar").val();

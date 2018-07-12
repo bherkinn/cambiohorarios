@@ -73,12 +73,6 @@ var FancyWebSocket = function(url)
 						});	
 
 					});	
-
-					
-
-					
-
-						
 				}
 	}
 };
@@ -582,8 +576,8 @@ function llenarTablaDocente(jsondatos){
 	}
 
 
-	$("#nomdocente").html(jsondatos[0]["apePaterno"]+" "+jsondatos[0]["apeMaterno"]+", "+jsondatos[0]["nombres"]+" / "+jsondatos[0]["codDocente"]);
-
+	// $("#nomdocente").html(jsondatos[0]["apePaterno"]+" "+jsondatos[0]["apeMaterno"]+", "+jsondatos[0]["nombres"]+" / "+jsondatos[0]["codDocente"]);
+	$("#nomdocente").html(jsondatos[0]["apePaterno"]+" "+jsondatos[0]["apeMaterno"]+", "+jsondatos[0]["nombres"]+" / "+jsondatos[0]["codDocente"]+"<br>"+jsondatos[0]["celular"]+" / "+jsondatos[0]["telefono"]);
 	var cantidad=Object.keys(jsondatos).length;
 	var dia;
 	$(".td-periodo").html(jsondatos[0]['perAcademico']);

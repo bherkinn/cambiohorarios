@@ -120,6 +120,12 @@ Class Conexion
 
     }
 
+    public function modificarCursoTotalTablaHorarios($periodo,$codCurso,$codCursoNuevo){
+        $this->Conectar(1);
+        $this->con1->query("UPDATE basehorarios SET codCurso='$codCursoNuevo' WHERE perAcademico='$periodo' and codCurso='$codCurso'");
+
+    }
+
     public function NuevoPeriodo($anteperiodo,$neoperiodo){
     	$this->Open(1);
         $this->con1->query("CREATE TEMPORARY TABLE temporal AS SELECT * FROM basehorarios WHERE perAcademico='$anteperiodo';
@@ -180,7 +186,7 @@ Class Conexion
 
      public function mostrarPeriodos(){
 
-        $sql = "SELECT * FROM curricula";
+        $sql = "SELECT * FROM curricula ORDER BY perAcademico DESC";
         $this->Conectar(1);
         $this->memoria = $this->con1->query($sql);
         if (!empty($this->memoria)) {
@@ -235,7 +241,7 @@ Class Conexion
 
     public function mostrarCursosPorPeriodo($vercurricular){
 
-        $sql="SELECT cursos.* FROM cursos INNER JOIN curricular on cursos.codCurso=curricular.codCurso where curricular.verCurricular='$vercurricular' ORDER BY cursos.codCurso";
+        $sql="SELECT DISTINCT codCurso FROM curricular WHERE verCurricular='$vercurricular'";
          $this->Conectar(2);
         $this->memoria = $this->con2->query($sql);
         if (!empty($this->memoria)) {
@@ -251,6 +257,16 @@ Class Conexion
         }
     }
     
+    public function cboCursos()
+    {
+        
+        $this->conectar(2);
+        $this->memoria = $this->con2->query("SELECT DISTINCT curricular.codCurso,cursos.nomCurso FROM curricular LEFT JOIN cursos on curricular.codCurso=cursos.codCurso ORDER BY curricular.codCurso");
+        $datos= $this->memoria->fetchAll(PDO::FETCH_OBJ);
+        $this->Close(2);
+        return $datos;
+    }
+
     public function cboDocentes()
     {
         
@@ -340,7 +356,7 @@ Class Conexion
     {
         try {
             $this->Conectar(1);
-            $this->memoria = $this->con1->query("SELECT horariosfim.basehorarios.*,oeraae2018.docentes.apePaterno,oeraae2018.docentes.apeMaterno,oeraae2018.docentes.nombres from horariosfim.basehorarios INNER JOIN oeraae2018.docentes ON horariosfim.basehorarios.codDocente=oeraae2018.docentes.codDocente WHERE horariosfim.basehorarios.codDocente=$codDocente AND horariosfim.basehorarios.perAcademico='$periodo' AND horariosfim.basehorarios.estado=1");
+            $this->memoria = $this->con1->query("SELECT horariosfim.basehorarios.*,oeraae2018.docentes.apePaterno,oeraae2018.docentes.celular,oeraae2018.docentes.telefono,oeraae2018.docentes.apeMaterno,oeraae2018.docentes.nombres from horariosfim.basehorarios INNER JOIN oeraae2018.docentes ON horariosfim.basehorarios.codDocente=oeraae2018.docentes.codDocente WHERE horariosfim.basehorarios.codDocente=$codDocente AND horariosfim.basehorarios.perAcademico='$periodo' AND horariosfim.basehorarios.estado=1");
             $datos= $this->memoria->fetchAll(PDO::FETCH_OBJ);
             $this->Close(1);
             return $datos;

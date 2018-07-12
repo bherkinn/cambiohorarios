@@ -58,7 +58,6 @@
 				<ul class="nav">
 					<!-- <li class="titulo-lista">PRINCIPAL</li> -->
 					<li><a href="index.php"><i class="icono izquierda fas fa-registered"></i>Registrar</a></li>
-					<li><a href="index.php"><i class="icono izquierda fas fa-arrows-alt"></i>Cruces</a></li>
 					<li class="titulo-lista">VISTAS</li>
 					<li><a href="#" id="link1"><i class="icono izquierda fas fa-eye"></i> Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
 						<ul>

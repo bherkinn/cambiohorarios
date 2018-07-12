@@ -31,8 +31,8 @@ $("#menu").click(function(){
 		$("header").animate({
 			left: "0px"	
 		});
-		$("#mostrar-menu").removeClass("main-ocultar");
-		$("#mostrar-menu").addClass("main-mostrar");
+		$("#mostrar-menu").removeClass("div-ocultar");
+		$("#mostrar-menu").addClass("div-mostrar");
 		habilitar=1;
 	}
 	else
@@ -41,8 +41,8 @@ $("#menu").click(function(){
 		$("header").animate({
 			left: "-250px"
 		});
-		$("#mostrar-menu").addClass("main-ocultar");
-		$("#mostrar-menu").removeClass("main-mostrar");
+		$("#mostrar-menu").addClass("div-ocultar");
+		$("#mostrar-menu").removeClass("div-mostrar");
 		habilitar=0;
 	}
 });

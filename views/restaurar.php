@@ -40,7 +40,6 @@
                <ul class="nav">
                   <!-- <li class="titulo-lista">PRINCIPAL</li> -->
                   <li><a href="index.php"><i class="icono izquierda fas fa-registered"></i>Registrar</a></li>
-                  <li><a href="index.php"><i class="icono izquierda fas fa-arrows-alt"></i>Cruces</a></li>
                   <li><a href="restaurar.php"><i class="icono izquierda fas fa-arrows-alt"></i>Restaurar</a></li>
                   <li class="titulo-lista">VISTAS</li>
                   <li>

@@ -14,7 +14,7 @@ function llenarTablaDocente(jsondatos){
 
 	if(cantidad>=1)
 	{
-		$("#nomdocente").html(jsondatos[0]["apePaterno"]+" "+jsondatos[0]["apeMaterno"]+", "+jsondatos[0]["nombres"]+" / "+jsondatos[0]["codDocente"]);
+		$("#nomdocente").html(jsondatos[0]["apePaterno"]+" "+jsondatos[0]["apeMaterno"]+", "+jsondatos[0]["nombres"]+" / "+jsondatos[0]["codDocente"]+"<br>"+jsondatos[0]["celular"]+" / "+jsondatos[0]["telefono"]);
 	console.log(jsondatos);
 	console.log(jsondatos[0]['idHorarios']);
 		$(".td-periodo").html(jsondatos[0]["perAcademico"]);
