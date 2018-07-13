@@ -263,13 +263,13 @@ function llenarTablaModulo1(jsondatos,numerociclo,grupo)
 			var celda = $("#m1"+hinicio+dia).html();
 			if(celda=="")
 			{
-				$("#m1"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m1"+hinicio+dia).append(jsondatos[i]['codCurso']+"."+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
 				$("#m1"+hinicio+dia).addClass("pintado-true");
 			}
 			else
 			{
 				$("#m1"+hinicio+dia).removeClass("pintado-true");
-				$("#m1"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m1"+hinicio+dia).append(jsondatos[i]['codCurso']+"."+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
 				$("#m1"+hinicio+dia).addClass("pintado-false");
 			}
 
@@ -329,13 +329,13 @@ function llenarTablaModulo2(jsondatos,numerociclo,grupo)
 			var celda = $("#m2"+hinicio+dia).html();
 			if(celda=="")
 			{
-				$("#m2"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m2"+hinicio+dia).append(jsondatos[i]['codCurso']+"."+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
 				$("#m2"+hinicio+dia).addClass("pintado-true");
 			}
 			else
 			{
 				$("#m2"+hinicio+dia).removeClass("pintado-true");
-				$("#m2"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m2"+hinicio+dia).append(jsondatos[i]['codCurso']+"."+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
 				$("#m2"+hinicio+dia).addClass("pintado-false");
 			}
 
@@ -396,13 +396,13 @@ function llenarTablaModulo3(jsondatos,numerociclo,grupo)
 			var celda = $("#m3"+hinicio+dia).html();
 			if(celda=="")
 			{
-				$("#m3"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m3"+hinicio+dia).append(jsondatos[i]['codCurso']+"."+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
 				$("#m3"+hinicio+dia).addClass("pintado-true");
 			}
 			else
 			{
 				$("#m3"+hinicio+dia).removeClass("pintado-true");
-				$("#m3"+hinicio+dia).append(jsondatos[i]['secCurso']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m3"+hinicio+dia).append(jsondatos[i]['codCurso']+"."+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
 				$("#m3"+hinicio+dia).addClass("pintado-false");
 			}
 
@@ -614,14 +614,14 @@ function llenarTablaDocente(jsondatos){
 			var celda = $("#d"+hinicio+dia).html();
 			if(celda=="")
 			{
-				$("#d"+hinicio+""+dia).append(jsondatos[i]['codCurso']+jsondatos[i]['secCurso']+"/"+jsondatos[i]['codAula']+"<br>");
+				$("#d"+hinicio+""+dia).append(jsondatos[i]['codCurso']+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+"."+jsondatos[i]['codAula']+"<br>");
 				$("#d"+hinicio+""+dia).addClass("pintado-true");
 				canhoras++;
 			}
 			else
 			{
 				$("#d"+hinicio+""+dia).removeClass("pintado-true");
-				$("#d"+hinicio+""+dia).append(jsondatos[i]['codCurso']+jsondatos[i]['secCurso']+"/"+jsondatos[i]['codAula']+"<br>");
+				$("#d"+hinicio+""+dia).append(jsondatos[i]['codCurso']+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+"."+jsondatos[i]['codAula']+"<br>");
 				$("#d"+hinicio+""+dia).addClass("pintado-false");
 				canhoras++;
 			}

@@ -180,6 +180,7 @@ $(document).ready(function(){
 });
 
 $(document).ready(function() {
+    CrearCorrespondencia();
     $("#cboperiodo").change(function() {
         $("#cboperiodo option:selected").each(function() {
             vercurricular=$("#cboperiodo").val();
@@ -283,6 +284,46 @@ $(document).ready(function() {
 //         });
 // });
 
+
+correspondencia=new Array();
+
+function CrearCorrespondencia(){
+    for(q=1;q<=10;q++)
+    {   
+        correspondencia[q]=new Array();
+
+        if(q==1)
+        {
+            correspondencia[q][1]="M3";
+            correspondencia[q][2]="M3";
+            correspondencia[q][3]="M4";
+            correspondencia[q][4]="M4";
+            correspondencia[q][5]="M5";                                                                          
+            correspondencia[q][6]="M6";
+            correspondencia[q][7]="M6";
+            // alert(q);
+
+        }else{
+            for(r=1;r<=5;r++){
+                if(q==2 && r==1)
+                {
+                    correspondencia[q][r]="M3-M4";
+                }else
+                {
+                    if(r==5)
+                    {
+                        correspondencia[q][r]="x";
+                    }
+                    else{
+                        correspondencia[q][r]="M"+(r+2);
+                    }
+                }
+            }
+        }
+    }
+}
+
+var cadenaCorrespondecia="";
 function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
     $("#tabla-carga").attr("class", "table-responsive border rounded");
     var cantidad = Object.keys(datosJSON).length;
@@ -341,11 +382,20 @@ function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
             "<td></td>" +
             "</tr>");
 
+
         for(j=1;j<=10;j++)
         {
             if($("#txtc"+j+id).val()!="")
-            {
-                $("#txtc"+j+id).attr("title","Aqui estamos");
+            {   
+                longitud=$("#txtc"+j+id).val().length;
+                for(p=0;p<longitud;p++)
+                {
+                    grupo = $("#txtc"+j+id).val().substr(p,1);
+                    console.log(grupo);
+                    cadenaCorrespondecia=cadenaCorrespondecia+"("+grupo+") "+correspondencia[j][parseInt(grupo)]+"\n";
+                }
+                $("#txtc"+j+id).attr("title",cadenaCorrespondecia);
+                cadenaCorrespondecia="";    
             }
         }
 
