@@ -24,25 +24,27 @@ $(document).ready(function(){
 		}
 	});
 });
-$("#menu").click(function(){
+
+$("#btn-menu").click(function(){
 	if(habilitar==0)
 	{
 		
-		$("header").animate({
-			left: "0px"	
-		});
-		$("#mostrar-menu").removeClass("div-ocultar");
-		$("#mostrar-menu").addClass("div-mostrar");
+		$("#menu").removeClass("menu-ocultar");
+		$("#menu").addClass("menu");
+
+		$("#contenedor").removeClass("contenedor-tapar");
+		$("#contenedor").addClass("contenedor");
 		habilitar=1;
 	}
 	else
 	{	
 		
-		$("header").animate({
-			left: "-250px"
-		});
-		$("#mostrar-menu").addClass("div-ocultar");
-		$("#mostrar-menu").removeClass("div-mostrar");
+
+		$("#menu").removeClass("menu");
+		$("#menu").addClass("menu-ocultar");
+
+		$("#contenedor").removeClass("contenedor");
+		$("#contenedor").addClass("contenedor-tapar");
 		habilitar=0;
 	}
 });

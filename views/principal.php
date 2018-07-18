@@ -8,80 +8,76 @@
       <link rel="stylesheet" type="text/css" href="librerias/bootstrap4/css/bootstrap.css">
       <link rel="stylesheet" type="text/css" href="librerias/css/fuente.css">
       <link rel="stylesheet" type="text/css" href="librerias/css/principal.css">
+      <link rel="stylesheet" type="text/css" href="librerias/css/menu.css">
       <link rel="stylesheet" type="text/css" href="librerias/css/menucontextual.css">
       <link rel="stylesheet" type="text/css" href="librerias/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
       <link rel="stylesheet" type="text/css" href="librerias/select2/css/select2.min.css">
-      <!-- <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.core.css"> -->
-      <!-- <link rel="stylesheet" type="text/css" href="librerias/alertify/themes/alertify.default.css"> -->
-      <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
-      <!-- ***************************************JS************************************* -->
-      <!-- <script type="text/javascript" src="librerias/alertify/lib/alertify.js"></script> -->
+      
       <link rel="stylesheet" type="text/css" href="librerias/AlertifyJS-master/build/css/alertify.css">
-     <!--  <link rel="stylesheet" type="text/css" href="librerias/AlertifyJS-master/build/css/alertify.rtl.css"> -->
-<script type="text/javascript" src="librerias/AlertifyJS-master/build/alertify.js"></script>
+      <!-- ***************************************JS************************************* -->
+      <script type="text/javascript" src="librerias/AlertifyJS-master/build/alertify.js"></script>
       <script type="text/javascript" src="librerias/jquery-3.3.1.min.js"></script>
       <script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.min.js"></script>
       <script type="text/javascript" src="librerias/select2/js/select2.min.js"></script>
       <script type="text/javascript" src="librerias/js/fancywebsocket.js"></script>
    </head>
    <body>
-      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
-         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-           <div class="modal-dialog modal-lg">
-             <div class="modal-content">
-               ...
-             </div>
-           </div>
-         </div> -->
-      <header>
-         <div class="cabecera">
-            <div class="cabezal-menu">
-               <img class="img-logo" src="librerias/img/uni.png">
-               <div class="nom-titulo">
-                  HORARIOS
-                  <br>
-                  FIM
+      <div id="menu" class="menu-ocultar">
+
+         <div class="menu-contenedor">
+               <div class="cabecera">
+                  <img class="img-logo" src="librerias/img/uni.png">
+                  <div class="nom-sistema">HORARIOS FIM</div>
                </div>
-            </div>
-            <nav>
-               <ul class="nav">
-                  <!-- <li class="titulo-lista">PRINCIPAL</li> -->
-                  <li><a href="index.php"><i class="icono izquierda fas fa-registered"></i>Registrar</a></li>
-                  <li><a href="restaurar.php"><i class="icono izquierda fas fa-redo-alt"></i>Restaurar</a></li>
-                  <li class="titulo-lista">VISTAS</li>
-                  <li>
-                     <a href="#" id="link1"><i class="icono izquierda fas fa-eye"></i>Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
-                     <ul>
-                        <li><a href="docentes.php"></i>DOCENTES</a></li>
-                        <li><a href="aulas.php">AULAS</a></li>
-                        <li><a href="cursos.php">CURSOS</a></li>
-                        <li><a href="modulo1.php">MODULO 1</a></li>
-                        <li><a href="modulo2.php">MODULO 2</a></li>
-                        <li><a href="modulo3.php">MODULO 3</a></li>
-                     </ul>
-                  </li>
-                  <li>
-                     <a href="#" id="link2"><i class="icono izquierda fas fa-hand-paper"></i> Manual <i class="icono derecha fas fa-chevron-down"></i></a>
-                     <ul>
-                        <li><a href="views/manual/docentes.php">DOCENTES</a></li>
-                        <li><a href="views/manual/aulas.php">AULAS</a></li>
-                        <li><a href="views/manual/cursos.php">CURSOS</a></li>
-                     </ul>
-                  </li>
-                  <li class="titulo-lista">REPORTES</li>
-                  <li><a href="#" id="link1"><i class="icono izquierda fas fa-user-circle"></i> Docentes</a>
-                  <li><a href="#" id="link1"><i class="icono izquierda fas fa-cube"></i> Aulas</a>
-                  <li><a href="#" id="link1"><i class="icono izquierda fas fa-clipboard"></i> Cursos</a>
-               </ul>
-            </nav>
+               <div class="nav">
+                  <ul>
+                     <li><a href="index.php"><i class="icono izquierda fas fa-registered"></i>Principal</a></li>
+                     <li><a href="restaurar.php"><i class="icono izquierda fas fa-redo-alt"></i>Restaurar</a></li>
+                     <li class="titulo-sub-menu">VISTAS</li>
+                     <li>
+                        <a href="#" id="link1"><i class="izquierda fas fa-eye"></i>Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
+                        <ul>
+                           <li><a href="docentes.php"></i>Docentes</a></li>
+                           <li><a href="aulas.php">Aulas</a></li>
+                           <li><a href="cursos.php">Cursos</a></li>
+                           <li><a href="modulo1.php">Modulo 1</a></li>
+                           <li><a href="modulo2.php">Modulo 2</a></li>
+                           <li><a href="modulo3.php">Modulo 3</a></li>
+                        </ul>
+                     </li>
+                     <li>
+                        <a href="#" id="link2"><i class="icono izquierda fas fa-hand-paper"></i> Manual <i class="icono derecha fas fa-chevron-down"></i></a>
+                        <ul>
+                           <li><a href="views/manual/docentes.php">Docentes</a></li>
+                           <li><a href="views/manual/aulas.php">Aulas</a></li>
+                           <li><a href="views/manual/cursos.php">Cursos</a></li>
+                           <li><a href="views/manual/modulo.php">Modulos</a></li>
+                        </ul>
+                     </li>
+                     <li class="titulo-sub-menu">REPORTES</li>
+                     <li><a href="#" id="link1"><i class="icono izquierda fas fa-user-circle"></i> Docentes</a>
+                     <li><a href="#" id="link1"><i class="icono izquierda fas fa-cube"></i> Aulas</a>
+                     <li><a href="#" id="link1"><i class="icono izquierda fas fa-clipboard"></i> Cursos</a>
+                  </ul>
+               </div>
          </div>
-      </header>
-      <div id="mostrar-menu" class="div-ocultar">
-         <iframe id="iframe" style="width:100%;height:100%;position:absolute;border:none;background-color:transparent" allowtransparency=true>
-         </iframe>
+         
+
+         <div class="btn-menu-contenedor">
+            <center>
+               <button id="btn-menu" class="btn-menu fas fa-bars"></button>
+            </center>
+         </div>
+
+      </div>
+
+      <div id="contenedor" class="contenedor-tapar">
+         <!-- <iframe id="iframe" style="width:100%;height:100%;position:absolute;border:none;background-color:transparent" allowtransparency=true>
+         </iframe> -->
+
          <!-- *******************************************************BOTONES PRINCIPALES**************************************************** -->
-         <button id="menu" class="menu fas fa-bars" style=""></button>
-         <button id="agregar" class="agregar btn-success" data-toggle="modal" data-target="#modal-agregar"> Agregar</button>
+         <!-- <button id="btn-menu" class="btn-menu fas fa-bars"></button> -->
+         <!-- <button id="agregar" class="agregar btn-success" data-toggle="modal" data-target="#modal-agregar"> Agregar</button> -->
          
          <!-- ******************************************************MENUS CONTEXTUALES**************************************************** -->
          <ul id="menucontextual" class="dropdown-menu-modificado menu-contextual" style="width: 10px;">
@@ -217,25 +213,27 @@
             </div>
          </div>
          <!-- ******************************************************/MODAL AGREGAR******************************************************** -->
-         <div class="container-fluid" style="margin-top: 20px;margin-bottom: 20px;height: 25px;">
+         <!-- <div class="container-fluid" style="margin-top: 20px;margin-bottom: 20px;height: 25px;">
 
-         </div>
+         </div> -->
          	
-         <div id="tabla-acomodar" class="container">
+         <div id="tabla-acomodar" class="container" style="padding-top: 20px;">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border rounded" >
-              
+              <div id="correspondencia" style="height: 30px;width: 300px;margin-top: 5px;text-align: center;display: flex; align-items: center;">
+                 
+              </div>
                <div class="container-fluid">
-               	<div style="margin-top: 15px;margin-bottom: 15px;">
+               	<div style="margin-bottom: 15px;">
                	  <center>
-		            <select id="select-cursos" class="select-cursos">
-		               
-		            </select>
+   		            <select id="select-cursos" class="select-cursos">
+   		               
+   		            </select>
                   <button id="btn-actualizar-tabla" class="fas fa-redo-alt btn-info btn-actualizar-tabla" style="float: left;"></button>
                   <button id="btn-cambiartotal-curso" class="btn-success btn-cambiar-curso" style="float: left;">Cambiar</button>
 
                   <button id="btn-borrar-curso" class="btn-danger btn-borrar-curso" style="float: left;">Borrar</button>
 		            <select id="cboperiodo" class="cboperiodo " style="font-size: 12px;float: left;">
-				    </select>
+				      </select>
 		          </center>
 		        </div>
                 <div id="tabla-carga" class="">
@@ -269,7 +267,7 @@
       <script type="text/javascript" src="librerias/js/principal.js" >
          $(document).ready(function(){
          	$("#select-cursos").select2({
-         		 width: '220px',
+         		 width: '180px',
          	});
          
          });         

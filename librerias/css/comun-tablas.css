@@ -87,6 +87,14 @@ th, tr{
     display: none;
   }
 
+  .select2{
+  font-size: 12px;
+  text-align: center;
+  }
+  .select2-dropdown{
+    font-size: 11px;
+  }
+
   @media screen and (max-width: 450px)
   {
     .rotar{

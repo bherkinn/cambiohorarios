@@ -202,6 +202,22 @@ Class Conexion
         }
     }
 
+    public function MostrarCorrespondencias($codCurso,$vercurricular){
+        $this->Open(2);
+        $this->memoria = $this->con2->query("SELECT codCurso,m3Ciclo,m4Ciclo,m5Ciclo,m6Ciclo FROM `curricular` WHERE codCurso='$codCurso'AND verCurricular='$vercurricular'");
+        if (!empty($this->memoria)) {
+            $datos= $this->memoria->fetchAll(PDO::FETCH_OBJ);
+            $this->Close(2);
+            return $datos;
+        }
+        else
+        {
+            return "vacio";
+        }
+        
+        
+     }
+
 
     public function mostrarVerCurricular()
     {
@@ -425,8 +441,28 @@ Class Conexion
             echo "error" . $a->getMessage();
         }
     }
-    
-    
+    // ------------------------------------------Modulos Manual-----------------------------------------------
+ 
+    public function ObtenerPeriodos(){
+
+        $sql = "SELECT * FROM curricula ORDER BY perAcademico DESC";
+        $this->Conectar(1);
+        $this->memoria = $this->con1->query($sql);
+        if (!empty($this->memoria)) {
+            $datos = $this->memoria->fetchAll(PDO::FETCH_OBJ);
+            $this->Close(1);
+
+            return $datos;
+
+        } else {
+            
+            return "vacio";
+            
+        }
+    }
+
+
+
     
     
 }

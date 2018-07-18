@@ -10,8 +10,9 @@
 
 	<!-- **************************************CSS************************************* -->
 	<link rel="stylesheet" type="text/css" href="../../librerias/bootstrap4/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="../../librerias/css/principal.css">
 	<link rel="stylesheet" type="text/css" href="../../librerias/css/comun-tablas.css">
+	<link rel="stylesheet" type="text/css" href="../../librerias/css/menu.css">
+    <link rel="stylesheet" type="text/css" href="../../librerias/css/fuente.css">
 	<link rel="stylesheet" type="text/css" href="../../librerias/css/docentes.css">
 	<link rel="stylesheet" type="text/css" href="../../librerias/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
 	<link rel="stylesheet" type="text/css" href="../../librerias/select2/css/select2.min.css">
@@ -51,56 +52,60 @@
 </head>
 
 <body>
-		<header>
-			<div class="cabecera">
-				<div class="cabezal-menu">
-					<img class="img-logo" src="../../librerias/img/uni.png">
-					<div class="nom-titulo">
-						HORARIOS
-						<br>
-						 FIM
-					</div>
-				</div>
-				<div class="div-menu">
-					<button id="menu" class="menu fas fa-bars">
-					
-					</button>
-				</div>
-				
+		<div id="menu" class="menu-ocultar">
 
-				<nav>
-				<ul class="nav">
-					<!-- <li class="titulo-lista">PRINCIPAL</li> -->
-					<li><a href="../../index.php"><i class="icono izquierda fas fa-registered"></i>Registrar</a></li>
-					<li><a href="../../index.php"><i class="icono izquierda fas fa-arrows-alt"></i>Cruces</a></li>
-					<li class="titulo-lista">VISTAS</li>
-					<li><a href="#" id="link1"><i class="icono izquierda fas fa-eye"></i> Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
-						<ul>
-							<li><a href="../../docentes.php"></i>DOCENTES</a></li>
-							<li><a href="../../aulas.php">AULAS</a></li>
-							<li><a href="../../cursos.php">CURSOS</a></li>
-						</ul>
-					</li>
-					<li><a href="#" id="link2"><i class="icono izquierda fas fa-hand-paper"></i> Manual <i class="icono derecha fas fa-chevron-down"></i></a>
-						<ul>
-							<li><a href="../../views/manual/docentes.php">DOCENTES</a></li>
-							<li><a href="../../views/manual/aulas.php">AULAS</a></li>
-							<li><a href="../../views/manual/cursos.php">CURSOS</a></li>
-						</ul>
+         <div class="menu-contenedor">
+               <div class="cabecera">
+                  <img class="img-logo" src="../../librerias/img/uni.png">
+                  <div class="nom-sistema">HORARIOS FIM</div>
+               </div>
+               <div class="nav">
+                  <ul>
+                     <li><a href="../../index.php"><i class="icono izquierda fas fa-registered"></i>Principal</a></li>
+                     <li><a href="../../restaurar.php"><i class="icono izquierda fas fa-redo-alt"></i>Restaurar</a></li>
+                     <li class="titulo-sub-menu">VISTAS</li>
+                     <li>
+                        <a href="#" id="link1"><i class="izquierda fas fa-eye"></i>Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
+                        <ul>
+                           <li><a href="docentes.php"></i>Docentes</a></li>
+                           <li><a href="aulas.php">Aulas</a></li>
+                           <li><a href="cursos.php">Cursos</a></li>
+                           <li><a href="modulo1.php">Modulo 1</a></li>
+                           <li><a href="modulo2.php">Modulo 2</a></li>
+                           <li><a href="modulo3.php">Modulo 3</a></li>
+                        </ul>
+                     </li>
+                     <li>
+                        <a href="#" id="link2"><i class="icono izquierda fas fa-hand-paper"></i> Manual <i class="icono derecha fas fa-chevron-down"></i></a>
+                        <ul>
+                           <li><a href="docentes.php">Docentes</a></li>
+                           <li><a href="aulas.php">Aulas</a></li>
+                           <li><a href="cursos.php">Cursos</a></li>
+                           <li><a href="modulo.php">Modulos</a></li>
+                        </ul>
+                     </li>
+                     <li class="titulo-sub-menu">REPORTES</li>
+                     <li><a href="#" id="link1"><i class="icono izquierda fas fa-user-circle"></i> Docentes</a>
+                     <li><a href="#" id="link1"><i class="icono izquierda fas fa-cube"></i> Aulas</a>
+                     <li><a href="#" id="link1"><i class="icono izquierda fas fa-clipboard"></i> Cursos</a>
+                  </ul>
+               </div>
+         </div>		
 
-					</li>
-					<li class="titulo-lista">REPORTES</li>
-					<li><a href="#" id="link1"><i class="icono izquierda fas fa-user-circle"></i> Docentes</a>
-					<li><a href="#" id="link1"><i class="icono izquierda fas fa-cube"></i> Aulas</a>
-					<li><a href="#" id="link1"><i class="icono izquierda fas fa-clipboard"></i> Cursos</a>
-										
-				</ul>
-			</nav>
-			</div>
-		</header>		
-		
-		<center><div class="titulo-tabla">DOCENTES - MANUAL</div></center>
-		<div style="margin-bottom: 15px;"> <center> 
+		<div class="btn-menu-contenedor">
+			<center>
+               <button id="btn-menu" class="btn-menu fas fa-bars"></button>
+            </center>
+         </div>
+
+      </div>
+
+		<div id="contenedor" class="contenedor-tapar">
+		<center>
+			<div class="titulo-tabla">DOCENTES - MANUAL</div>
+		</center>
+		<div style="margin-bottom: 15px;"> 
+		<center> 
 		<select id="select-docentes">
 					
 		</select>
@@ -112,8 +117,6 @@
 			<div class="container-fluid">
 				<center>
 					<div id="tabla" class="">
-	
-			
 
 					</div>
 				</center>
@@ -122,12 +125,9 @@
 		<br>
           <div id="tabla" class="container">
 
-			
-
 		</div>
 		<br>
-
-
+		</div>
 
 	<script type="text/javascript">
 

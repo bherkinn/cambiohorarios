@@ -7,7 +7,7 @@ var indicefila;
 
 $(document).ready(function() {
     $("#select-cursos").select2({
-        width: '350px',
+        width: '300px',
     });
 });
 
@@ -22,7 +22,7 @@ $(document).ready(function() {
 
     } else {
         $("#select-cursos").select2({
-            width: '350px'
+            width: '300px'
         });
     }
 });
@@ -88,6 +88,7 @@ var cursostotal;
 var cantidadct;
 var cbocursos;
 var cantidadcbc;
+m = new Array();
 
 $(document).ready(function(){
     $.post("anexos/combos/cursos.php",{},
@@ -141,8 +142,11 @@ $(document).ready(function(){
                     $("#tabla-carga").removeClass("table-responsive border rounded");
                     $("#tabla-carga").html("");
                     $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
+                    // --------------------------
                     ciclo=$("#cboperiodo option:selected").text();
                     curso=$("#select-cursos").val();
+
+                    correspondecia(curso,vercurricular);
 
                     $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
                             curso: curso,
@@ -262,6 +266,10 @@ $(document).ready(function() {
     $("#select-cursos").change(function() {
         $("#select-cursos option:selected").each(function() {
             buscar();
+            // ------CORRESPONDENCIA------
+            vercurricular=$("#cboperiodo").val();
+            curso = $("#select-cursos").val();
+            correspondecia(curso,vercurricular);
         });
     });
 });
@@ -878,8 +886,33 @@ function buscar() {
         });
 }
 
+function correspondecia(curso,vercurricular){
 
-
+    $.post("anexos/tabla-principal/Correspondencia.php",{codCurso:curso,verCurricular:vercurricular},
+        function(correspondencia){
+            correspondencia=JSON.parse(correspondencia);
+            numcorrespondencia=Object.keys(correspondencia).length;
+            // alert(numcorrespondencia);
+            if(numcorrespondencia!=0)
+            {
+                for(t=3;t<=6;t++)
+                {   
+                    if(correspondencia[0]['m'+t+'Ciclo']!="")
+                    {
+                        m[t]=correspondencia[0]['m'+t+'Ciclo'];
+                    }
+                    else
+                    {
+                        m[t]="x";
+                    }
+                }
+                $("#correspondencia").html("M3("+m[3]+") M4("+m[4]+") M5("+m[5]+") M6("+m[6]+")");
+            }
+            else{
+                $("#correspondencia").html("EL CURSO NO FIGURA EN LA CURRICULA");
+            }
+        });
+}
 
 function editar(indice) {
 

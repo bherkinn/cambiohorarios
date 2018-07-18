@@ -222,6 +222,8 @@ function fecha()
 	return fechafinal;
 }
 
+var espacio="_";
+
 function llenarTablaModulo1(jsondatos,numerociclo,grupo)
 {
 	var cantidad=Object.keys(jsondatos).length;
@@ -263,13 +265,13 @@ function llenarTablaModulo1(jsondatos,numerociclo,grupo)
 			var celda = $("#m1"+hinicio+dia).html();
 			if(celda=="")
 			{
-				$("#m1"+hinicio+dia).append(jsondatos[i]['codCurso']+"."+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m1"+hinicio+dia).append(jsondatos[i]['codCurso']+espacio+jsondatos[i]['secCurso']+espacio+jsondatos[i]['teopra']+espacio+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
 				$("#m1"+hinicio+dia).addClass("pintado-true");
 			}
 			else
 			{
 				$("#m1"+hinicio+dia).removeClass("pintado-true");
-				$("#m1"+hinicio+dia).append(jsondatos[i]['codCurso']+"."+jsondatos[i]['secCurso']+"."+jsondatos[i]['teopra']+" : "+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
+				$("#m1"+hinicio+dia).append(jsondatos[i]['codCurso']+espacio+jsondatos[i]['secCurso']+espacio+jsondatos[i]['teopra']+espacio+jsondatos[i]['codAula']+"<br>"+jsondatos[i]['apePaterno']+", "+jsondatos[i]['nombres']+"<br>");
 				$("#m1"+hinicio+dia).addClass("pintado-false");
 			}
 

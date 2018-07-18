@@ -1,13 +1,3 @@
-.cabecera{
-	/*background-color: #3763F3;*/
-	padding: 5px;
-	color: #E7E7E9;
-	font-size:25px;
-	/*width:350px;*/
-	position: absolute;
-	height: 100%;
-	width: 250px;
-}
 
 .cabezal-menu{
 	border-radius:10px;
@@ -15,64 +5,16 @@
 	height: 80px;
 }
 
-.img-logo{
-	width: 50px;
-	height: 70px;
-	padding: 1px;
-	margin-left:10px;
-	margin-top: 5px;
-}
-
-/*------------------------------------MENU AMBURQUESA------------------------------*/
-.div-mostrar{
-	transition-property: margin-left,width;
-	transition-duration: 0.5s;
-	margin-left: 250px;
-	width: 100%-250px;
-	overflow: hidden;
-}
-.div-ocultar{
-	transition-property: margin-left,width;
-	transition-duration: 0.5s;
-	margin-left: 0px;
-	width: 100%+250px;
-	overflow: hidden;
-}
-/*--------------------------------------------------------------------------------*/
-
 .nom-titulo{
 	margin-top: -70px;
 	text-align: center;
 	margin-left: 20px;
 	padding:0px;
 	color: #fff;
-	/*font-weight: bold;*/
 }
 
 .border-recuperar{
 	border: 1px solid #dee2e6 !important;}
-
-.menu{
-	float: left;
-	background:#127df5;
-	border: none;
-	border-radius: 5px;
-	margin:15px;
-	color: #fff;
-	font-size: 25px;
-	padding: 7px 9px 7px 9px;
-	cursor: pointer;
-	position: absolute;
-}
-.menu:focus{
-	outline: none;
-}
-.menu:hover{
-	transition-property: background-color, color;
-  	transition-duration: 0.5s;
-	color:#DCF6E8;
-	background-color: #1040C8;
-}
 
 .agregar{
 	float: left;
@@ -100,27 +42,13 @@
 
 }
 
-header{
-	/*background-image: url("../img/oeraae-fim2.png");
-	background-size: 100% 100%;*/
-	background-color: #1278D7;
-	width: 250px;
-	position: fixed;
-	height: 100%;
-	z-index: 100;
-	left:-250px;
-}
 
 body{
 	min-width: 320px;
-	font-family: 'Roboto', sans-serif;
 	background-color: #FFF;
 }
 /******************************************NAV*************************************/
-nav{
-
-}
-.nav{
+/*.nav{
 	padding-top: 30px;
 	width: 100px;
 }
@@ -160,10 +88,10 @@ nav{
 	border-right: 0.5px solid #128AD7;
 
 	
-}
+}*/
 /*************************************submenu***************************************/
 
-.nav>li>ul>li{
+/*.nav>li>ul>li{
 	list-style: none;
 }
 .nav>li>ul>li>a{
@@ -174,7 +102,6 @@ nav{
 	padding-left: 30px;
 	background-color: #646363;
 	color: #FFF;
-	/*border-top: 0.1px solid #494949;*/
 	border-right: 1px solid #128AD7;
 	text-decoration: none;
 }
@@ -192,7 +119,7 @@ nav{
 	transition-property: background-color, color;
   	transition-duration: 0.3s;
 	background-color: #D1D0D0;
-}
+}*/
 
 @media screen and (max-width:700px )
 {
