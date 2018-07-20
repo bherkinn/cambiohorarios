@@ -89,6 +89,8 @@ var cantidadct;
 var cbocursos;
 var cantidadcbc;
 m = new Array();
+g = new Array();
+
 
 $(document).ready(function(){
     $.post("anexos/combos/cursos.php",{},
@@ -274,25 +276,6 @@ $(document).ready(function() {
     });
 });
 
-// $(document).ready(function() {
-//     $("#tabla-carga").removeClass("table-responsive border rounded");
-//     $("#tabla-carga").html('<center><img style="height:80px;" src="librerias/img/cargando.gif"/></center>').fadeIn();
-//     ciclo = $("#cboperiodo").val();
-//     curso = $("#select-cursos").val();
-
-//     $.post("anexos/tabla-principal/ObtenerHorariosTabla.php", {
-//             curso: curso,
-//             ciclo: ciclo,
-//             estado: 1
-//         },
-//         function(data) {
-//             datosJSON = JSON.parse(data);
-//             setTimeout("$('#tabla-carga').css({'display':'none'});$('#tabla-carga').html('');", 20);
-//             setTimeout("$('#tabla-carga').fadeIn(CrearTablaPrincipal(datosJSON,cboaulas,cbodocentes));", 20);
-//         });
-// });
-
-
 correspondencia=new Array();
 
 function CrearCorrespondencia(){
@@ -329,9 +312,11 @@ function CrearCorrespondencia(){
             }
         }
     }
+
 }
 
 var cadenaCorrespondecia="";
+
 function CrearTablaPrincipal(datosJson, cboaulas, cbodocentes) {
     $("#tabla-carga").attr("class", "table-responsive border rounded");
     var cantidad = Object.keys(datosJSON).length;
@@ -899,17 +884,62 @@ function correspondecia(curso,vercurricular){
                 {   
                     if(correspondencia[0]['m'+t+'Ciclo']!="")
                     {
-                        m[t]=correspondencia[0]['m'+t+'Ciclo'];
+                        m[t]="C"+correspondencia[0]['m'+t+'Ciclo'];
+                        cCorrespondencia=correspondencia[0]['m'+t+'Ciclo']
+                        switch(t)
+                        {
+                          case 3: if(cCorrespondencia=="1"){
+                                    g[t]="1-2";
+                                  }
+                                  else{
+                                    g[t]="1";
+                                  }
+                          ; 
+                          break;
+
+                          case 4: if(cCorrespondencia=="1"){
+                                    g[t]="3-4";
+                                  }
+                                  else{
+                                    g[t]="2";
+                                  }
+                          break;
+
+                          case 5: if(cCorrespondencia=="1"){
+                                    g[t]="5";
+                                  }
+                                  else{
+                                    g[t]="3";
+                                  }
+                          break;
+
+                          case 6: if(cCorrespondencia=="1"){
+                                    g[t]="6-7";
+                                  }
+                                  else{
+                                    g[t]="4";
+                                  }
+                          break;
+                        }
                     }
                     else
                     {
                         m[t]="x";
+                        g[t]="-";
                     }
                 }
-                $("#correspondencia").html("M3("+m[3]+") M4("+m[4]+") M5("+m[5]+") M6("+m[6]+")");
+                $("#m3,#m4,#m5,#m6").addClass("hijo-correspondencia");
+                $("#m3").html("M3(<text class='text-ciclo'>"+m[3]+"</text>)(<text class='text-grupo'>"+g[3]+"</text>) ");
+                $("#m4").html("M4(<text class='text-ciclo'>"+m[4]+"</text>)(<text class='text-grupo'>"+g[4]+"</text>) ");
+                $("#m5").html("M5(<text class='text-ciclo'>"+m[5]+"</text>)(<text class='text-grupo'>"+g[5]+"</text>) ");
+                $("#m6").html("M5(<text class='text-ciclo'>"+m[6]+"</text>)(<text class='text-grupo'>"+g[6]+"</text>)");
+                $("#text-correspondencia").html("");
             }
             else{
-                $("#correspondencia").html("EL CURSO NO FIGURA EN LA CURRICULA");
+
+                $("#m3,#m4,#m5,#m6").html("");
+                $("#m3,#m4,#m5,#m6").removeClass("hijo-correspondencia");
+                $("#text-correspondencia").html("El Curso no figura en la Curricula");
             }
         });
 }

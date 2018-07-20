@@ -33,6 +33,7 @@
                   <ul>
                      <li><a href="index.php"><i class="icono izquierda fas fa-registered"></i>Principal</a></li>
                      <li><a href="restaurar.php"><i class="icono izquierda fas fa-redo-alt"></i>Restaurar</a></li>
+                     <li><a href="CargaCurso.php"><i class="icono izquierda fas fa-book"></i>Carga Curso</a></li>
                      <li class="titulo-sub-menu">VISTAS</li>
                      <li>
                         <a href="#" id="link1"><i class="izquierda fas fa-eye"></i>Automatico<i class="icono derecha fas fa-chevron-down"></i></a>
@@ -219,8 +220,12 @@
          	
          <div id="tabla-acomodar" class="container" style="padding-top: 20px;">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border rounded" >
-              <div id="correspondencia" style="height: 30px;width: 300px;margin-top: 5px;text-align: center;display: flex; align-items: center;">
-                 
+              <div id="correspondencia" class="padre-correspondencia">
+                  <div id="m3" class="hijo-correspondencia"></div>
+                  <div id="m4" class="hijo-correspondencia"></div>
+                  <div id="m5" class="hijo-correspondencia"></div>
+                  <div id="m6" class="hijo-correspondencia"></div>
+                  <div id="text-correspondencia" class="hijo-text-correspondencia"></div>
               </div>
                <div class="container-fluid">
                	<div style="margin-bottom: 15px;">

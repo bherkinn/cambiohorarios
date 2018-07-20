@@ -461,7 +461,26 @@ Class Conexion
         }
     }
 
+    // ------------------------------------------Carga Curso-----------------------------------------------
 
+    public function obtenerReporteCargaCurso(){
+
+        $sql = "SELECT oeraae2018.cursos.nomCurso,horariosfim.basehorarios.codCurso,horariosfim.basehorarios.secCurso,horariosfim.basehorarios.teopra,CONCAT(oeraae2018.docentes.apePaterno,' ', oeraae2018.docentes.apeMaterno,', ',oeraae2018.docentes.nombres) AS nombres ,horariosfim.basehorarios.codCurso,horariosfim.basehorarios.hora FROM horariosfim.basehorarios INNER JOIN oeraae2018.cursos ON horariosfim.basehorarios.codCurso=oeraae2018.cursos.codCurso INNER JOIN oeraae2018.docentes ON horariosfim.basehorarios.codDocente=oeraae2018.docentes.codDocente WHERE horariosfim.basehorarios.perAcademico='2018-2' AND horariosfim.basehorarios.estado=1 ORDER BY horariosfim.basehorarios.codCurso,horariosfim.basehorarios.secCurso,nombres";
+        
+            $this->Conectar(1);
+            $this->memoria = $this->con1->query($sql);
+        if (!empty($this->memoria)) {
+            $datos = $this->memoria->fetchAll(PDO::FETCH_OBJ);
+            $this->Close(1);
+
+            return $datos;
+
+        } else {
+            
+            return "vacio";
+            
+        }
+    }
 
     
     

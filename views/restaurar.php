@@ -12,7 +12,7 @@
       <link rel="stylesheet" type="text/css" href="librerias/css/comun-tablas.css">
       <link rel="stylesheet" type="text/css" href="librerias/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css">
       <link rel="stylesheet" type="text/css" href="librerias/select2/css/select2.min.css">
-	<link rel="stylesheet" type="text/css" href="librerias/AlertifyJS-master/build/css/alertify.css">
+	   <link rel="stylesheet" type="text/css" href="librerias/AlertifyJS-master/build/css/alertify.css">
       
       <script type="text/javascript" src="librerias/jquery-3.3.1.min.js"></script>
       <script type="text/javascript" src="librerias/bootstrap4/js/bootstrap.min.js"></script>
@@ -74,7 +74,7 @@
       	<div>
       		<div class="container-fluid">
       		<div class="container-fluid">
-				<div id="contenedor-recuperar" class="container-fluid table-responsive-bootstrap" style="">
+				   <div id="contenedor-recuperar" class="container-fluid table-responsive-bootstrap" style="">
 				
 
       			</div>
