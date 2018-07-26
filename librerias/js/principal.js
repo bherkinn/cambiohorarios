@@ -778,6 +778,7 @@ $("#btn-cambiar-curso-total").click(function(){
 
 $("#btn-actualizar-tabla").click(function(){
     buscar();
+    correspondecia($("#select-cursos").val(),$("#cboperiodo").val())
 });
 
 $("#btn-cambiar-curso").click(function(){
@@ -932,7 +933,7 @@ function correspondecia(curso,vercurricular){
                 $("#m3").html("M3(<text class='text-ciclo'>"+m[3]+"</text>)(<text class='text-grupo'>"+g[3]+"</text>) ");
                 $("#m4").html("M4(<text class='text-ciclo'>"+m[4]+"</text>)(<text class='text-grupo'>"+g[4]+"</text>) ");
                 $("#m5").html("M5(<text class='text-ciclo'>"+m[5]+"</text>)(<text class='text-grupo'>"+g[5]+"</text>) ");
-                $("#m6").html("M5(<text class='text-ciclo'>"+m[6]+"</text>)(<text class='text-grupo'>"+g[6]+"</text>)");
+                $("#m6").html("M6(<text class='text-ciclo'>"+m[6]+"</text>)(<text class='text-grupo'>"+g[6]+"</text>)");
                 $("#text-correspondencia").html("");
             }
             else{

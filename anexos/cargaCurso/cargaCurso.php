@@ -6,8 +6,16 @@
 
 		switch ($accion) {
 
-			case 'reporte':
-				echo json_encode($o->obtenerReporteCargaCurso());
+			case 'cursos':
+				echo json_encode($o->obtnerCursosPorCurricula());
+				break;
+
+			case 'reporteCursosT':
+				echo json_encode($o->obtenerCargaCursosT());
+				break;
+
+			case 'reporteCursosP':
+				echo json_encode($o->obtenerCargaCursosP());
 				break;
 
 			default:
